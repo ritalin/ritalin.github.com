@@ -9,3 +9,5 @@ categories:
 
 * りすと１
 * りすと２
+
+![Alt マウンテン獅子](/images/items/mountain-lion.png)
