@@ -1,0 +1,11 @@
+---
+layout: post
+title: "test"
+date: 2012-11-11 16:22
+comments: true
+categories: 
+---
+テスト本文
+
+* りすと１
+* りすと２
