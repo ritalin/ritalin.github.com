@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[ritalin.github.com]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2012-11-11T16:08:52+09:00</updated>
+  <updated>2012-11-11T16:36:17+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[ktz_alias]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[test]]></title>
+    <link href="http://ritalin.github.com/blog/2012/11/11/test/"/>
+    <updated>2012-11-11T16:22:00+09:00</updated>
+    <id>http://ritalin.github.com/blog/2012/11/11/test</id>
+    <content type="html"><![CDATA[<p>テスト本文</p>
+
+<ul>
+<li>りすと１</li>
+<li>りすと２</li>
+</ul>
+
+]]></content>
+  </entry>
   
 </feed>
