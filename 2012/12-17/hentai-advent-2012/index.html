@@ -1,0 +1,194 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>（みんなには内緒だよ） - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Hackintosh (Hackロム)に頼ること無く、インストールできた
+真っクロに限りなく近いクロ
+見えなくなった時は、お察しください。 前提
+VirtualBoxインストール済みv 4.2 App StoreからMountain Lionを購入。
+インストーラの１画面目→即終了 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">（みんなには内緒だよ）</h2>
+	<div class="entry-content"><p>Hackintosh (Hackロム)に頼ること無く、インストールできた
+真っクロに限りなく近いクロ
+見えなくなった時は、お察しください。</p>
+
+<p>前提
+VirtualBoxインストール済みv 4.2</p>
+
+<p>App StoreからMountain Lionを購入。
+インストーラの１画面目→即終了
+ディスクイメージ抽出</p>
+
+<p>ディスクユーティリティを起動
+「変換」選択
+変換もと：抽出したの
+変換先：フォーマットをDVD / CDマスター
+変換待つ・・・</p>
+
+<p>VBで仮想マシン追加
+タイプ：Mac OS X
+バージョン：Mac OS X (64 bit)
+以降は通常通りすすめて作成する</p>
+
+<p>設定を開き
+ストレージのCD /DVDに変換したイメージを指定する。</p>
+
+<p>VMを実行すると、インストーラから起動する（結構時間かかる）
+VM内のディスクユーティリティを起動し、パーティションをフォーマットする（不要かもしれない）
+Mac OS 拡張（ジャーナリング）、GUIDパーティションテーブル</p>
+
+<p>ディスクユーティリティ終了→インストールアプリ起動
+設問に従ってポチポチ</p>
+
+<p>インストール始まる。</p>
+
+<p>最後までいくと再起動
+完了かと思いきや、インストールがおこなわれてる。
+２ループ目は不明だったので、静観してたけど、３ループ目も同じように進もうとしたため、VMを強制停止（ウインドウ閉じればアラートでる）</p>
+
+<p>たぶんリカバリインストールが始まってたぽい気がする。</p>
+
+<p>VBの設定開き
+CD / DVDをアンマウントする</p>
+
+<p>その状態でVMを実行すると、インストールプロセスの続きが実行された。
+言語とかネットワーク設定とか聞いてきたような気がするけど、必須入力以外はすべてスキップした</p>
+
+<p>VBの関係上なのか、英語版にされる。</p>
+
+<p>起動の裏側が見れる
+２本指スクロールが、Snow Leopard基準。つまり本来のMountain Lと逆。
+聞かないと思ってた</p>
+
+<p>放置しておくと、結構フリーズ状態になるので要注意</p>
+
+<p>小ネタのつもりが原爆級になったかもしれないけど仕方ないね。</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-17T00:00:00+09:00" pubdate data-updated="true">Dec 17<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/advent/'>advent</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

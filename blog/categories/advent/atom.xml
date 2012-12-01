@@ -1,91 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Since 1975</title>
-	<meta name="author" content="ktz_alias">
+  <title><![CDATA[Category: advent | Since 1975]]></title>
+  <link href="http://ritalin.github.com/blog/categories/advent/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.com/"/>
+  <updated>2012-12-01T14:05:47+09:00</updated>
+  <id>http://ritalin.github.com/</id>
+  <author>
+    <name><![CDATA[ktz_alias]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
-	
-	<meta name="description" content="Hackintosh (Hackロム)に頼ること無く、インストールできた
-真っクロに限りなく近いクロ
-見えなくなった時は、お察しください。 前提
-VirtualBoxインストール済みv 4.2 App StoreからMountain Lionを購入。
-インストーラの１画面目→即終了 &hellip;">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.png" rel="shortcut icon">
-	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
-</head>
-
-<body>
-	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
-<nav id="main-nav"><ul class="main">
-	<li><a href="/">Blog</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-</ul>
-</nav>
-<nav id="mobile-nav">
-	<div class="alignleft menu">
-		<a class="button">Menu</a>
-		<div class="container"><ul class="main">
-	<li><a href="/">Blog</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-</ul>
-</div>
-	</div>
-	<div class="alignright search">
-		<a class="button"></a>
-		<div class="container">
-			<form action="http://google.com/search" method="get">
-				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:ritalin.github.com">
-			</form>
-		</div>
-	</div>
-</nav>
-<nav id="sub-nav" class="alignright">
-	<div class="social">
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
-		
-	</div>
-	<form class="search" action="http://google.com/search" method="get">
-		<input class="alignright" type="text" name="q" results="0">
-		<input type="hidden" name="q" value="site:ritalin.github.com">
-	</form>
-</nav>
-
-</header>
-	
-		
-	
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/12-17/hentai-advent-2012/">
-		
-			（みんなには内緒だよ）</a>
-	</h2>
-	<div class="entry-content">
-		<p>Hackintosh (Hackロム)に頼ること無く、インストールできた
+  
+  <entry>
+    <title type="html"><![CDATA[（みんなには内緒だよ）]]></title>
+    <link href="http://ritalin.github.com/2012/12-17/hentai-advent-2012/"/>
+    <updated>2012-12-17T00:00:00+09:00</updated>
+    <id>http://ritalin.github.com/2012/12-17/hentai-advent-2012</id>
+    <content type="html"><![CDATA[<p>Hackintosh (Hackロム)に頼ること無く、インストールできた
 真っクロに限りなく近いクロ
 見えなくなった時は、お察しください。</p>
 
@@ -140,46 +73,15 @@ CD / DVDをアンマウントする</p>
 <p>放置しておくと、結構フリーズ状態になるので要注意</p>
 
 <p>小ネタのつもりが原爆級になったかもしれないけど仕方ないね。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2012-12-17T00:00:00+09:00" pubdate data-updated="true">Dec 17<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/advent/'>advent</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/12-08/tdd-advent-2012/">
-		
-			Advent Calendar 2012 Winter (TDD)</a>
-	</h2>
-	<div class="entry-content">
-		<p>これは<a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a>参加記事です。</p>
+  <entry>
+    <title type="html"><![CDATA[Advent Calendar 2012 Winter (TDD)]]></title>
+    <link href="http://ritalin.github.com/2012/12-08/tdd-advent-2012/"/>
+    <updated>2012-12-08T00:00:00+09:00</updated>
+    <id>http://ritalin.github.com/2012/12-08/tdd-advent-2012</id>
+    <content type="html"><![CDATA[<p>これは<a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a>参加記事です。</p>
 
 <p>ATNDの方には、コメントで</p>
 
@@ -189,7 +91,7 @@ CD / DVDをアンマウントする</p>
 
 <p>最大の敵は、なんといってもasync / await機構が対応していなかったためテストが書きづらく、そのための支援クラスをいくつか書いたので、それをさらそうと思っていました。</p>
 
-<p>思っていました&#8230;.。</p>
+<p>思っていました....。</p>
 
 <p>そんな折、</p>
 
@@ -197,12 +99,12 @@ CD / DVDをアンマウントする</p>
 
 <p>とのことで、もはや書く意味なくなりました。</p>
 
-<p>なくなりました&#8230;.。</p>
+<p>なくなりました....。</p>
 
 <p>なので別ネタに切り替えます。
 で、最近コツコツ調べてる、<a href="http://www.hibernatingrhinos.com/oss/rhino-mocks">Rhino.Mocks</a>用のお助けクラスを書いたので、それを披露しようかと思います。</p>
 
-<h2>前ふりから&#8230;</h2>
+<h2>前ふりから...</h2>
 
 <p>Rhino.Mocksのお作法では、</p>
 
@@ -228,7 +130,7 @@ CD / DVDをアンマウントする</p>
 より下層のロジックをMock化しようとすると、複数のMockを作成して、各々に対して<code>VerifyAll()</code>を呼ぶというチョーメンドクサイ記述が必要です。</p>
 
 <p>うっかり書き忘れるようものなら、目も当てられません。
-まとめてVerify出来ればいいのに&#8230;.。</p>
+まとめてVerify出来ればいいのに....。</p>
 
 <p>実は、静的メソッド<code>MockRepository.GenerateMock()</code>とは別に、</p>
 
@@ -242,7 +144,7 @@ CD / DVDをアンマウントする</p>
 <p>というように、１つのレポジトリから複数のMockを生成することが出来ます。
 最後に、MockRepositoryのVerifyAll()を呼んでやれば、まとめて通過検証ができると。</p>
 
-<p>やってみました&#8230;.。</p>
+<p>やってみました....。</p>
 
 <p>残念、最初のA、つまりArrangeを行ってくれません。
 従って、Mockを通過しないので、各MockのVerifyAll()がことごとく失敗します。
@@ -251,8 +153,7 @@ CD / DVDをアンマウントする</p>
 <h2>SO・KO・DE</h2>
 
 <p>ヘルパクラス書いちゃいました。
-<a href="https://gist.github.com/4147464">4147464</a> A Helper class to support uniform management of generared mock / stub for Rhino.Mocks.</p>
-
+<a href="https://gist.github.com/4147464">4147464</a> A Helper class to support uniform management of generared mock / stub for Rhino.Mocks.
 <div><script src='https://gist.github.com/4147464.js?file=RhinoMocksCreationExtensions.cs'></script>
 <noscript><pre><code>using System;
 using Rhino.Mocks;
@@ -443,7 +344,7 @@ namespace Samples {
     }
 }
 </code></pre></noscript></div>
-
+</p>
 
 <p>なんてことはない、ただの拡張クラスです。しかもMockRepositoryAAA.csまるパクリ。</p>
 
@@ -459,46 +360,15 @@ namespace Samples {
 <p>最後に、MockRepository.VerifyAll()を呼べば、まとめて通過検証できます。</p>
 
 <p>やっつけで作ったものですが、それとなく使えているので、個人的に重宝してます。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2012-12-08T00:00:00+09:00" pubdate data-updated="true">Dec 8<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/advent/'>advent</a>, <a class='category' href='/blog/categories/tdd/'>tdd</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/12-06/delphi-advent-2012/">
-		
-			Advent Calendar 2012 Winter (Delphi)</a>
-	</h2>
-	<div class="entry-content">
-		<p>これは<a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>参加記事です。</p>
+  <entry>
+    <title type="html"><![CDATA[Advent Calendar 2012 Winter (Delphi)]]></title>
+    <link href="http://ritalin.github.com/2012/12-06/delphi-advent-2012/"/>
+    <updated>2012-12-06T00:00:00+09:00</updated>
+    <id>http://ritalin.github.com/2012/12-06/delphi-advent-2012</id>
+    <content type="html"><![CDATA[<p>これは<a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>参加記事です。</p>
 
 <p>この記事では、依存性逆転(Dependency Inversion)をネタに進めていこうかなと思います。
 他の言語でDIコンテナ（依存性注入の方）を使用していて、ふと気づいたので記事にしてみます。</p>
@@ -567,52 +437,21 @@ namespace Samples {
 目を細めてみれば、依存が逆転しているように捉えている気持ちになれます。</p>
 
 <p>インスタンス生成する関数のポインタでの初期化なら、遅延評価も可能</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2012-12-06T00:00:00+09:00" pubdate data-updated="true">Dec 6<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/advent/'>advent</a>, <a class='category' href='/blog/categories/delphi/'>delphi</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/12-02/csharp-advent-2012/">
-		
-			Advent Calendar 2012 Winter (C#)</a>
-	</h2>
-	<div class="entry-content">
-		<p>これは<a href="http://atnd.org/events/33905">C# Advent Calender 2012</a>参加記事です。</p>
+  <entry>
+    <title type="html"><![CDATA[Advent Calendar 2012 Winter (C#)]]></title>
+    <link href="http://ritalin.github.com/2012/12-02/csharp-advent-2012/"/>
+    <updated>2012-12-02T00:00:00+09:00</updated>
+    <id>http://ritalin.github.com/2012/12-02/csharp-advent-2012</id>
+    <content type="html"><![CDATA[<p>これは<a href="http://atnd.org/events/33905">C# Advent Calender 2012</a>参加記事です。</p>
 
 <p>今年の2月〜10月の間、<a href="http://msdn.microsoft.com/ja-jp/windows/apps/">Windows8の名前を発してはいけないアプリ</a>を開発していて、その間にいくつか小道具を作っては<a href="https://gist.github.com">gist</a>に放り込んだので、使えるもの使えないものひっくるめて、大掃除がてら、いくつか紹介いたします。</p>
 
 <h3><a href="https://gist.github.com/2418469">gist: 2418469</a> A helper class to extract property-names of ViewModel for MVVM.</h3>
 
-<div><script src='https://gist.github.com/2418469.js?file=PropertyCategoryMapper.cs'></script>
+<p><div><script src='https://gist.github.com/2418469.js?file=PropertyCategoryMapper.cs'></script>
 <noscript><pre><code>using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -674,19 +513,18 @@ namespace Utils {
     }
 }
 </code></pre></noscript></div>
-
+</p>
 
 <p>WPFでMVVM的なことをやってて、いつも気になるのが <code>INotifyPropertyChanged.PropertyChanged</code> イベントを介して通知を行う際の引数。</p>
 
 <p>あの文字列で渡すってのが、もう気に入らないです（個人的感想です）。
-カターンゼンじゃないし&#8230;（個人的感想です）。
+カターンゼンじゃないし...（個人的感想です）。
 C# 5.0からは、<code>CallerInfoAttribute</code>が追加されて、幾分楽にはなってるっぽいですが、read-onlyなプロパティにも値をセットしなきゃならんとかチョーメンドイわけです（個人的感想です）。</p>
 
 <p>文字列は自由に表現が出来る分、記述間違いにかどうかは実行時でないと分からない問題を持っていますので、できるだけコンパイル時に蹴ってもらえるよう、専用の型を与えたいと思っていました。
 そこで、上のようなコード書いてみました。</p>
 
-<p>使い方は以下のように。。。</p>
-
+<p>使い方は以下のように。。。
 <div><script src='https://gist.github.com/2418469.js?file=PropertyCategoryTestViewModel.cs'></script>
 <noscript><pre><code>    namespace TestTag {
         public interface Unknown {}
@@ -755,7 +593,7 @@ C# 5.0からは、<code>CallerInfoAttribute</code>が追加されて、幾分楽
         }
     }
 }</code></pre></noscript></div>
-
+</p>
 
 <p>プロパティに<code>PropertyCategoryAttribute(Type)</code>を付与します。
 コンストラクタで、<code>PropertyCategoryMapper</code>をインスタンス化します。
@@ -772,7 +610,7 @@ View Modelの各処理の通知個所で、<code>ToProprtyNames&lt;SomeType&gt;(
 
 <h3><a href="https://gist.github.com/3521721">3521721</a> Any filter extension</h3>
 
-<div><script src='https://gist.github.com/3521721.js?file=EnumerableAnyExtensions.cs'></script>
+<p><div><script src='https://gist.github.com/3521721.js?file=EnumerableAnyExtensions.cs'></script>
 <noscript><pre><code>using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -793,7 +631,7 @@ namespace Sample {
     }
 }
 </code></pre></noscript></div>
-
+</p>
 
 <p>何となく思いついた、<code>Enumerable.Where</code>でOr (||) を指定するのと同じものです。
 Orでもいいんだけど、どこで改行したらいいか分からなくなってイヤーンだし、個々の述語関数使い回したかったし、という理由で作っちゃいました。ホントただの俺得です。</p>
@@ -805,7 +643,7 @@ Orでもいいんだけど、どこで改行したらいいか分からなくな
 
 <h3><a href="https://gist.github.com/3046512">3046512</a> Maybeモナドの写経</h3>
 
-<div><script src='https://gist.github.com/3046512.js?file=Maybe.cs'></script>
+<p><div><script src='https://gist.github.com/3046512.js?file=Maybe.cs'></script>
 <noscript><pre><code>using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -954,7 +792,7 @@ namespace Common.Test {
     }
 }
 </code></pre></noscript></div>
-
+</p>
 
 <p>見ての通り、<a href="http://matarillo.com/general/monads.php">matarillo.com / モナドの驚異</a>の写経です。
 ただ、ちょっとだけ手を入れて、c# 5.0のasync / awaitにも対応させてみました。</p>
@@ -962,154 +800,7 @@ namespace Common.Test {
 <p>モナドとかよく分からないですので、写経元見てもらった方がいいと思います。</p>
 
 <p>以上、淡々と並べてみました。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2012-12-02T00:00:00+09:00" pubdate data-updated="true">Dec 2<span>nd</span>, 2012</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/advent/'>advent</a>, <a class='category' href='/blog/categories/c-/'>c#</a>
-
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/11-30/usual-day/">
-		
-			立ててみた</a>
-	</h2>
-	<div class="entry-content">
-		<p>世間様では、明日から「あどべんと　かれんだー」なるものが同時多発的に行われるようですね。
-前からやってみたいなと思ってましたが、いつも時間が取れず見る側でした。</p>
-
-<p>今年は11月から、割とゆっくりとした進行だったので、参加ついでにgithub page作ってみました。
-（11月頭に作って、放置プレー状態でしたががが）</p>
-
-<p>今のところ、</p>
-
-<ul>
-<li>12/2 <a href="http://atnd.org/events/33905">C# Advent Calender 2012</a></li>
-<li>12/6 <a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>（予定）</li>
-<li>12/8 <a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a></li>
-</ul>
-
-
-<p>の３つを予定してます。
-まずはC# の記事をなんとか仕上げなければ（しろめ）</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-30T21:54:00+09:00" pubdate data-updated="true">Nov 30<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/11-11/test/">
-		
-			Test</a>
-	</h2>
-	<div class="entry-content">
-		<p>テスト本文</p>
-
-<ul>
-<li>りすと１</li>
-<li>りすと２</li>
-</ul>
-
-
-<p><img src="/images/items/mountain-lion.png" alt="Alt マウンテン獅子" /></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-11T16:22:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-</div>
-	
-</div></article>
-
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav></div>
-	<footer id="footer" class="inner">Copyright &copy; 2012
-
-    ktz_alias
-
-</footer>
-	<script src="/javascripts/slash.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
-
-
-
-
-
-
-</body>
-</html>
+</feed>
