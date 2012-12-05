@@ -4,7 +4,7 @@
   <title><![CDATA[Category: advent | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/advent/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2012-12-02T01:27:01+09:00</updated>
+  <updated>2012-12-06T01:06:54+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,102 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Delphiとか依存性注入とか]]></title>
+    <link href="http://ritalin.github.com/2012/12-06/delphi-advent-2012/"/>
+    <updated>2012-12-06T00:00:00+09:00</updated>
+    <id>http://ritalin.github.com/2012/12-06/delphi-advent-2012</id>
+    <content type="html"><![CDATA[<p>これは<a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>参加記事です。</p>
+
+<p>他の言語でDIコンテナ（依存性注入の方）を使用していて、ふと気づいたDI（依存性逆転の方)ついて、つらつらと。</p>
+
+<hr />
+
+<p>普段会社では、いまだにDelphi 7をWindows7のXP Mode上で使ってる身です（主に保守ですが）。なのでDelphi 7 の話です（以降のバージョンは未経験）。</p>
+
+<p>何も考えず、フォームやコンポーネントをプロジェクトに加えていくと、プロジェクトファイルである<code>.dpr</code>にてインスタンス化されます。</p>
+
+<p><div><script src='https://gist.github.com/4193781.js?file='></script>
+<noscript><pre><code>program Project1;
+
+uses
+  Forms,
+  Unit1 in 'Unit1.pas' {Form1},
+  Unit2 in 'Unit2.pas' {DataModule2: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TDataModule2, DataModule2);
+  Application.Run;
+end.
+</code></pre></noscript></div>
+</p>
+
+<p>Form1やDataModule2はそれぞれのソースファイルで宣言されたグローバル変数で、コンポーネントのインスタンスが初期化されてます。</p>
+
+<p>よく言われる一般論として、</p>
+
+<ul>
+<li>スコープを小さくするかが重要
+
+<ul>
+<li> -> グローバル変数もってのほか</li>
+</ul>
+</li>
+<li>ムダなオブジェクトは作らない
+
+<ul>
+<li>-> 起動時にインスタンス化とか頭沸いてる</li>
+</ul>
+</li>
+</ul>
+
+
+<p>そのため私はよくこれらのグローバル変数の宣言を削除し、使う直前でインスタンス化するように変更したりしてます。
+ところで、このグローバル変数に起動時に突っ込む挙動、見方を変えると面白い側面が見えてきます。</p>
+
+<p>実際に使用する時点で、確実に初期化が完了しており、インスタンスが決定されている。
+別の言い方で、依存が解決されているともいえる。</p>
+
+<p>オブジェクトを生成する場合、１クラスだけで終わることは稀で、たいていは複数クラスが絡み合う。
+それらはコンストラクタやメソッドの引数、プロパティでセットされるでしょう。
+クラス継承が絡むと、組み合わせはさらに増大。</p>
+
+<p>使う側（フォーム等）で</p>
+
+<ul>
+<li>自身でインスタンス化する場合
+
+<ul>
+<li>具体的なクラス構成をすべて理解しておく必要あり</li>
+<li>でないとインスタンスを作れないから</li>
+</ul>
+</li>
+<li>初期化済み
+
+<ul>
+<li>内側の具体的な内容が隠される（ように見える）</li>
+</ul>
+</li>
+</ul>
+
+
+<p>その結果、フォームやコンポーネント</p>
+
+<ul>
+<li>独立性が高まる（ように見える）</li>
+<li>より再利用可能になる（ように見える）</li>
+</ul>
+
+
+<p>使う人が、使う時点でなく他に任せて、依存を解決。
+目を細めてみれば、依存が逆転しているように捉えている気がする今日この頃。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Advent Calendar 2012 Winter (C#)]]></title>

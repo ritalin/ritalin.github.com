@@ -1,0 +1,223 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Delphiとか依存性注入とか - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="これはDelphi Advent Calendar 2012参加記事です。 他の言語でDIコンテナ（依存性注入の方）を使用していて、ふと気づいたDI（依存性逆転の方)ついて、つらつらと。 普段会社では、いまだにDelphi 7をWindows7のXP Mode上で使ってる身です（主に保守ですが）。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Delphiとか依存性注入とか</h2>
+	<div class="entry-content"><p>これは<a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>参加記事です。</p>
+
+<p>他の言語でDIコンテナ（依存性注入の方）を使用していて、ふと気づいたDI（依存性逆転の方)ついて、つらつらと。</p>
+
+<hr />
+
+<p>普段会社では、いまだにDelphi 7をWindows7のXP Mode上で使ってる身です（主に保守ですが）。なのでDelphi 7 の話です（以降のバージョンは未経験）。</p>
+
+<p>何も考えず、フォームやコンポーネントをプロジェクトに加えていくと、プロジェクトファイルである<code>.dpr</code>にてインスタンス化されます。</p>
+
+<div><script src='https://gist.github.com/4193781.js?file='></script>
+<noscript><pre><code>program Project1;
+
+uses
+  Forms,
+  Unit1 in 'Unit1.pas' {Form1},
+  Unit2 in 'Unit2.pas' {DataModule2: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TDataModule2, DataModule2);
+  Application.Run;
+end.
+</code></pre></noscript></div>
+
+
+<p>Form1やDataModule2はそれぞれのソースファイルで宣言されたグローバル変数で、コンポーネントのインスタンスが初期化されてます。</p>
+
+<p>よく言われる一般論として、</p>
+
+<ul>
+<li>スコープを小さくするかが重要
+
+<ul>
+<li> -> グローバル変数もってのほか</li>
+</ul>
+</li>
+<li>ムダなオブジェクトは作らない
+
+<ul>
+<li>-> 起動時にインスタンス化とか頭沸いてる</li>
+</ul>
+</li>
+</ul>
+
+
+<p>そのため私はよくこれらのグローバル変数の宣言を削除し、使う直前でインスタンス化するように変更したりしてます。
+ところで、このグローバル変数に起動時に突っ込む挙動、見方を変えると面白い側面が見えてきます。</p>
+
+<p>実際に使用する時点で、確実に初期化が完了しており、インスタンスが決定されている。
+別の言い方で、依存が解決されているともいえる。</p>
+
+<p>オブジェクトを生成する場合、１クラスだけで終わることは稀で、たいていは複数クラスが絡み合う。
+それらはコンストラクタやメソッドの引数、プロパティでセットされるでしょう。
+クラス継承が絡むと、組み合わせはさらに増大。</p>
+
+<p>使う側（フォーム等）で</p>
+
+<ul>
+<li>自身でインスタンス化する場合
+
+<ul>
+<li>具体的なクラス構成をすべて理解しておく必要あり</li>
+<li>でないとインスタンスを作れないから</li>
+</ul>
+</li>
+<li>初期化済み
+
+<ul>
+<li>内側の具体的な内容が隠される（ように見える）</li>
+</ul>
+</li>
+</ul>
+
+
+<p>その結果、フォームやコンポーネント</p>
+
+<ul>
+<li>独立性が高まる（ように見える）</li>
+<li>より再利用可能になる（ように見える）</li>
+</ul>
+
+
+<p>使う人が、使う時点でなく他に任せて、依存を解決。
+目を細めてみれば、依存が逆転しているように捉えている気がする今日この頃。</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-06T00:00:00+09:00" pubdate data-updated="true">Dec 6<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/advent/'>advent</a>, <a class='category' href='/blog/categories/delphi/'>delphi</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
