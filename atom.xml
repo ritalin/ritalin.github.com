@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2012-12-12T23:47:50+09:00</updated>
+  <updated>2012-12-12T23:48:45+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -227,8 +227,8 @@ namespace Samples {
 具体的には、</p>
 
 <ul>
-<li><td class="line_numbers">を</li>
-<li><td class="line_numbers gist-line-numbers"></li>
+<li>td class=&#8221;line_numbers&#8221;を</li>
+<li>td class=&#8221;line_numbers gist-line-numbers&#8221;</li>
 </ul>
 
 
