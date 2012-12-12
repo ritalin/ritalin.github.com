@@ -1,98 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: tdd | Since 1975]]></title>
-  <link href="http://ritalin.github.com/blog/categories/tdd/atom.xml" rel="self"/>
-  <link href="http://ritalin.github.com/"/>
-  <updated>2012-12-12T23:11:06+09:00</updated>
-  <id>http://ritalin.github.com/</id>
-  <author>
-    <name><![CDATA[ktz_alias]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>gist.github.com埋め込みテスト - Since 1975</title>
+	<meta name="author" content="ktz_alias">
 
-  
-  <entry>
-    <title type="html"><![CDATA[Rhino.Mocksをちょっとだけ幸せにするお助けクラス]]></title>
-    <link href="http://ritalin.github.com/2012/12-08/tdd-advent-2012/"/>
-    <updated>2012-12-08T00:00:00+09:00</updated>
-    <id>http://ritalin.github.com/2012/12-08/tdd-advent-2012</id>
-    <content type="html"><![CDATA[<p>これは<a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a>参加記事です。</p>
+	
+	<meta name="description" content="gistのリニューアルで、埋め込んだコードが崩れだしたので確認。 using System;
+using Rhino.Mocks; namespace Samples { internal static class RhinoMocksCreationExtensions { /// &lt; &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-<p>前日（7日目）は、高野将さんの「<a href="http://takanosho.wordpress.com/2012/12/07/tdd-advent-calendar-2012/">TDDにIDEを活用しよう (VS2012+CodeRush Xpress)</a>」でした。</p>
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
 
-<p>さて、私の方はというと...ATNDの方にコメントで</p>
-
-<blockquote><p>windows8から搭載された、名前を出すことがはばかれる例のヤツをNUnitでテストする時の注意点とか（仮）</p></blockquote>
-
-<p>なんて書きました。</p>
-
-<p>最大の敵は、なんといってもasync / await機構が対応していなかったためテストが書きづらく、そのための支援クラスをいくつか書いたので、それをさらそうと思っていました。</p>
-
-<p>思っていました....。</p>
-
-<p>そんな折、</p>
-
-<blockquote><p><a href="http://www.tdd-net.jp/2012/11/news-nunit-262-.html">NUnit 2.6.2 リリース ～ async/await に対応!</a> (www.tdd-net.jp)</p></blockquote>
-
-<p>とのことで、もはや書く意味なくなりました。</p>
-
-<p>なくなりました....。</p>
-
-<p>なので別ネタに切り替えます。
-で、最近コツコツ調べてる、<a href="http://www.hibernatingrhinos.com/oss/rhino-mocks">Rhino.Mocks</a>用のお助けクラスを書いたので、それを披露しようかと思います。</p>
-
-<h2>前ふりから...</h2>
-
-<p>Rhino.Mocksのお作法では、</p>
-
-<ol>
-<li><code>MockRepository.GenerateMock()</code>でMockインスタンスを生成する</li>
-<li>Mockインスタンスに対し、Expect()とReturns()などでもって入り口と出口を差し替える。</li>
-<li>走らせる。</li>
-<li>最後にVerifyAll()で、通過したか確認</li>
-</ol>
-
-
-<p>という、AAA (Arrange - Act - Assert)スタイルが用いられます。</p>
-
-<p>より下層のユニってテストレベルだと、これで困らないのですが、より上層の振る舞いテストの場合、</p>
-
-<ul>
-<li>ネットワークから情報抜き出し</li>
-<li>ローカルに保存</li>
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
 </ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
 
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">gist.github.com埋め込みテスト</h2>
+	<div class="entry-content"><p><a href="gist.github.com">gist</a>のリニューアルで、埋め込んだコードが崩れだしたので確認。</p>
 
-<p>などのリソースアクセスが複数登場してきます。
-より下層のロジックをMock化しようとすると、複数のMockを作成して、各々に対して<code>VerifyAll()</code>を呼ぶというチョーメンドクサイ記述が必要です。</p>
-
-<p>うっかり書き忘れるようものなら、目も当てられません。
-まとめてVerify出来ればいいのに....。</p>
-
-<p>実は、静的メソッド<code>MockRepository.GenerateMock()</code>とは別に、</p>
-
-<ol>
-<li>MockRepositoryのインスタンスを生成する</li>
-<li>CreateMock〜()を呼んで、Mockインスタンスを生成する</li>
-<li>以下同文</li>
-</ol>
-
-
-<p>というように、１つのレポジトリから複数のMockを生成することが出来ます。
-最後に、MockRepositoryのVerifyAll()を呼んでやれば、まとめて通過検証ができると。</p>
-
-<p>やってみました....。</p>
-
-<p>残念、最初のA、つまりArrangeを行ってくれません。
-従って、Mockを通過しないので、各MockのVerifyAll()がことごとく失敗します。
-理由は、個々のMockに対し、MockRepository.Replay()が呼ぶ必要があるからです。</p>
-
-<h2>SO・KO・DE</h2>
-
-<p>ヘルパクラス書いちゃいました。
-<a href="https://gist.github.com/4147464">4147464</a> A Helper class to support uniform management of generared mock / stub for Rhino.Mocks.
 <div><script src='https://gist.github.com/4147464.js?file=RhinoMocksCreationExtensions.cs'></script>
 <noscript><pre><code>using System;
 using Rhino.Mocks;
@@ -283,25 +265,63 @@ namespace Samples {
     }
 }
 </code></pre></noscript></div>
-</p>
-
-<p>なんてことはない、ただの拡張クラスです。しかもMockRepositoryAAA.csまるパクリ。</p>
-
-<p>MockRepositoryの静的メソッドと同じ名前の拡張メソッドには出来なかったため、〜Helperというメソッド名にしていますが、引数は基本おなじはずです。</p>
-
-<ol>
-<li>MockRepositoryのインスタンスを生成する</li>
-<li>GenerateMockHelper()を呼んで、Mockインスタンスを生成する</li>
-<li>以下同文</li>
-</ol>
 
 
-<p>最後に、MockRepository.VerifyAll()を呼べば、まとめて通過検証できます。</p>
 
-<p>やっつけで作ったものですが、それとなく使えているので、個人的に重宝してます。</p>
+</div>
 
-<p>明日（9日目）は、<a href="http://d.hatena.ne.jp/setoazusa/20121209/1355056720">せとあずさ♂</a>さんです。</p>
-]]></content>
-  </entry>
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
   
-</feed>
+
+
+<time datetime="2012-12-12T21:14:00+09:00" pubdate data-updated="true">Dec 12<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
