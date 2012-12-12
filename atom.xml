@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2012-12-12T23:47:12+09:00</updated>
+  <updated>2012-12-12T23:47:50+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -212,7 +212,7 @@ namespace Samples {
 </code></pre></noscript></div>
 
 
-<p>相変わらず、行番号はずれたままだけど、コードはそれっぽく表示されるように放った。</p>
+<p>相変わらず、行番号はずれたままだけど、コードはそれっぽく表示されるようにはなった。</p>
 
 <p>Octopressでの変更点は、sass/parts/_article.scssの以下の行を削除した</p>
 
