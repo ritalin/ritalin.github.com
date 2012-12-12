@@ -267,7 +267,29 @@ namespace Samples {
 </code></pre></noscript></div>
 
 
+<p>相変わらず、行番号はずれたままだけど、コードはそれっぽく表示されるように放った。</p>
 
+<p>Octopressでの変更点は、sass/parts/_article.scssの以下の行を削除した</p>
+
+<ul>
+<li>line 24 ( line-height: 2 )</li>
+<li>line 25 ( text-align: justify )</li>
+<li>line 98 - 100 ( td{text-align: center;} )</li>
+</ul>
+
+
+<p>一桁の行番号が、横並びになるのは、github.comが発行するgistのjavascriptに書かれたhtmlの不備っぽい。
+具体的には、</p>
+
+<ul>
+<li><td class="line_numbers">を</li>
+<li><td class="line_numbers gist-line-numbers"></li>
+</ul>
+
+
+<p>にしたら、治ったように見えた。</p>
+
+<p>やれやれだぜ。</p>
 </div>
 
 
