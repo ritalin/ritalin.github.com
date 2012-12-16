@@ -1,0 +1,276 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>（みんなには内緒だよ） - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="これは『HENTAI Advent Calendar 2012 - 変態アドベントカレンダー』の記事です。 VirtualBoxではサポートされていない、Moac OS X Mountain LionをHackintosh (Hackロム)等に頼ること無くインストールできたので、こっそり後悔します &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">（みんなには内緒だよ）</h2>
+	<div class="entry-content"><p>これは『<a href="http://atnd.org/events/33835">HENTAI Advent Calendar 2012 - 変態アドベントカレンダー</a>』の記事です。</p>
+
+<p><img class="right" src="http://atnd.org/event_images/0004/9574/__________2012-11-03_23.31.02_original.png" title="banner" ></p>
+
+<p>VirtualBoxではサポートされていない、Moac OS X Mountain LionをHackintosh (Hackロム)等に頼ること無くインストールできたので、こっそり後悔します。</p>
+
+<p>実際にやったのはひと月前なので、その時の記憶をもとにお送りいたします（再度インストールするのがメンドイから）</p>
+
+<h2>前提</h2>
+
+<ul>
+<li>VirtualBoxは、その時点で最新のバージョンをインストールしておく
+
+<ul>
+<li>入れた当時は、v4.2.x</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>手順</h2>
+
+<h3>インストーラをダウンロードする</h3>
+
+<h4>1. App StoreからMountain Lionを購入（ちゃんと購入しましょう）。</h4>
+
+<p><img class="right" src="../../../images/items/20121217/step1.png" width="300" height="250" title="Step1" ></p>
+
+<h4>2. 自動的にインストーラが起動したら、メニューから「OS X インストールを終了」を選び、即終了させる</h4>
+
+<p><img class="right" src="../../../images/items/20121217/step2.png" title="Step2" ></p>
+
+<h3>ディスクイメージ抽出</h3>
+
+<h4>3. アプリケーションフォルダにインストーラがいるはずなので探し出す</h4>
+
+<ul>
+<li>コンテキストメニューの「パッケージの内容を表示」を選び中に入る。</li>
+<li>Contents/SharedSupport/InstallESD.dmg があることを確認する。</li>
+</ul>
+
+
+<h4>4. ディスクユーティリティを起動する</h4>
+
+<p><img class="right" src="../../../images/items/20121217/step4.png" title="Step4" ></p>
+
+<ul>
+<li>(1)の欄にInstallESD.dmgをD&amp;D</li>
+<li><p>(1)の欄にInstallESD.dmgを選択し、(2)「変換」を押す。</p></li>
+<li><p>変換先のフォーマットをDVD / CDマスターにし、どっか適当なところに保存する。</p></li>
+</ul>
+
+
+<p><img class="right" src="../../../images/items/20121217/step4-2.png" title="Step4-2" ></p>
+
+<ul>
+<li>変換待つ・・・</li>
+</ul>
+
+
+<h3>インストール作業</h3>
+
+<h4>5. VirtualBoxの仮想マシンを追加</h4>
+
+<p><img class="right" src="../../../images/items/20121217/step5.png" title="Step5" ></p>
+
+<pre><code>タイプ：Mac OS X
+バージョン：Mac OS X (64 bit)
+</code></pre>
+
+<ul>
+<li>以降は通常通りすすめて作成する</li>
+<li>作成したVMの設定を開き、ストレージのCD /DVDに4.で作成したディスクイメージを指定する。</li>
+</ul>
+
+
+<p><img class="right" src="../../../images/items/20121217/step5-2.png" title="Step5-2" ></p>
+
+<h4>6. VMを実行する</h4>
+
+<p>（ごめんね、画像無くて）</p>
+
+<ul>
+<li>再セットアップが開始する（結構時間かかる）</li>
+<li><p>VM内のディスクユーティリティを起動し、パーティションをフォーマットする（不要かもしれない）</p>
+
+<ul>
+<li>Mac OS 拡張（ジャーナリング）、GUIDパーティションテーブルを選ぶこと</li>
+</ul>
+</li>
+<li><p>ディスクユーティリティ終了→インストールアプリ起動</p></li>
+<li>設問に従ってポチポチ</li>
+<li>インストール始まる。</li>
+</ul>
+
+
+<p>最後までいくと自動的に再起動する。</p>
+
+<p>完了かと思いきや、インストールがおこなわれてる。</p>
+
+<p>２ループ目は不明だったので、静観してたけど、３ループ目も同じように進もうとしたため、VMを強制停止する（ウインドウ閉じればアラートでる）</p>
+
+<p>たぶんリカバリインストールが始まってたぽい気がする。</p>
+
+<h4>7. VMの設定を開きCD / DVDをアンマウントする</h4>
+
+<h4>8. 再度、VMを実行する</h4>
+
+<p>インストールプロセスの続きが実行された。</p>
+
+<p>言語とかネットワーク設定とか聞いてきたような気がするけど、必須入力以外はすべてスキップしたような（もう覚えてない）</p>
+
+<p>VirtualBoxの関係上なのか、英語版にされる。</p>
+
+<p><img class="right" src="../../../images/items/20121217/evidence.png" title="evidence" ></p>
+
+<h2>そのた、雑多なこと</h2>
+
+<ul>
+<li>こんな起動の裏側が見れるよ。</li>
+</ul>
+
+
+<p><img class="right" src="../../../images/items/20121217/omake.png" title="omake" ></p>
+
+<ul>
+<li><p>当方、Sanday BridgeのMacBookAir 13&#8221;松特盛りですが、起動に５分ぐらいかかります。気長に待ちましょう。</p></li>
+<li><p>２本指スクロール</p></li>
+</ul>
+
+
+<p>はじめ効かないかと思ったけどSnow Leopard基準なので、Mountain Lionと逆なだけでした。</p>
+
+<ul>
+<li>放置しておくと、結構な頻度でフリーズ状態になります。しょうがないね。</li>
+</ul>
+
+
+<h2>まとめ</h2>
+
+<p><strong>変態</strong> というよりは、どう見ても、真っクロに限りなく近いクロです。どうもあ（ry</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-17T01:00:00+09:00" pubdate data-updated="true">Dec 17<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/advent/'>advent</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
