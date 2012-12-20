@@ -7,7 +7,8 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="これは『HENTAI Advent Calendar 2012 - 変態アドベントカレンダー』の記事です。 前日（16日目）はs_kozake さんの「変態ルーレット2.0」でした。 VirtualBoxではサポートされていない、Moac OS X Mountain &hellip;">
+	<meta name="description" content="いくつか引っかかったので、忘れないうちにメモとして残しとく。 プロパティをモック 具象クラスのモックを作る場合、対象のメソッドやプロパティをvirtualにする必要がある。
+モック目的のためだけにvirtualにするのは気が重い。 この場合、インターフェースを切り出し、 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -71,6 +72,66 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2012/12-20/rhino-mocks-tips/">
+		
+			Rhino.Mocks Tips</a>
+	</h2>
+	<div class="entry-content">
+		<p>いくつか引っかかったので、忘れないうちにメモとして残しとく。</p>
+
+<h2>プロパティをモック</h2>
+
+<p>具象クラスのモックを作る場合、対象のメソッドやプロパティをvirtualにする必要がある。
+モック目的のためだけにvirtualにするのは気が重い。</p>
+
+<p>この場合、インターフェースを切り出し、インターフェースからモック作れば心配無用。
+モックから戻り値を取得するためにReturnやDoも必要。</p>
+
+<h2>NUnitで使う際の注意点</h2>
+
+<ul>
+<li>連続実行したとき、2つ目以降のテストケースが失敗する</li>
+</ul>
+
+
+<p>Rhino.Mocksに限らないが、フィールドの初期化子でインスタンス化した場合に発生。
+必ずSetUp属性、FixtureSetpu属性、または各テストコード内で初期化すること。</p>
+
+<p>GOOS本(p.26)にもちゃんと書かれてる。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-20T21:27:00+09:00" pubdate data-updated="true">Dec 20<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/c-/'>c#</a>, <a class='category' href='/blog/categories/tdd/'>tdd</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
