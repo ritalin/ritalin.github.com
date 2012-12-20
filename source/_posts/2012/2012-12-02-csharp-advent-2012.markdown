@@ -1,0 +1,61 @@
+---
+layout: post
+title: "Advent Calendar 2012 Winter (C#)"
+date: 2012-12-2 00:00
+comments: true
+categories: advent c#
+---
+
+これは[C# Advent Calender 2012](http://atnd.org/events/33905)参加記事です。
+
+今年の2月〜10月の間、[Windows8の名前を発してはいけないアプリ](http://msdn.microsoft.com/ja-jp/windows/apps/)を開発していて、その間にいくつか小道具を作っては[gist](https://gist.github.com)に放り込んだので、使えるもの使えないものひっくるめて、大掃除がてら、いくつか紹介いたします。
+
+### [gist: 2418469](https://gist.github.com/2418469) A helper class to extract property-names of ViewModel for MVVM.
+{% gist 2418469 PropertyCategoryMapper.cs %}
+
+WPFでMVVM的なことをやってて、いつも気になるのが `INotifyPropertyChanged.PropertyChanged` イベントを介して通知を行う際の引数。
+
+あの文字列で渡すってのが、もう気に入らないです（個人的感想です）。
+カターンゼンじゃないし...（個人的感想です）。
+C# 5.0からは、`CallerInfoAttribute`が追加されて、幾分楽にはなってるっぽいですが、read-onlyなプロパティにも値をセットしなきゃならんとかチョーメンドイわけです（個人的感想です）。
+
+文字列は自由に表現が出来る分、記述間違いにかどうかは実行時でないと分からない問題を持っていますので、できるだけコンパイル時に蹴ってもらえるよう、専用の型を与えたいと思っていました。
+そこで、上のようなコード書いてみました。
+
+使い方は以下のように。。。
+{% gist 2418469 PropertyCategoryTestViewModel.cs %}
+
+プロパティに`PropertyCategoryAttribute(Type)`を付与します。
+コンストラクタで、`PropertyCategoryMapper`をインスタンス化します。
+View Modelの各処理の通知個所で、`ToProprtyNames<SomeType>()`を呼ぶことで、すべての対象のプロパティ名が取得できます。
+複数の`PropertyCategory`属性を付けておけば、タグごとに通知するプロパティを切り替えることが出来るようになります。
+
+参考までに、このgistには、テストコードも付けてます。
+
+本当は`PropertyCategory`属性の引数に列挙値(enum)を渡したかったのですが、`Attribute`の仕様で定数、Typeまたはそれらの配列しか認められていなかったため、代わりにinterfaceを使用しました。
+
+それと１回だけとはいえ、リフレクションに頼ってしまったのも辛いところです。しかし、世界中の誰かがきっと、ろずりーんでコンパイル時に生成するコードを書いてくれると信じています。私は、にわかなのでムリです。
+
+以下、疲れたので簡単に。。。
+
+### [3521721](https://gist.github.com/3521721) Any filter extension
+{% gist 3521721 EnumerableAnyExtensions.cs %}
+
+何となく思いついた、`Enumerable.Where`でOr (||) を指定するのと同じものです。
+Orでもいいんだけど、どこで改行したらいいか分からなくなってイヤーンだし、個々の述語関数使い回したかったし、という理由で作っちゃいました。ホントただの俺得です。
+
+つい最近気づきましたが、`Enumerable.Where`って、要素とインデックスが渡されるオーバーロードがあったんですね。
+なので作ってはないんですの。
+
+もう一つ、俺得クラスとして、コレクションの`full outer join`書いたけど、gistにあげ忘れてたから省略。てへへ。
+
+### [3046512](https://gist.github.com/3046512) Maybeモナドの写経
+{% gist 3046512 Maybe.cs %}
+
+見ての通り、[matarillo.com / モナドの驚異](http://matarillo.com/general/monads.php)の写経です。
+ただ、ちょっとだけ手を入れて、c# 5.0のasync / awaitにも対応させてみました。
+
+モナドとかよく分からないですので、写経元見てもらった方がいいと思います。
+
+
+以上、淡々と並べてみました。

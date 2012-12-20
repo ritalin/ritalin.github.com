@@ -1,0 +1,22 @@
+---
+layout: post
+title: "立ててみた"
+date: 2012-11-30 21:54
+comments: true
+categories: 
+---
+
+世間様では、明日から「あどべんと　かれんだー」なるものが同時多発的に行われるようですね。
+前からやってみたいなと思ってましたが、いつも時間が取れず見る側でした。
+
+今年は11月から、割とゆっくりとした進行だったので、参加ついでにgithub page作ってみました。
+（11月頭に作って、放置プレー状態でしたががが）
+
+今のところ、
+
+* 12/2 [C# Advent Calender 2012](http://atnd.org/events/33905)
+* 12/6 [Delphi Advent Calendar 2012](http://atnd.org/events/34390)（予定）
+* 12/8 [TDD Advent Calendar jp: 2012](http://atnd.org/events/33846)
+
+の３つを予定してます。
+まずはC# の記事をなんとか仕上げなければ（しろめ）

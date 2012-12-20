@@ -1,0 +1,90 @@
+---
+layout: post
+title: "Rhino.Mocksをちょっとだけ幸せにするお助けクラス"
+date: 2012-12-08 00:00
+comments: true
+categories: advent tdd
+---
+
+これは[TDD Advent Calendar jp: 2012](http://atnd.org/events/33846)参加記事です。
+
+前日（7日目）は、高野将さんの「[TDDにIDEを活用しよう (VS2012+CodeRush Xpress)](http://takanosho.wordpress.com/2012/12/07/tdd-advent-calendar-2012/)」でした。
+
+さて、私の方はというと...ATNDの方にコメントで
+
+> windows8から搭載された、名前を出すことがはばかれる例のヤツをNUnitでテストする時の注意点とか（仮）
+
+なんて書きました。
+
+最大の敵は、なんといってもasync / await機構が対応していなかったためテストが書きづらく、そのための支援クラスをいくつか書いたので、それをさらそうと思っていました。
+
+思っていました....。
+
+そんな折、
+
+> [NUnit 2.6.2 リリース ～ async/await に対応!](http://www.tdd-net.jp/2012/11/news-nunit-262-.html) (www.tdd-net.jp)
+
+とのことで、もはや書く意味なくなりました。
+
+なくなりました....。
+
+なので別ネタに切り替えます。
+で、最近コツコツ調べてる、[Rhino.Mocks](http://www.hibernatingrhinos.com/oss/rhino-mocks)用のお助けクラスを書いたので、それを披露しようかと思います。
+
+## 前ふりから...
+
+Rhino.Mocksのお作法では、
+
+1. `MockRepository.GenerateMock()`でMockインスタンスを生成する
+2. Mockインスタンスに対し、Expect()とReturns()などでもって入り口と出口を差し替える。
+3. 走らせる。
+4. 最後にVerifyAll()で、通過したか確認
+
+という、AAA (Arrange - Act - Assert)スタイルが用いられます。
+
+より下層のユニってテストレベルだと、これで困らないのですが、より上層の振る舞いテストの場合、
+
+* ネットワークから情報抜き出し
+* ローカルに保存
+
+などのリソースアクセスが複数登場してきます。
+より下層のロジックをMock化しようとすると、複数のMockを作成して、各々に対して`VerifyAll()`を呼ぶというチョーメンドクサイ記述が必要です。
+
+うっかり書き忘れるようものなら、目も当てられません。
+まとめてVerify出来ればいいのに....。
+
+実は、静的メソッド`MockRepository.GenerateMock()`とは別に、
+
+1. MockRepositoryのインスタンスを生成する
+2. CreateMock〜()を呼んで、Mockインスタンスを生成する
+3. 以下同文
+
+というように、１つのレポジトリから複数のMockを生成することが出来ます。
+最後に、MockRepositoryのVerifyAll()を呼んでやれば、まとめて通過検証ができると。
+
+やってみました....。
+
+残念、最初のA、つまりArrangeを行ってくれません。
+従って、Mockを通過しないので、各MockのVerifyAll()がことごとく失敗します。
+理由は、個々のMockに対し、MockRepository.Replay()が呼ぶ必要があるからです。
+
+## SO・KO・DE
+
+ヘルパクラス書いちゃいました。
+[4147464](https://gist.github.com/4147464) A Helper class to support uniform management of generared mock / stub for Rhino.Mocks.
+{% gist 4147464 RhinoMocksCreationExtensions.cs %}
+
+なんてことはない、ただの拡張クラスです。しかもMockRepositoryAAA.csまるパクリ。
+
+MockRepositoryの静的メソッドと同じ名前の拡張メソッドには出来なかったため、〜Helperというメソッド名にしていますが、引数は基本おなじはずです。
+
+1. MockRepositoryのインスタンスを生成する
+2. GenerateMockHelper()を呼んで、Mockインスタンスを生成する
+3. 以下同文
+
+最後に、MockRepository.VerifyAll()を呼べば、まとめて通過検証できます。
+
+やっつけで作ったものですが、それとなく使えているので、個人的に重宝してます。
+
+明日（9日目）は、[せとあずさ♂](http://d.hatena.ne.jp/setoazusa/20121209/1355056720)さんです。
+

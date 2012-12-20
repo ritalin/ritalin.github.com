@@ -1,0 +1,15 @@
+---
+layout: post
+title: "test"
+date: 2012-11-11 16:22
+comments: true
+categories: 
+---
+テスト本文
+
+* りすと１
+* りすと２
+
+![Alt マウンテン獅子](/images/items/mountain-lion.png)
+
+{% img right ../../../images/items/20121217/step1.png 300 250 Step1 %}
