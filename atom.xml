@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2012-12-20T22:39:23+09:00</updated>
+  <updated>2012-12-27T22:05:44+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,50 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[DCI (Data - Context - Interaction)のパイプライン化]]></title>
+    <link href="http://ritalin.github.com/2012/12-27/pipelined-dci/"/>
+    <updated>2012-12-27T21:56:00+09:00</updated>
+    <id>http://ritalin.github.com/2012/12-27/pipelined-dci</id>
+    <content type="html"><![CDATA[<p>なんだか最近、DCIの話題が花盛りですね。</p>
+
+<p>さて、<a href="https://groups.google.com/forum/?fromgroups=#!topic/object-composition/u-aVj_FexM4">Google Group: object-composition</a>にて、DCIとMVCの関係について、面白い考察を行っている人がいます。</p>
+
+<p>曰く、Model表現をViewのための表現に変換するためのRole (Interaction) をContextに組み込むのはどうかと提起しています。</p>
+
+<p>私の中では、アプリケーションにおけるDCIの位置づけは、Modelのなかを覗き込んだときに、そこにいるものと思っています。</p>
+
+<p>Modelの中の構成体ゆえ、View表現を持つことはあまり良いものではないと考えています。
+しかし、View表現への変換をRoleとして組み込むのは面白いと思いました。</p>
+
+<p>そこで表題に繋がるわけですが、Model層を構成するDCIをより大きな、Dとみなし、そこにView表現に変換するRoleを組み込んだらどうなのかなと思いました。</p>
+
+<p>図にするとこんな感じ</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Context_1
+</span><span class='line'>    |- Interraction_1 (View transformation)
+</span><span class='line'>    |- Context_2 (Data_1)
+</span><span class='line'>           |- Interraction_2 (Model transformation)
+</span><span class='line'>           |- Data_2 (Domain data)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Context_2の中でドメインデータであるData_2がInterraction_2と作用し、次いでContext_1の中でContext_1での生成物とInterraction_1が作用する。という処理の流れになります。</p>
+
+<p>言い換えると、Context_2の反応の後Context_1の反応が行われるというパイプラインを構成していると見ることが出来ます。</p>
+
+<p>アプリケーション全体としては、最終的に出来上がった表現をViewにバインドするというModel - Viewという単純なアーキテクチャにすることができるように思えます。</p>
+
+<p>また、２フェーズのパイプラインを例示しましたが、２フェーズ以上でも同様にパイプをつないでいくだけになります。</p>
+
+<p>うーん、なんてモナディック。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Rhino.Mocks tips]]></title>

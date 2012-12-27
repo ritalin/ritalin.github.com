@@ -1,0 +1,167 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>DCI (Data - Context - Interaction)のパイプライン化 - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="なんだか最近、DCIの話題が花盛りですね。 さて、Google Group: object-compositionにて、DCIとMVCの関係について、面白い考察を行っている人がいます。 曰く、Model表現をViewのための表現に変換するためのRole (Interaction) &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">DCI (Data - Context - Interaction)のパイプライン化</h2>
+	<div class="entry-content"><p>なんだか最近、DCIの話題が花盛りですね。</p>
+
+<p>さて、<a href="https://groups.google.com/forum/?fromgroups=#!topic/object-composition/u-aVj_FexM4">Google Group: object-composition</a>にて、DCIとMVCの関係について、面白い考察を行っている人がいます。</p>
+
+<p>曰く、Model表現をViewのための表現に変換するためのRole (Interaction) をContextに組み込むのはどうかと提起しています。</p>
+
+<p>私の中では、アプリケーションにおけるDCIの位置づけは、Modelのなかを覗き込んだときに、そこにいるものと思っています。</p>
+
+<p>Modelの中の構成体ゆえ、View表現を持つことはあまり良いものではないと考えています。
+しかし、View表現への変換をRoleとして組み込むのは面白いと思いました。</p>
+
+<p>そこで表題に繋がるわけですが、Model層を構成するDCIをより大きな、Dとみなし、そこにView表現に変換するRoleを組み込んだらどうなのかなと思いました。</p>
+
+<p>図にするとこんな感じ</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Context_1
+</span><span class='line'>    |- Interraction_1 (View transformation)
+</span><span class='line'>    |- Context_2 (Data_1)
+</span><span class='line'>           |- Interraction_2 (Model transformation)
+</span><span class='line'>           |- Data_2 (Domain data)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Context_2の中でドメインデータであるData_2がInterraction_2と作用し、次いでContext_1の中でContext_1での生成物とInterraction_1が作用する。という処理の流れになります。</p>
+
+<p>言い換えると、Context_2の反応の後Context_1の反応が行われるというパイプラインを構成していると見ることが出来ます。</p>
+
+<p>アプリケーション全体としては、最終的に出来上がった表現をViewにバインドするというModel - Viewという単純なアーキテクチャにすることができるように思えます。</p>
+
+<p>また、２フェーズのパイプラインを例示しましたが、２フェーズ以上でも同様にパイプをつないでいくだけになります。</p>
+
+<p>うーん、なんてモナディック。</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-27T21:56:00+09:00" pubdate data-updated="true">Dec 27<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
