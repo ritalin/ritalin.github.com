@@ -4,7 +4,7 @@
   <title><![CDATA[Category: design-pattern | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/design-pattern/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-01-10T22:48:54+09:00</updated>
+  <updated>2013-01-10T22:50:14+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -77,7 +77,7 @@
 
 <p>もしくは、Product生成のための関数を返す関数をDIコンテナにセットしておいて、Clientでは任意のタイミングでProduct得ることも出来ますね。</p>
 
-<p>結局、Factory Methodいらなくね？と、現在進行形で「いらない子」になってるのでした。</p>
+<p>結局私の中では、相変わらず現在進行形でFactory Methodが「いらない子」なのでした。</p>
 ]]></content>
   </entry>
   
