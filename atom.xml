@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2012-12-27T22:27:26+09:00</updated>
+  <updated>2013-01-10T22:42:28+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,72 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Factory Methodの具象Factoryクラスをインスタンス化するのは誰？]]></title>
+    <link href="http://ritalin.github.com/2013/01-10/factory-method/"/>
+    <updated>2013-01-10T22:04:00+09:00</updated>
+    <id>http://ritalin.github.com/2013/01-10/factory-method</id>
+    <content type="html"><![CDATA[<h2>Simple Factory</h2>
+
+<p>というのが、デザインパターンとしてあるのですね。今日Twitter上のTLに流れてきて、気になってググってみたら、<a href="http://d.hatena.ne.jp/asakichy/20090414/1239718537">Strategic Choice</a>さんのブログに行き着きました。</p>
+
+<p>Factory Methodとの違いは、Factoryを具象クラス一本に絞ったという感じでしょうか。</p>
+
+<h2>具象Factoryクラスをインスタンス化するのは誰？</h2>
+
+<p>さて本題。Factory Methodは、FactoryとProductの両方について、抽象層にインターフェースを設け、具象層に各インターフェースの具象クラスを置きます。ClientオブジェクトはFactoryのインターフェースを通して具象Productを生成し、インターフェースとして取得する形となります。</p>
+
+<p>前から気になっていたのですが、誰かが具象Factoryを生成してあげる必要があります。ClientがFactoryをインスタンス化するのであれば、ClientはProductの実装への依存はなくせますが、依然factoryの実装には依存してしまいます。</p>
+
+<p>じゃぁ、FactoryのためのFactoryが必要？</p>
+
+<p>そのFactoryのためのFactory生成は誰が行うの？</p>
+
+<p>と堂々巡りしてしまい、私の中では「いらない子」扱いのパターンでした。</p>
+
+<h2>DIコンテナさん登場</h2>
+
+<p>Factoryの具象クラスへの依存をどう解決すべきか分からず、もやっとしていたのですが、素直にDIコンテナさんに任せちゃえばいいんじゃないかなと、ここ最近気づきました。</p>
+
+<p>しかし、DIコンテナの機能として、たいてい遅延実行をサポートしているので、遅延実行のための高階関数をFactory代わりにしてしまえる気がします。（使う側のClientはどんな形であれ依存が解決できればいいはずなので）</p>
+
+<p>結局、Factory Methodいらなくね？と、現在進行形で「いらない子」になってるのでした。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Factoryの具象クラスをインスタンスするのは誰？]]></title>
+    <link href="http://ritalin.github.com/2013/01-10/factory-method/"/>
+    <updated>2013-01-10T22:04:00+09:00</updated>
+    <id>http://ritalin.github.com/2013/01-10/factory-method</id>
+    <content type="html"><![CDATA[<h2>Simple Factory</h2>
+
+<p>というのが、デザインパターンとしてあるのですね。今日Twitter上のTLに流れてきて、気になってググってみたら、<a href="http://d.hatena.ne.jp/asakichy/20090414/1239718537">Strategic Choice</a>さんのブログに行き着きました。</p>
+
+<p>Factory Methodとの違いは、Factoryを具象クラス一本に絞ったという感じでしょうか。</p>
+
+<h2>Factoryの具象クラスをインスタンスするのは誰？</h2>
+
+<p>さて本題。Factory Methodは、FactoryとProductの両方について、抽象層にインターフェースを設け、具象層に各インターフェースの具象クラスを置きます。ClientオブジェクトはFactoryのインターフェースを通して具象Productを生成し、インターフェースとして取得する形となります。</p>
+
+<p>前から気になっていたのですが、誰かが具象Factoryを生成してあげる必要があります。ClientがFactoryをインスタンス化するのであれば、ClientはProductの実装への依存はなくせますが、依然factoryの実装には依存してしまいます。</p>
+
+<p>じゃぁ、FactoryのためのFactoryが必要？</p>
+
+<p>そのFactoryのためのFactory生成は誰が行うの？</p>
+
+<p>と堂々巡りしてしまい、私の中では「いらない子」扱いのパターンでした。</p>
+
+<h2>DIコンテナさん登場</h2>
+
+<p>Factoryの具象クラスへの依存をどう解決すべきか分からず、もやっとしていたのですが、素直にDIコンテナさんに任せちゃえばいいんじゃないかなと、ここ最近気づきました。</p>
+
+<p>しかし、DIコンテナの機能として、たいてい遅延実行をサポートしているので、遅延実行のための高階関数をFactory代わりにしてしまえる気がします。（使う側のClientはどんな形であれ依存が解決できればいいはずなので）</p>
+
+<p>結局、Factory Methodいらなくね？と、現在進行形で「いらない子」になってるのでした。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[DCI (Data - Context - Interaction)のパイプライン化]]></title>
