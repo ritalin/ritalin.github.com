@@ -4,7 +4,7 @@
   <title><![CDATA[Category: design-pattern | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/design-pattern/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-01-10T22:42:28+09:00</updated>
+  <updated>2013-01-10T22:48:54+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -73,7 +73,9 @@
 
 <p>Factoryの具象クラスへの依存をどう解決すべきか分からず、もやっとしていたのですが、素直にDIコンテナさんに任せちゃえばいいんじゃないかなと、ここ最近気づきました。</p>
 
-<p>しかし、DIコンテナの機能として、たいてい遅延実行をサポートしているので、遅延実行のための高階関数をFactory代わりにしてしまえる気がします。（使う側のClientはどんな形であれ依存が解決できればいいはずなので）</p>
+<p>しかし、DIコンテナの機能として、たいてい遅延実行をサポートしているので、遅延実行のための関数をFactory代わりにしてしまえる気がします。（使う側のClientはどんな形であれ依存が解決できればいいはずなので）</p>
+
+<p>もしくは、Product生成のための関数を返す関数をDIコンテナにセットしておいて、Clientでは任意のタイミングでProduct得ることも出来ますね。</p>
 
 <p>結局、Factory Methodいらなくね？と、現在進行形で「いらない子」になってるのでした。</p>
 ]]></content>
