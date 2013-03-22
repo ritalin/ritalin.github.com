@@ -17,7 +17,7 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
+	Included file 'custom/head.html' not found in _includes directory
 </head>
 
 <body>
@@ -141,7 +141,6 @@ namespace Utils {
 }
 </code></pre></noscript></div>
 
-
 <p>WPFでMVVM的なことをやってて、いつも気になるのが <code>INotifyPropertyChanged.PropertyChanged</code> イベントを介して通知を行う際の引数。</p>
 
 <p>あの文字列で渡すってのが、もう気に入らないです（個人的感想です）。
@@ -151,8 +150,7 @@ C# 5.0からは、<code>CallerInfoAttribute</code>が追加されて、幾分楽
 <p>文字列は自由に表現が出来る分、記述間違いにかどうかは実行時でないと分からない問題を持っていますので、できるだけコンパイル時に蹴ってもらえるよう、専用の型を与えたいと思っていました。
 そこで、上のようなコード書いてみました。</p>
 
-<p>使い方は以下のように。。。</p>
-
+<p>使い方は以下のように。。。
 <div><script src='https://gist.github.com/2418469.js?file=PropertyCategoryTestViewModel.cs'></script>
 <noscript><pre><code>    namespace TestTag {
         public interface Unknown {}
@@ -161,67 +159,68 @@ C# 5.0からは、<code>CallerInfoAttribute</code>が追加されて、幾分楽
         public interface Dates {}
         public interface Custom1 {}
         public interface Custom2 {}
+    }</p>
+
+<pre><code>internal class PropertyCategoryTestViewModel : INotifyPropertyChanged {
+    private PropertyCategoryMapper mMapper;
+
+    private DateTime mCreatedAt = DateTime.Now;
+    private DateTime mModifiedAt = DateTime.Now;
+
+    public PropertyCategoryTestViewModel() {
+       mMapper = PropertyCategoryMapper.Create(this.GetType());
     }
 
-    internal class PropertyCategoryTestViewModel : INotifyPropertyChanged {
-        private PropertyCategoryMapper mMapper;
+    public event PropertyChanged;
 
-        private DateTime mCreatedAt = DateTime.Now;
-        private DateTime mModifiedAt = DateTime.Now;
-
-        public PropertyCategoryTestViewModel() {
-           mMapper = PropertyCategoryMapper.Create(this.GetType());
-        }
-
-        public event PropertyChanged;
-
-        protected void OnPropertyChanged(string[] inNames) {
-            if (this.PropertyChanged != null) {
-                foreach (var name in inNames) {
-                    this.PropertyChanged(name);
-                }
-            }
-        }
-
-        public void DoHoge() {
-            // Do something ...
-
-            this.OnPropertyChanged(mMapper.ToProprtyNames&lt;TestTag.Numeric&gt;());
-        }
-
-        [PropertyCategory(typeof(TestTag.Numeric))]
-        public int Value1 { get; set; }
-
-        [PropertyCategory(typeof(TestTag.Numeric))]
-        [PropertyCategory(typeof(TestTag.Custom1))]
-        public int Value2 { get; set; }
-
-        [PropertyCategory(typeof(TestTag.Numeric))]
-        [PropertyCategory(typeof(TestTag.Custom2))]
-        public double Num1 { get; set; }
-
-        [PropertyCategory(typeof(TestTag.Strings))]
-        [PropertyCategory(typeof(TestTag.Custom2))]
-        public string Text1 { get; set; }
-
-        [PropertyCategory(typeof(TestTag.Dates))]
-        [PropertyCategory(typeof(TestTag.Custom1))]
-        [PropertyCategory(typeof(TestTag.Custom2))]
-        public DateTime CreatedAt {
-            get {
-                return mCreatedAt;
-            }
-        }
-
-        [PropertyCategory(typeof(TestTag.Dates))]
-        public DateTime ModifiedAt { 
-            get {
-                return mModifiedAt;
+    protected void OnPropertyChanged(string[] inNames) {
+        if (this.PropertyChanged != null) {
+            foreach (var name in inNames) {
+                this.PropertyChanged(name);
             }
         }
     }
-}</code></pre></noscript></div>
 
+    public void DoHoge() {
+        // Do something ...
+
+        this.OnPropertyChanged(mMapper.ToProprtyNames&amp;lt;TestTag.Numeric&amp;gt;());
+    }
+
+    [PropertyCategory(typeof(TestTag.Numeric))]
+    public int Value1 { get; set; }
+
+    [PropertyCategory(typeof(TestTag.Numeric))]
+    [PropertyCategory(typeof(TestTag.Custom1))]
+    public int Value2 { get; set; }
+
+    [PropertyCategory(typeof(TestTag.Numeric))]
+    [PropertyCategory(typeof(TestTag.Custom2))]
+    public double Num1 { get; set; }
+
+    [PropertyCategory(typeof(TestTag.Strings))]
+    [PropertyCategory(typeof(TestTag.Custom2))]
+    public string Text1 { get; set; }
+
+    [PropertyCategory(typeof(TestTag.Dates))]
+    [PropertyCategory(typeof(TestTag.Custom1))]
+    [PropertyCategory(typeof(TestTag.Custom2))]
+    public DateTime CreatedAt {
+        get {
+            return mCreatedAt;
+        }
+    }
+
+    [PropertyCategory(typeof(TestTag.Dates))]
+    public DateTime ModifiedAt { 
+        get {
+            return mModifiedAt;
+        }
+    }
+}
+</code></pre>
+
+<p>}</code></pre></noscript></div></p>
 
 <p>プロパティに<code>PropertyCategoryAttribute(Type)</code>を付与します。
 コンストラクタで、<code>PropertyCategoryMapper</code>をインスタンス化します。
@@ -259,7 +258,6 @@ namespace Sample {
     }
 }
 </code></pre></noscript></div>
-
 
 <p>何となく思いついた、<code>Enumerable.Where</code>でOr (||) を指定するのと同じものです。
 Orでもいいんだけど、どこで改行したらいいか分からなくなってイヤーンだし、個々の述語関数使い回したかったし、という理由で作っちゃいました。ホントただの俺得です。</p>
@@ -420,7 +418,6 @@ namespace Common.Test {
     }
 }
 </code></pre></noscript></div>
-
 
 <p>見ての通り、<a href="http://matarillo.com/general/monads.php">matarillo.com / モナドの驚異</a>の写経です。
 ただ、ちょっとだけ手を入れて、c# 5.0のasync / awaitにも対応させてみました。</p>

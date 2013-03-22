@@ -17,7 +17,7 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
+	Included file 'custom/head.html' not found in _includes directory
 </head>
 
 <body>
@@ -85,23 +85,21 @@
 
 <p>そこで表題に繋がるわけですが、Model層を構成するDCIをより大きな、Dとみなし、そこにView表現に変換するRoleを組み込んだらどうなのかなと思いました。</p>
 
-<p>図にするとこんな感じ</p>
-
+<p>図にするとこんな感じ
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Context_1
-</span><span class='line'>    |- Interraction_1 (View transformation)
-</span><span class='line'>    |- Context_2 (Data_1)
-</span><span class='line'>           |- Interraction_2 (Model transformation)
-</span><span class='line'>           |- Data_2 (Domain data)</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Context<em>1
+</span><span class='line'>    |- Interraction</em>1 (View transformation)
+</span><span class='line'>    |- Context<em>2 (Data</em>1)
+</span><span class='line'>           |- Interraction<em>2 (Model transformation)
+</span><span class='line'>           |- Data</em>2 (Domain data)</span></code></pre></td></tr></table></div></figure></p>
 
+<p>Context<em>2の中でドメインデータであるData</em>2がInterraction<em>2と作用し、次いでContext</em>1の中でContext<em>1での生成物とInterraction</em>1が作用する。という処理の流れになります。</p>
 
-<p>Context_2の中でドメインデータであるData_2がInterraction_2と作用し、次いでContext_1の中でContext_1での生成物とInterraction_1が作用する。という処理の流れになります。</p>
-
-<p>言い換えると、Context_2の反応の後Context_1の反応が行われるというパイプラインを構成していると見ることが出来ます。</p>
+<p>言い換えると、Context<em>2の反応の後Context</em>1の反応が行われるというパイプラインを構成していると見ることが出来ます。</p>
 
 <p>アプリケーション全体としては、最終的に出来上がった表現をViewにバインドするというModel - Viewという単純なアーキテクチャにすることができるように思えます。</p>
 

@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Factory Methodの具象Factoryクラスをインスタンス化するのは誰？ - Since 1975</title>
+	<title>Factoryの具象クラスをインスタンスするのは誰？ - Since 1975</title>
 	<meta name="author" content="ktz_alias">
 
 	
@@ -17,7 +17,7 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
+	Included file 'custom/head.html' not found in _includes directory
 </head>
 
 <body>
@@ -71,14 +71,14 @@
 		
 	
 	<div id="content" class="inner"><article class="post">
-	<h2 class="title">Factory Methodの具象Factoryクラスをインスタンス化するのは誰？</h2>
+	<h2 class="title">Factoryの具象クラスをインスタンスするのは誰？</h2>
 	<div class="entry-content"><h2>Simple Factory</h2>
 
 <p>というのが、デザインパターンとしてあるのですね。今日Twitter上のTLに流れてきて、気になってググってみたら、<a href="http://d.hatena.ne.jp/asakichy/20090414/1239718537">Strategic Choice</a>さんのブログに行き着きました。</p>
 
 <p>Factory Methodとの違いは、Factoryを具象クラス一本に絞ったという感じでしょうか。</p>
 
-<h2>具象Factoryクラスをインスタンス化するのは誰？</h2>
+<h2>Factoryの具象クラスをインスタンスするのは誰？</h2>
 
 <p>さて本題。Factory Methodは、FactoryとProductの両方について、抽象層にインターフェースを設け、具象層に各インターフェースの具象クラスを置きます。ClientオブジェクトはFactoryのインターフェースを通して具象Productを生成し、インターフェースとして取得する形となります。</p>
 
@@ -94,11 +94,9 @@
 
 <p>Factoryの具象クラスへの依存をどう解決すべきか分からず、もやっとしていたのですが、素直にDIコンテナさんに任せちゃえばいいんじゃないかなと、ここ最近気づきました。</p>
 
-<p>しかし、DIコンテナの機能として、たいてい遅延実行をサポートしているので、遅延実行のための関数をFactory代わりにしてしまえる気がします。（使う側のClientはどんな形であれ依存が解決できればいいはずなので）</p>
+<p>しかし、DIコンテナの機能として、たいてい遅延実行をサポートしているので、遅延実行のための高階関数をFactory代わりにしてしまえる気がします。（使う側のClientはどんな形であれ依存が解決できればいいはずなので）</p>
 
-<p>もしくは、Product生成のための関数を返す関数をDIコンテナにセットしておいて、Clientでは任意のタイミングでProduct得ることも出来ますね。</p>
-
-<p>結局私の中では、相変わらず現在進行形でFactory Methodが「いらない子」なのでした。</p>
+<p>結局、Factory Methodいらなくね？と、現在進行形で「いらない子」になってるのでした。</p>
 </div>
 
 

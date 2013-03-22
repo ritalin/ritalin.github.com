@@ -4,7 +4,7 @@
   <title><![CDATA[Category: advent | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/advent/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-01-10T22:50:14+09:00</updated>
+  <updated>2013-03-22T21:47:01+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -20,7 +20,7 @@
     <id>http://ritalin.github.com/2012/12-17/hentai-advent-2012</id>
     <content type="html"><![CDATA[<p>これは『<a href="http://atnd.org/events/33835">HENTAI Advent Calendar 2012 - 変態アドベントカレンダー</a>』の記事です。</p>
 
-<p><img class="right" src="http://atnd.org/event_images/0004/9574/__________2012-11-03_23.31.02_original.png" title="banner" ></p>
+<p><img class="right" src="http://atnd.org/event<em>images/0004/9574/</em>________<em>2012-11-03</em>23.31.02_original.png" title="banner" ></p>
 
 <p>前日（16日目）はs_kozake さんの「<a href="http://ameblo.jp/kozake/entry-11428146545.html">変態ルーレット2.0</a>」でした。</p>
 
@@ -35,10 +35,8 @@
 
 <ul>
 <li>入れた当時は、v4.2.x</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-
 
 <h2>手順</h2>
 
@@ -61,7 +59,6 @@
 <li>Contents/SharedSupport/InstallESD.dmg があることを確認する。</li>
 </ul>
 
-
 <h4>4. ディスクユーティリティを起動する</h4>
 
 <p><img class="right" src="../../../images/items/20121217/step4.png" title="Step4" ></p>
@@ -72,13 +69,11 @@
 <li><p>変換先のフォーマットをDVD / CDマスターにし、どっか適当なところに保存する。</p></li>
 </ul>
 
-
 <p><img class="right" src="../../../images/items/20121217/step4-2.png" title="Step4-2" ></p>
 
 <ul>
 <li>変換待つ・・・</li>
 </ul>
-
 
 <h3>インストール作業</h3>
 
@@ -95,7 +90,6 @@
 <li>作成したVMの設定を開き、ストレージのCD /DVDに4.で作成したディスクイメージを指定する。</li>
 </ul>
 
-
 <p><img class="right" src="../../../images/items/20121217/step5-2.png" title="Step5-2" ></p>
 
 <h4>6. VMを実行する</h4>
@@ -108,13 +102,11 @@
 
 <ul>
 <li>Mac OS 拡張（ジャーナリング）、GUIDパーティションテーブルを選ぶこと</li>
-</ul>
-</li>
+</ul></li>
 <li><p>ディスクユーティリティ終了→インストールアプリ起動</p></li>
-<li>設問に従ってポチポチ</li>
-<li>インストール始まる。</li>
+<li><p>設問に従ってポチポチ</p></li>
+<li><p>インストール始まる。</p></li>
 </ul>
-
 
 <p>最後までいくと自動的に再起動する。</p>
 
@@ -142,21 +134,18 @@
 <li>こんな起動の裏側が見れるよ。</li>
 </ul>
 
-
 <p><img class="right" src="../../../images/items/20121217/omake.png" title="omake" ></p>
 
 <ul>
-<li><p>当方、Sanday BridgeのMacBookAir 13''松特盛りですが、起動に５分ぐらいかかります。気長に待ちましょう。</p></li>
+<li><p>当方、Sanday BridgeのMacBookAir 13&#39;&#39;松特盛りですが、起動に５分ぐらいかかります。気長に待ちましょう。</p></li>
 <li><p>２本指スクロール</p></li>
 </ul>
-
 
 <p>はじめ効かないかと思ったけどSnow Leopard基準なので、Mountain Lionと逆なだけでした。</p>
 
 <ul>
 <li>放置しておくと、結構な頻度でフリーズ状態になります。しょうがないね。</li>
 </ul>
-
 
 <h2>まとめ</h2>
 
@@ -177,7 +166,9 @@
 
 <p>さて、私の方はというと...ATNDの方にコメントで</p>
 
-<blockquote><p>windows8から搭載された、名前を出すことがはばかれる例のヤツをNUnitでテストする時の注意点とか（仮）</p></blockquote>
+<blockquote>
+<p>windows8から搭載された、名前を出すことがはばかれる例のヤツをNUnitでテストする時の注意点とか（仮）</p>
+</blockquote>
 
 <p>なんて書きました。</p>
 
@@ -187,7 +178,9 @@
 
 <p>そんな折、</p>
 
-<blockquote><p><a href="http://www.tdd-net.jp/2012/11/news-nunit-262-.html">NUnit 2.6.2 リリース ～ async/await に対応!</a> (www.tdd-net.jp)</p></blockquote>
+<blockquote>
+<p><a href="http://www.tdd-net.jp/2012/11/news-nunit-262-.html">NUnit 2.6.2 リリース ～ async/await に対応!</a> (www.tdd-net.jp)</p>
+</blockquote>
 
 <p>とのことで、もはや書く意味なくなりました。</p>
 
@@ -207,7 +200,6 @@
 <li>最後にVerifyAll()で、通過したか確認</li>
 </ol>
 
-
 <p>という、AAA (Arrange - Act - Assert)スタイルが用いられます。</p>
 
 <p>より下層のユニってテストレベルだと、これで困らないのですが、より上層の振る舞いテストの場合、</p>
@@ -216,7 +208,6 @@
 <li>ネットワークから情報抜き出し</li>
 <li>ローカルに保存</li>
 </ul>
-
 
 <p>などのリソースアクセスが複数登場してきます。
 より下層のロジックをMock化しようとすると、複数のMockを作成して、各々に対して<code>VerifyAll()</code>を呼ぶというチョーメンドクサイ記述が必要です。</p>
@@ -231,7 +222,6 @@
 <li>CreateMock〜()を呼んで、Mockインスタンスを生成する</li>
 <li>以下同文</li>
 </ol>
-
 
 <p>というように、１つのレポジトリから複数のMockを生成することが出来ます。
 最後に、MockRepositoryのVerifyAll()を呼んでやれば、まとめて通過検証ができると。</p>
@@ -448,7 +438,6 @@ namespace Samples {
 <li>以下同文</li>
 </ol>
 
-
 <p>最後に、MockRepository.VerifyAll()を呼べば、まとめて通過検証できます。</p>
 
 <p>やっつけで作ったものですが、それとなく使えているので、個人的に重宝してます。</p>
@@ -466,7 +455,7 @@ namespace Samples {
 
 <p>他の言語でDIコンテナ（依存性注入の方）を使用していて、ふと気づいたDI（依存性逆転の方)ついて、つらつらと。</p>
 
-<hr />
+<hr>
 
 <p>普段会社では、いまだにDelphi 7をWindows7のXP Mode上で使ってる身です（主に保守ですが）。なのでDelphi 7 の話です（以降のバージョンは未経験）。</p>
 
@@ -499,17 +488,14 @@ end.
 <li>スコープを小さくするかが重要
 
 <ul>
-<li> -> グローバル変数もってのほか</li>
-</ul>
-</li>
+<li> -&gt; グローバル変数もってのほか</li>
+</ul></li>
 <li>ムダなオブジェクトは作らない
 
 <ul>
-<li>-> 起動時にインスタンス化とか頭沸いてる</li>
+<li>-&gt; 起動時にインスタンス化とか頭沸いてる</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-
 
 <p>そのため私はよくこれらのグローバル変数の宣言を削除し、使う直前でインスタンス化するように変更したりしてます。
 ところで、このグローバル変数に起動時に突っ込む挙動、見方を変えると面白い側面が見えてきます。</p>
@@ -529,16 +515,13 @@ end.
 <ul>
 <li>具体的なクラス構成をすべて理解しておく必要あり</li>
 <li>でないとインスタンスを作れないから</li>
-</ul>
-</li>
+</ul></li>
 <li>初期化済み
 
 <ul>
 <li>内側の具体的な内容が隠される（ように見える）</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-
 
 <p>その結果、フォームやコンポーネント</p>
 
@@ -546,7 +529,6 @@ end.
 <li>独立性が高まる（ように見える）</li>
 <li>より再利用可能になる（ように見える）</li>
 </ul>
-
 
 <p>使う人が、使う時点でなく他に任せて、依存を解決。
 目を細めてみれば、依存が逆転しているように捉えている気がする今日この頃。</p>

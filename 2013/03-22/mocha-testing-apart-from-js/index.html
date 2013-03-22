@@ -1,0 +1,213 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>MochaでJavascript以外を指定してテストしたい - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
+が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	Included file 'custom/head.html' not found in _includes directory
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">MochaでJavascript以外を指定してテストしたい</h2>
+	<div class="entry-content"><p>Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
+が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。</p>
+
+<h2>compilerオプションについて</h2>
+
+<p>compilerオプションでは、</p>
+
+<blockquote>
+<p>&quot;拡張子&quot;:&quot;コンパイルモジュール&quot;</p>
+</blockquote>
+
+<p>を指定します。
+これは、<strong>指定した拡張子のファイルに遭遇したら、指定したコンパイルモジュールでJavascriptにコンパイルしてね</strong> というおまじないになります。
+規定では、<strong>.js</strong> のみが対象となっています。</p>
+
+<p>Mochaは、テスト対象のフォルダを再帰的に走査して、遭遇したファイルが.jsと指定された拡張子以外であれば、無視するような仕掛けとなっています。</p>
+
+<h2>Node.jsでJavascript以外を扱う仕組み</h2>
+
+<p>対象の拡張子のファイルに遭遇すると、Mochaは、そのファイルをrequireで読み込もうとします。
+Node.jsのマニュアルで <strong>require</strong> を調べると、</p>
+
+<ul>
+<li>.js</li>
+<li>.json</li>
+<li>.node</li>
+</ul>
+
+<p>が読み込み対象と書かれています。
+ではそれ以外のファイルがきた時は、どうなってしまうのでしょう？</p>
+
+<p>Node.jsでは、上記以外のファイルの場合、<strong>require.extensions</strong> からの読み込みを試みます。
+require.extensionsは、拡張子をキーに、指定されたファイルをJavascriptに変換する関数が登録された辞書です。</p>
+
+<p>この関数の型は、</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function (module, filename) {
+</span><span class='line'>  ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+<p>となっており、ここで、</p>
+
+<ul>
+<li>module - Moduleモジュール</li>
+<li>filename - 読み込むファイル名</li>
+</ul>
+
+<h2>Mochaに渡すコンパイルモジュールの仕様</h2>
+
+<p>仕様と言えるような、大それたものはなく、Javascriptに変換する関数を実装し、それを単に上述の<strong>require.extensions</strong> に追加するだけです。</p>
+
+<p>この関数の実装において、一つ重要な点があります。
+それは、Javascriptのコードに変換後、module._compile(<変換されたコード>)という非公開の関数を呼ぶということです。</p>
+
+<p>この <strong>module._compile</strong> が呼ばれることで、ロードが完了する仕組みとなっているようです。</p>
+
+<p>requireの呼び出し元は、module._compileが呼ばれるまで、ブロックされるようになっているため、Javascriptへの変換関数が非同期的に実装（fs.readFile等）されていても、まったく問題ないです。</p>
+
+<p>変換関数の具体的な実装は、coffee-scriptモジュールを読んでみるよいでしょう。</p>
+
+<h2>例：Haxeの場合</h2>
+
+<p>Haxeには、mocha.js-haxeという、Mocha用のコードに変換するための拡張ライブラリが公開されています。
+そこで、Haxeのオプション記述ファイル(.hxml)に対してコンパイルモジールを作成しておけば、MochaでHaxeのコードを直接テストできるようになります。</p>
+
+<p>Javascriptへの変換関数関数の仕様として、</p>
+
+<ol>
+<li>child_processモジュールのexec関数で、hxmlファイルを渡して、HaxeのコードをJavascriptコンパイルする。</li>
+<li>コンパイルしたファイルを、fsモジュールのreadFile（またはfs.readFileSync）で読み込んで、コードを取得する。</li>
+<li>module._compileにそのコードを渡す。</li>
+</ol>
+
+<p>とすれば、よいでしょう。</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T20:01:00+09:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/node/'>node</a>, <a class='category' href='/blog/categories/test/'>test</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

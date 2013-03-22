@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Modeling | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/modeling/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-01-10T22:50:14+09:00</updated>
+  <updated>2013-03-22T21:47:01+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -32,20 +32,17 @@
 <p>そこで表題に繋がるわけですが、Model層を構成するDCIをより大きな、Dとみなし、そこにView表現に変換するRoleを組み込んだらどうなのかなと思いました。</p>
 
 <p>図にするとこんな感じ
-```
-Context_1</p>
+<code>
+Context_1
+    |- Interraction_1 (View transformation)
+    |- Context_2 (Data_1)
+           |- Interraction_2 (Model transformation)
+           |- Data_2 (Domain data)
+</code></p>
 
-<pre><code>|- Interraction_1 (View transformation)
-|- Context_2 (Data_1)
-       |- Interraction_2 (Model transformation)
-       |- Data_2 (Domain data)
-</code></pre>
+<p>Context<em>2の中でドメインデータであるData</em>2がInterraction<em>2と作用し、次いでContext</em>1の中でContext<em>1での生成物とInterraction</em>1が作用する。という処理の流れになります。</p>
 
-<p>```</p>
-
-<p>Context_2の中でドメインデータであるData_2がInterraction_2と作用し、次いでContext_1の中でContext_1での生成物とInterraction_1が作用する。という処理の流れになります。</p>
-
-<p>言い換えると、Context_2の反応の後Context_1の反応が行われるというパイプラインを構成していると見ることが出来ます。</p>
+<p>言い換えると、Context<em>2の反応の後Context</em>1の反応が行われるというパイプラインを構成していると見ることが出来ます。</p>
 
 <p>アプリケーション全体としては、最終的に出来上がった表現をViewにバインドするというModel - Viewという単純なアーキテクチャにすることができるように思えます。</p>
 

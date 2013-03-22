@@ -4,7 +4,7 @@
   <title><![CDATA[Category: RhinoMocks | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/rhinomocks/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-01-10T22:50:14+09:00</updated>
+  <updated>2013-03-22T21:47:01+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -34,7 +34,6 @@
 <li>連続実行したとき、2つ目以降のテストケースが失敗する</li>
 </ul>
 
-
 <p>Rhino.Mocksに限らないが、フィールドの初期化子でインスタンス化した場合に発生。
 必ずSetUp属性、FixtureSetpu属性、または各テストコード内で初期化すること。</p>
 
@@ -53,7 +52,9 @@
 
 <p>さて、私の方はというと...ATNDの方にコメントで</p>
 
-<blockquote><p>windows8から搭載された、名前を出すことがはばかれる例のヤツをNUnitでテストする時の注意点とか（仮）</p></blockquote>
+<blockquote>
+<p>windows8から搭載された、名前を出すことがはばかれる例のヤツをNUnitでテストする時の注意点とか（仮）</p>
+</blockquote>
 
 <p>なんて書きました。</p>
 
@@ -63,7 +64,9 @@
 
 <p>そんな折、</p>
 
-<blockquote><p><a href="http://www.tdd-net.jp/2012/11/news-nunit-262-.html">NUnit 2.6.2 リリース ～ async/await に対応!</a> (www.tdd-net.jp)</p></blockquote>
+<blockquote>
+<p><a href="http://www.tdd-net.jp/2012/11/news-nunit-262-.html">NUnit 2.6.2 リリース ～ async/await に対応!</a> (www.tdd-net.jp)</p>
+</blockquote>
 
 <p>とのことで、もはや書く意味なくなりました。</p>
 
@@ -83,7 +86,6 @@
 <li>最後にVerifyAll()で、通過したか確認</li>
 </ol>
 
-
 <p>という、AAA (Arrange - Act - Assert)スタイルが用いられます。</p>
 
 <p>より下層のユニってテストレベルだと、これで困らないのですが、より上層の振る舞いテストの場合、</p>
@@ -92,7 +94,6 @@
 <li>ネットワークから情報抜き出し</li>
 <li>ローカルに保存</li>
 </ul>
-
 
 <p>などのリソースアクセスが複数登場してきます。
 より下層のロジックをMock化しようとすると、複数のMockを作成して、各々に対して<code>VerifyAll()</code>を呼ぶというチョーメンドクサイ記述が必要です。</p>
@@ -107,7 +108,6 @@
 <li>CreateMock〜()を呼んで、Mockインスタンスを生成する</li>
 <li>以下同文</li>
 </ol>
-
 
 <p>というように、１つのレポジトリから複数のMockを生成することが出来ます。
 最後に、MockRepositoryのVerifyAll()を呼んでやれば、まとめて通過検証ができると。</p>
@@ -323,7 +323,6 @@ namespace Samples {
 <li>GenerateMockHelper()を呼んで、Mockインスタンスを生成する</li>
 <li>以下同文</li>
 </ol>
-
 
 <p>最後に、MockRepository.VerifyAll()を呼べば、まとめて通過検証できます。</p>
 

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: node | Since 1975]]></title>
+  <link href="http://ritalin.github.com/blog/categories/node/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.com/"/>
+  <updated>2013-03-22T21:47:01+09:00</updated>
+  <id>http://ritalin.github.com/</id>
+  <author>
+    <name><![CDATA[ktz_alias]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MochaでJavascript以外を指定してテストしたい]]></title>
+    <link href="http://ritalin.github.com/2013/03-22/mocha-testing-apart-from-js/"/>
+    <updated>2013-03-22T20:01:00+09:00</updated>
+    <id>http://ritalin.github.com/2013/03-22/mocha-testing-apart-from-js</id>
+    <content type="html"><![CDATA[<p>Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
+が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。</p>
+
+<h2>compilerオプションについて</h2>
+
+<p>compilerオプションでは、</p>
+
+<blockquote>
+<p>&quot;拡張子&quot;:&quot;コンパイルモジュール&quot;</p>
+</blockquote>
+
+<p>を指定します。
+これは、<strong>指定した拡張子のファイルに遭遇したら、指定したコンパイルモジュールでJavascriptにコンパイルしてね</strong> というおまじないになります。
+規定では、<strong>.js</strong> のみが対象となっています。</p>
+
+<p>Mochaは、テスト対象のフォルダを再帰的に走査して、遭遇したファイルが.jsと指定された拡張子以外であれば、無視するような仕掛けとなっています。</p>
+
+<h2>Node.jsでJavascript以外を扱う仕組み</h2>
+
+<p>対象の拡張子のファイルに遭遇すると、Mochaは、そのファイルをrequireで読み込もうとします。
+Node.jsのマニュアルで <strong>require</strong> を調べると、</p>
+
+<ul>
+<li>.js</li>
+<li>.json</li>
+<li>.node</li>
+</ul>
+
+<p>が読み込み対象と書かれています。
+ではそれ以外のファイルがきた時は、どうなってしまうのでしょう？</p>
+
+<p>Node.jsでは、上記以外のファイルの場合、<strong>require.extensions</strong> からの読み込みを試みます。
+require.extensionsは、拡張子をキーに、指定されたファイルをJavascriptに変換する関数が登録された辞書です。</p>
+
+<p>この関数の型は、</p>
+
+<p><code>
+function (module, filename) {
+    ...
+}
+</code></p>
+
+<p>となっており、ここで、</p>
+
+<ul>
+<li>module - Moduleモジュール</li>
+<li>filename - 読み込むファイル名</li>
+</ul>
+
+<h2>Mochaに渡すコンパイルモジュールの仕様</h2>
+
+<p>仕様と言えるような、大それたものはなく、Javascriptに変換する関数を実装し、それを単に上述の<strong>require.extensions</strong> に追加するだけです。</p>
+
+<p>この関数の実装において、一つ重要な点があります。
+それは、Javascriptのコードに変換後、module._compile(<変換されたコード>)という非公開の関数を呼ぶということです。</p>
+
+<p>この <strong>module._compile</strong> が呼ばれることで、ロードが完了する仕組みとなっているようです。</p>
+
+<p>requireの呼び出し元は、module._compileが呼ばれるまで、ブロックされるようになっているため、Javascriptへの変換関数が非同期的に実装（fs.readFile等）されていても、まったく問題ないです。</p>
+
+<p>変換関数の具体的な実装は、coffee-scriptモジュールを読んでみるよいでしょう。</p>
+
+<h2>例：Haxeの場合</h2>
+
+<p>Haxeには、mocha.js-haxeという、Mocha用のコードに変換するための拡張ライブラリが公開されています。
+そこで、Haxeのオプション記述ファイル(.hxml)に対してコンパイルモジールを作成しておけば、MochaでHaxeのコードを直接テストできるようになります。</p>
+
+<p>Javascriptへの変換関数関数の仕様として、</p>
+
+<ol>
+<li>child_processモジュールのexec関数で、hxmlファイルを渡して、HaxeのコードをJavascriptコンパイルする。</li>
+<li>コンパイルしたファイルを、fsモジュールのreadFile（またはfs.readFileSync）で読み込んで、コードを取得する。</li>
+<li>module._compileにそのコードを渡す。</li>
+</ol>
+
+<p>とすれば、よいでしょう。</p>
+]]></content>
+  </entry>
+  
+</feed>

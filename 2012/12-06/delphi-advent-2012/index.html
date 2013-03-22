@@ -17,7 +17,7 @@
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
+	Included file 'custom/head.html' not found in _includes directory
 </head>
 
 <body>
@@ -76,7 +76,7 @@
 
 <p>他の言語でDIコンテナ（依存性注入の方）を使用していて、ふと気づいたDI（依存性逆転の方)ついて、つらつらと。</p>
 
-<hr />
+<hr>
 
 <p>普段会社では、いまだにDelphi 7をWindows7のXP Mode上で使ってる身です（主に保守ですが）。なのでDelphi 7 の話です（以降のバージョンは未経験）。</p>
 
@@ -100,7 +100,6 @@ begin
 end.
 </code></pre></noscript></div>
 
-
 <p>Form1やDataModule2はそれぞれのソースファイルで宣言されたグローバル変数で、コンポーネントのインスタンスが初期化されてます。</p>
 
 <p>よく言われる一般論として、</p>
@@ -109,17 +108,14 @@ end.
 <li>スコープを小さくするかが重要
 
 <ul>
-<li> -> グローバル変数もってのほか</li>
-</ul>
-</li>
+<li> -&gt; グローバル変数もってのほか</li>
+</ul></li>
 <li>ムダなオブジェクトは作らない
 
 <ul>
-<li>-> 起動時にインスタンス化とか頭沸いてる</li>
+<li>-&gt; 起動時にインスタンス化とか頭沸いてる</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-
 
 <p>そのため私はよくこれらのグローバル変数の宣言を削除し、使う直前でインスタンス化するように変更したりしてます。
 ところで、このグローバル変数に起動時に突っ込む挙動、見方を変えると面白い側面が見えてきます。</p>
@@ -139,16 +135,13 @@ end.
 <ul>
 <li>具体的なクラス構成をすべて理解しておく必要あり</li>
 <li>でないとインスタンスを作れないから</li>
-</ul>
-</li>
+</ul></li>
 <li>初期化済み
 
 <ul>
 <li>内側の具体的な内容が隠される（ように見える）</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-
 
 <p>その結果、フォームやコンポーネント</p>
 
@@ -156,7 +149,6 @@ end.
 <li>独立性が高まる（ように見える）</li>
 <li>より再利用可能になる（ように見える）</li>
 </ul>
-
 
 <p>使う人が、使う時点でなく他に任せて、依存を解決。
 目を細めてみれば、依存が逆転しているように捉えている気がする今日この頃。</p>
