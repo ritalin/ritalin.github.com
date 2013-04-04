@@ -1,0 +1,198 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Type Provider Memo - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="TypeProvider実装のための記憶保管のためにメモとして残す FSharp.Data.dllを拾ってくる Nugetで取って来れる
+TypeProviderのための骨格抽象実装が用意されているので、ありがたくご相伴 open Microsoft.FSharp.Core. &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	Included file 'custom/head.html' not found in _includes directory
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Type Provider Memo</h2>
+	<div class="entry-content"><p>TypeProvider実装のための記憶保管のためにメモとして残す</p>
+
+<ul>
+<li><p>FSharp.Data.dllを拾ってくる</p>
+
+<ul>
+<li>Nugetで取って来れる</li>
+<li>TypeProviderのための骨格抽象実装が用意されているので、ありがたくご相伴</li>
+</ul></li>
+<li><p>open Microsoft.FSharp.Core.CompilerServices</p>
+
+<ul>
+<li>TypeProviderAttibuteが定義されている</li>
+</ul></li>
+<li><p>open ProviderImplementation.ProvidedTypes</p>
+
+<ul>
+<li>TypeProviderForNamespacesクラス
+
+<ul>
+<li>TypeProviderの親クラスとして使用する</li>
+</ul></li>
+<li>ProvidedTypeDefinitionクラス
+
+<ul>
+<li>TypeProvider内部で使用する型を定義するためのクラス</li>
+<li>Typeクラスから派生</li>
+</ul></li>
+</ul></li>
+<li><p>TypeProviderメタクラスのdo束縛にて</p>
+
+<ul>
+<li>Providerの型定義
+
+<ul>
+<li>ProvidedTypeDefinitionをインスタンス化</li>
+<li>ProvidedTypeDefinition#AddXmlDoc呼ぶ
+
+<ul>
+<li>ヘルプメッセージ追加のため</li>
+<li>たぶん必須ではないとは思う</li>
+</ul></li>
+<li>ProvidedTypeDefinition#DefineStaticParametersを呼ぶ
+
+<ul>
+<li>TypeProviderの引数定義</li>
+<li>第一引数はList<ProvidedStaticParameter></li>
+<li>第二引数は引数型をインスタンス化するための高階関数
+
+<ul>
+<li>string -&gt; obj[] -&gt; ProvidedTypeDefinition</li>
+</ul></li>
+<li>必須</li>
+</ul></li>
+</ul></li>
+<li>TypeProviderメタクラスのAddNamespaceメソッド呼ぶ
+
+<ul>
+<li>これでF# コンパイラに登録される？</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T23:04:00+09:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/f-/'>F#</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2013
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

@@ -7,8 +7,8 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
-が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。 &hellip;">
+	<meta name="description" content="TypeProvider実装のための記憶保管のためにメモとして残す FSharp.Data.dllを拾ってくる Nugetで取って来れる
+TypeProviderのための骨格抽象実装が用意されているので、ありがたくご相伴 open Microsoft.FSharp.Core. &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -72,6 +72,107 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2013/04-04/type-provider-memo/">
+		
+			Type Provider Memo</a>
+	</h2>
+	<div class="entry-content">
+		<p>TypeProvider実装のための記憶保管のためにメモとして残す</p>
+
+<ul>
+<li><p>FSharp.Data.dllを拾ってくる</p>
+
+<ul>
+<li>Nugetで取って来れる</li>
+<li>TypeProviderのための骨格抽象実装が用意されているので、ありがたくご相伴</li>
+</ul></li>
+<li><p>open Microsoft.FSharp.Core.CompilerServices</p>
+
+<ul>
+<li>TypeProviderAttibuteが定義されている</li>
+</ul></li>
+<li><p>open ProviderImplementation.ProvidedTypes</p>
+
+<ul>
+<li>TypeProviderForNamespacesクラス
+
+<ul>
+<li>TypeProviderの親クラスとして使用する</li>
+</ul></li>
+<li>ProvidedTypeDefinitionクラス
+
+<ul>
+<li>TypeProvider内部で使用する型を定義するためのクラス</li>
+<li>Typeクラスから派生</li>
+</ul></li>
+</ul></li>
+<li><p>TypeProviderメタクラスのdo束縛にて</p>
+
+<ul>
+<li>Providerの型定義
+
+<ul>
+<li>ProvidedTypeDefinitionをインスタンス化</li>
+<li>ProvidedTypeDefinition#AddXmlDoc呼ぶ
+
+<ul>
+<li>ヘルプメッセージ追加のため</li>
+<li>たぶん必須ではないとは思う</li>
+</ul></li>
+<li>ProvidedTypeDefinition#DefineStaticParametersを呼ぶ
+
+<ul>
+<li>TypeProviderの引数定義</li>
+<li>第一引数はList<ProvidedStaticParameter></li>
+<li>第二引数は引数型をインスタンス化するための高階関数
+
+<ul>
+<li>string -&gt; obj[] -&gt; ProvidedTypeDefinition</li>
+</ul></li>
+<li>必須</li>
+</ul></li>
+</ul></li>
+<li>TypeProviderメタクラスのAddNamespaceメソッド呼ぶ
+
+<ul>
+<li>これでF# コンパイラに登録される？</li>
+</ul></li>
+</ul></li>
+</ul>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T23:04:00+09:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/f-/'>F#</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1636,57 +1737,6 @@ namespace Common.Test {
 
 	<a class='category' href='/blog/categories/advent/'>advent</a>, <a class='category' href='/blog/categories/c-/'>c#</a>
 
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/11-30/usual-day/">
-		
-			立ててみた</a>
-	</h2>
-	<div class="entry-content">
-		<p>世間様では、明日から「あどべんと　かれんだー」なるものが同時多発的に行われるようですね。
-前からやってみたいなと思ってましたが、いつも時間が取れず見る側でした。</p>
-
-<p>今年は11月から、割とゆっくりとした進行だったので、参加ついでにgithub page作ってみました。
-（11月頭に作って、放置プレー状態でしたががが）</p>
-
-<p>今のところ、</p>
-
-<ul>
-<li>12/2 <a href="http://atnd.org/events/33905">C# Advent Calender 2012</a></li>
-<li>12/6 <a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>（予定）</li>
-<li>12/8 <a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a></li>
-</ul>
-
-<p>の３つを予定してます。
-まずはC# の記事をなんとか仕上げなければ（しろめ）</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-30T21:54:00+09:00" pubdate data-updated="true">Nov 30<span>th</span>, 2012</time></div>
-	<div class="tags">
 
 </div>
 	
