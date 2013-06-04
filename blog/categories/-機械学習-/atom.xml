@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: java | Since 1975]]></title>
-  <link href="http://ritalin.github.com/blog/categories/java/atom.xml" rel="self"/>
+  <title><![CDATA[Category: "機械学習" | Since 1975]]></title>
+  <link href="http://ritalin.github.com/blog/categories/-機械学習-/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
   <updated>2013-06-05T00:20:42+09:00</updated>
   <id>http://ritalin.github.com/</id>

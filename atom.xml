@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-05-30T00:53:42+09:00</updated>
+  <updated>2013-06-05T00:20:42+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,118 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cornice Tutorial (1)]]></title>
+    <link href="http://ritalin.github.com/2013/06-04/cornice-tutorial-01/"/>
+    <updated>2013-06-04T23:12:00+09:00</updated>
+    <id>http://ritalin.github.com/2013/06-04/cornice-tutorial-01</id>
+    <content type="html"><![CDATA[<h2>あらまし</h2>
+
+<p>RESTサーバーを実装するための良いフレームワークはないかなと探していたところ、<a href="http://cornice.readthedocs.org/en/latest/index.html">Cornice</a>というpythonで実装されたフレームワークに出会いました。
+CorniceはPyramidというWebアプリケーションフレームワークの上にのるものであり、
+Pyramidのtemplate EnginがZPT-TAL由来のCameleonであることを知り、これは触ってみなければという気持ちになりました。</p>
+
+<p>公式サイトには<a href="http://cornice.readthedocs.org/en/latest/tutorial.html">チャットサーバを実装するためのチュートリアル</a>があるので、
+これをネタにPythonの勉強をしつつやって行こうかなと思います。</p>
+
+<p>当方、Pythonに関しては、ドがつくほどの素人なので、あり得ない事し出すかも知れませんが生暖かく見守っていただければかと。</p>
+
+<h2>環境構築</h2>
+
+<p>公式サイトでは、Python 2.7で進めるようになってます。しかし<a href="https://github.com/mozilla-services/cornice">Github</a>のソースツリー眺めてたらPython 3.3対応ぽいことがコミットログとしてあがって上がっており、試したところとりあえずScaffoldingがうまくいくことが確認できたので、
+あえて地雷覚悟でPython 3.3系で進めてみようかと思います。</p>
+
+<h3>インストール</h3>
+
+<blockquote>
+<p><em>注意</em></p>
+
+<p>公式サイトのチュートリアルでは、vitualenvで環境を用意してから実行してますが、お好みでどうぞ</p>
+
+<p>私はpythonbrewのvenv上に構築しました。</p>
+</blockquote>
+
+<ul>
+<li><a href="https://github.com/mozilla-services/cornice">Github</a>よりレポジトリをclone。</li>
+</ul>
+
+<blockquote>
+<p>git clone git://github.com/mozilla-services/cornice.git</p>
+</blockquote>
+
+<ul>
+<li>落としてきたソースツリーに入り、インストール実行。</li>
+</ul>
+
+<blockquote>
+<p>cd /path/to/cornice
+python ./setup.py install</p>
+</blockquote>
+
+<ul>
+<li>インストールがうまくいったか確認。<code>pcreate -l</code>を実行し、以下のようにcorniceが表示されればOK。</li>
+</ul>
+
+<blockquote>
+<p>Available scaffolds:</p>
+
+<p>&#8230;</p>
+
+<p>cornice:  A Cornice application</p>
+
+<p>&#8230;</p>
+</blockquote>
+
+<h3>プロジェクト作成</h3>
+
+<ul>
+<li>適当なワークフォルダに行き、以下のコマンドを実行。
+
+<ul>
+<li>プロジェクト名は <em>cornice_tutorial</em> とします。</li>
+</ul></li>
+</ul>
+
+<blockquote>
+<p>pcreate -t cornice cornice_tutorial</p>
+</blockquote>
+
+<p>ここで、プロジェクト名に、ハイフン(-)は使用しない方がヨサゲ。区切り文字が必要であれば、かわりにアンダースコア(_)を使用する。</p>
+
+<ul>
+<li>プロジェクトの中に入り、開発用の実行環境を構成する</li>
+</ul>
+
+<blockquote>
+<p>cd /path/to/cornice_tutorial</p>
+
+<p>python ./setup.py develop</p>
+</blockquote>
+
+<h3>動作確認</h3>
+
+<ul>
+<li>以下のコマンドを実行し、サービスを起動する</li>
+</ul>
+
+<blockquote>
+<p>pserve cornice_tutorial.ini</p>
+</blockquote>
+
+<ul>
+<li>WEBブラウザで、<code>http://localhost:6543</code>を訪れ、</li>
+</ul>
+
+<blockquote>
+<p>{&#39;Hello&#39;: &#39;World&#39;}</p>
+</blockquote>
+
+<p>と出ればOK。</p>
+
+<h3>つづく・・・</h3>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mahout in Action読了]]></title>
