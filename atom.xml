@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-06-05T00:20:42+09:00</updated>
+  <updated>2013-06-12T01:11:34+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,150 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cornice Tutorial (2)]]></title>
+    <link href="http://ritalin.github.com/2013/06-12/cornice-tutorial-02/"/>
+    <updated>2013-06-12T00:28:00+09:00</updated>
+    <id>http://ritalin.github.com/2013/06-12/cornice-tutorial-02</id>
+    <content type="html"><![CDATA[<h2>はじめに</h2>
+
+<p>引き続き、公式サイトの<a href="http://cornice.readthedocs.org/en/latest/tutorial.html">チュートリアル</a>を写経していきます。
+ちなみに完全な和訳を目指しているわけではないです。あしからず。</p>
+
+<!-- more -->
+
+<h2>サービスの作成</h2>
+
+<p>サービスの実装は、<code>cornice_tutorial/views.py</code> に記述するようです。
+中身を確認してみると・・・</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>""" Cornice services.
+</span><span class='line'>"""
+</span><span class='line'>from cornice import Service
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>hello = Service(name='hello', path='/', description="Simplest app")
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>@hello.get()
+</span><span class='line'>def get_info(request):
+</span><span class='line'>    """Returns Hello in JSON."""
+</span><span class='line'>    return {'Hello': 'World'}</span></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li>6行目がサービスの定義</li>
+<li>9 - 12行目がサービス（レスポンス）の実装</li>
+</ul>
+
+<p>となってるようです。</p>
+
+<h3>サービス定義で指定するパラメータ</h3>
+
+<p>6行目のサービス定義の中の詳細について、<a href="http://cornice.readthedocs.org/en/latest/api.html">公式マニュアル</a>より引用すると</p>
+
+<ul>
+<li>name (<em>Required</em>)
+
+<ul>
+<li>サービス名。全体でユニークな者にする必要がある</li>
+</ul></li>
+<li>path (<em>Required</em>)
+
+<ul>
+<li>サービスへのリクエストパス(URI)。全体でユニークする必要がある。</li>
+</ul></li>
+<li>description (Optional)
+
+<ul>
+<li>サービスの説明。</li>
+</ul></li>
+</ul>
+
+<p>上記以外にもいくつかパラメータが用意されているようですが、それはいずれかの機会にでも・・・</p>
+
+<h3>レスポンスの実装</h3>
+
+<ul>
+<li>9行目
+
+<ul>
+<li>このサービスで受け入れる(HTTP)メソッド</li>
+<li>Get, Post, Put, Delete, Head, Optionが用意されている</li>
+</ul></li>
+<li>12行目
+
+<ul>
+<li>dictとして戻り値を指定することで、JSONオブジェクトとして処理されるHTTPレスポンスが構築される。</li>
+<li>ver 0.14時点では、JSONしか返すことができない模様</li>
+</ul></li>
+</ul>
+
+<p>では、チュートリアルに戻って、ユーザー一覧を実装してみる。
+<code>cornice_tutorial/views.py</code> のサービス定義とレスポンス実装を削除し、代わりに以下のように記述。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>users = Service(name='users', path='/users', description="ユーザー管理サービス（一覧・追加・削除）")
+</span><span class='line'>
+</span><span class='line'>_USERS = {}
+</span><span class='line'>
+</span><span class='line'>@users.get()
+</span><span class='line'>def list_users(request):
+</span><span class='line'>    """登録されたすべてのユーザーを列挙 """
+</span><span class='line'>    return { 'users': _USERS }</span></code></pre></td></tr></table></div></figure>
+
+<p><code>pserve cornice_tutorial.ini</code> でサービスを起動し、</p>
+
+<blockquote>
+<p>curl http://localhost:6543/users</p>
+</blockquote>
+
+<p>を実行し、</p>
+
+<blockquote>
+<p>{&quot;users&quot;: {}}</p>
+</blockquote>
+
+<p>と出力されれば、とりあえずOKということで。</p>
+
+<h3>つづく&#8230;</h3>
+
+<h3>おまけ</h3>
+
+<p>Windows使いは、curlコマンドないので、Powershellから</p>
+
+<blockquote>
+<p>invoke-webrequest -method get http://localhost:6543/users</p>
+</blockquote>
+
+<p>または</p>
+
+<blockquote>
+<p>invoke-restmethod -method get http://localhost:6543/users</p>
+</blockquote>
+
+<p>とすればいいのかな？</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Cornice Tutorial (1)]]></title>
@@ -28,6 +172,8 @@ Pyramidのtemplate EnginがZPT-TAL由来のCameleonであることを知り、�
 これをネタにPythonの勉強をしつつやって行こうかなと思います。</p>
 
 <p>当方、Pythonに関しては、ドがつくほどの素人なので、あり得ない事し出すかも知れませんが生暖かく見守っていただければかと。</p>
+
+<!-- more -->
 
 <h2>環境構築</h2>
 
@@ -121,7 +267,7 @@ python ./setup.py install</p>
 
 <p>と出ればOK。</p>
 
-<h3>つづく・・・</h3>
+<h3><a href="http://ritalin.github.com/2013/06-12/cornice-tutorial-02/">Cornice Tutorial (2)</a>へつづく・・・</h3>
 ]]></content>
   </entry>
   
@@ -137,6 +283,8 @@ python ./setup.py install</p>
 
 <p>この本は、機械学習の処理系およびライブラリである<a href="http://mahout.apache.org">Apache Mohout</a>の実践ガイドであり、
 Mahoutを通して機械学習について体系立てて学ぶことができるようになってます。</p>
+
+<!-- more -->
 
 <p>全体で３部構成になっており、</p>
 
@@ -174,6 +322,8 @@ Mahoutを通して機械学習について体系立てて学ぶことができ�
     <updated>2013-04-04T23:04:00+09:00</updated>
     <id>http://ritalin.github.com/2013/04-04/type-provider-memo</id>
     <content type="html"><![CDATA[<p>TypeProvider実装のための記憶保管のためにメモとして残す</p>
+
+<!-- more -->
 
 <ul>
 <li><p>FSharp.Data.dllを拾ってくる</p>
@@ -245,6 +395,8 @@ Mahoutを通して機械学習について体系立てて学ぶことができ�
     <id>http://ritalin.github.com/2013/03-22/mocha-testing-apart-from-js</id>
     <content type="html"><![CDATA[<p>Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
 が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。</p>
+
+<!-- more -->
 
 <h2>compilerオプションについて</h2>
 
@@ -334,6 +486,8 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 
 <p>Factory Methodとの違いは、Factoryを具象クラス一本に絞ったという感じでしょうか。</p>
 
+<!-- more -->
+
 <h2>Factoryの具象クラスをインスタンスするのは誰？</h2>
 
 <p>さて本題。Factory Methodは、FactoryとProductの両方について、抽象層にインターフェースを設け、具象層に各インターフェースの具象クラスを置きます。ClientオブジェクトはFactoryのインターフェースを通して具象Productを生成し、インターフェースとして取得する形となります。</p>
@@ -374,6 +528,8 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 
 <p>そこで表題に繋がるわけですが、Model層を構成するDCIをより大きな、Dとみなし、そこにView表現に変換するRoleを組み込んだらどうなのかなと思いました。</p>
 
+<!-- more -->
+
 <p>図にするとこんな感じ
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -404,6 +560,8 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
     <updated>2012-12-20T21:27:00+09:00</updated>
     <id>http://ritalin.github.com/2012/12-20/rhino-mocks-tips</id>
     <content type="html"><![CDATA[<p>いくつか引っかかったので、忘れないうちにメモとして残しとく。</p>
+
+<!-- more -->
 
 <h2>プロパティをモック</h2>
 
@@ -440,6 +598,8 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 <p>VirtualBoxではサポートされていない、Moac OS X Mountain LionをHackintosh (Hackロム)等に頼ること無くインストールできたので、こっそり後悔します。</p>
 
 <p>実際にやったのはひと月前なので、その時の記憶をもとにお送りいたします（再度インストールするのがメンドイから）</p>
+
+<!-- more -->
 
 <h2>前提</h2>
 
@@ -574,6 +734,8 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
     <updated>2012-12-12T21:14:00+09:00</updated>
     <id>http://ritalin.github.com/2012/12-12/embed-gist</id>
     <content type="html"><![CDATA[<p><a href="gist.github.com">gist</a>のリニューアルで、埋め込んだコードが崩れだしたので確認。</p>
+
+<!-- more -->
 
 <div><script src='https://gist.github.com/4147464.js?file=RhinoMocksCreationExtensions.cs'></script>
 <noscript><pre><code>using System;

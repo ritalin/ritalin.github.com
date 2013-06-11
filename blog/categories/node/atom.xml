@@ -4,7 +4,7 @@
   <title><![CDATA[Category: node | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/node/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-06-05T00:20:42+09:00</updated>
+  <updated>2013-06-12T01:11:34+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -20,6 +20,8 @@
     <id>http://ritalin.github.com/2013/03-22/mocha-testing-apart-from-js</id>
     <content type="html"><![CDATA[<p>Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
 が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。</p>
+
+<!-- more -->
 
 <h2>compilerオプションについて</h2>
 

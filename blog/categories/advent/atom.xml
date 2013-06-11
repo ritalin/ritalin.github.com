@@ -4,7 +4,7 @@
   <title><![CDATA[Category: advent | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/advent/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-06-05T00:20:42+09:00</updated>
+  <updated>2013-06-12T01:11:34+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -27,6 +27,8 @@
 <p>VirtualBoxではサポートされていない、Moac OS X Mountain LionをHackintosh (Hackロム)等に頼ること無くインストールできたので、こっそり後悔します。</p>
 
 <p>実際にやったのはひと月前なので、その時の記憶をもとにお送りいたします（再度インストールするのがメンドイから）</p>
+
+<!-- more -->
 
 <h2>前提</h2>
 

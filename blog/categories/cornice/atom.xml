@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cornice | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/cornice/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-06-05T00:20:42+09:00</updated>
+  <updated>2013-06-12T01:11:34+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,132 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cornice Tutorial (2)]]></title>
+    <link href="http://ritalin.github.com/2013/06-12/cornice-tutorial-02/"/>
+    <updated>2013-06-12T00:28:00+09:00</updated>
+    <id>http://ritalin.github.com/2013/06-12/cornice-tutorial-02</id>
+    <content type="html"><![CDATA[<h2>はじめに</h2>
+
+<p>引き続き、公式サイトの<a href="http://cornice.readthedocs.org/en/latest/tutorial.html">チュートリアル</a>を写経していきます。
+ちなみに完全な和訳を目指しているわけではないです。あしからず。</p>
+
+<!-- more -->
+
+<h2>サービスの作成</h2>
+
+<p>サービスの実装は、<code>cornice_tutorial/views.py</code> に記述するようです。
+中身を確認してみると・・・</p>
+
+<p>```
+&quot;&quot;&quot; Cornice services.
+&quot;&quot;&quot;
+from cornice import Service</p>
+
+<p>hello = Service(name=&#39;hello&#39;, path=&#39;/&#39;, description=&quot;Simplest app&quot;)</p>
+
+<p>@hello.get()
+def get_info(request):
+    &quot;&quot;&quot;Returns Hello in JSON.&quot;&quot;&quot;
+    return {&#39;Hello&#39;: &#39;World&#39;}
+```</p>
+
+<ul>
+<li>6行目がサービスの定義</li>
+<li>9 - 12行目がサービス（レスポンス）の実装</li>
+</ul>
+
+<p>となってるようです。</p>
+
+<h3>サービス定義で指定するパラメータ</h3>
+
+<p>6行目のサービス定義の中の詳細について、<a href="http://cornice.readthedocs.org/en/latest/api.html">公式マニュアル</a>より引用すると</p>
+
+<ul>
+<li>name (<em>Required</em>)
+
+<ul>
+<li>サービス名。全体でユニークな者にする必要がある</li>
+</ul></li>
+<li>path (<em>Required</em>)
+
+<ul>
+<li>サービスへのリクエストパス(URI)。全体でユニークする必要がある。</li>
+</ul></li>
+<li>description (Optional)
+
+<ul>
+<li>サービスの説明。</li>
+</ul></li>
+</ul>
+
+<p>上記以外にもいくつかパラメータが用意されているようですが、それはいずれかの機会にでも・・・</p>
+
+<h3>レスポンスの実装</h3>
+
+<ul>
+<li>9行目
+
+<ul>
+<li>このサービスで受け入れる(HTTP)メソッド</li>
+<li>Get, Post, Put, Delete, Head, Optionが用意されている</li>
+</ul></li>
+<li>12行目
+
+<ul>
+<li>dictとして戻り値を指定することで、JSONオブジェクトとして処理されるHTTPレスポンスが構築される。</li>
+<li>ver 0.14時点では、JSONしか返すことができない模様</li>
+</ul></li>
+</ul>
+
+<p>では、チュートリアルに戻って、ユーザー一覧を実装してみる。
+<code>cornice_tutorial/views.py</code> のサービス定義とレスポンス実装を削除し、代わりに以下のように記述。</p>
+
+<p>```
+users = Service(name=&#39;users&#39;, path=&#39;/users&#39;, description=&quot;ユーザー管理サービス（一覧・追加・削除）&quot;)</p>
+
+<p>_USERS = {}</p>
+
+<p>@users.get()
+def list_users(request):
+    &quot;&quot;&quot;登録されたすべてのユーザーを列挙 &quot;&quot;&quot;
+    return { &#39;users&#39;: _USERS }
+```</p>
+
+<p><code>pserve cornice_tutorial.ini</code> でサービスを起動し、</p>
+
+<blockquote>
+<p>curl http://localhost:6543/users</p>
+</blockquote>
+
+<p>を実行し、</p>
+
+<blockquote>
+<p>{&quot;users&quot;: {}}</p>
+</blockquote>
+
+<p>と出力されれば、とりあえずOKということで。</p>
+
+<h3>つづく...</h3>
+
+<h3>おまけ</h3>
+
+<p>Windows使いは、curlコマンドないので、Powershellから</p>
+
+<blockquote>
+<p>invoke-webrequest -method get http://localhost:6543/users</p>
+</blockquote>
+
+<p>または</p>
+
+<blockquote>
+<p>invoke-restmethod -method get http://localhost:6543/users</p>
+</blockquote>
+
+<p>とすればいいのかな？</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Cornice Tutorial (1)]]></title>
@@ -28,6 +154,8 @@ Pyramidのtemplate EnginがZPT-TAL由来のCameleonであることを知り、�
 これをネタにPythonの勉強をしつつやって行こうかなと思います。</p>
 
 <p>当方、Pythonに関しては、ドがつくほどの素人なので、あり得ない事し出すかも知れませんが生暖かく見守っていただければかと。</p>
+
+<!-- more -->
 
 <h2>環境構築</h2>
 
@@ -121,7 +249,7 @@ python ./setup.py install</p>
 
 <p>と出ればOK。</p>
 
-<h3>つづく・・・</h3>
+<h3><a href="/2013/06-12/cornice-tutorial-02/">Cornice Tutorial (2)</a>へつづく・・・</h3>
 ]]></content>
   </entry>
   
