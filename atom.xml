@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-07-04T01:09:57+09:00</updated>
+  <updated>2013-07-04T01:14:18+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Cornice Tutorial (3)]]></title>
-    <link href="http://ritalin.github.com/2013/06-12/cornice-tutorial-03/"/>
-    <updated>2013-06-12T21:50:00+09:00</updated>
-    <id>http://ritalin.github.com/2013/06-12/cornice-tutorial-03</id>
+    <link href="http://ritalin.github.com/2013/07-04/cornice-tutorial-03/"/>
+    <updated>2013-07-04T01:00:00+09:00</updated>
+    <id>http://ritalin.github.com/2013/07-04/cornice-tutorial-03</id>
     <content type="html"><![CDATA[<h2>はじめに</h2>
 
 <p>公式サイトの<a href="http://cornice.readthedocs.org/en/latest/tutorial.html">チュートリアル</a>の写経、第三回。
