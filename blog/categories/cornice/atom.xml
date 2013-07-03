@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cornice | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/cornice/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2013-06-12T01:11:34+09:00</updated>
+  <updated>2013-07-04T01:09:57+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,241 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cornice Tutorial (3)]]></title>
+    <link href="http://ritalin.github.com/2013/06-12/cornice-tutorial-03/"/>
+    <updated>2013-06-12T21:50:00+09:00</updated>
+    <id>http://ritalin.github.com/2013/06-12/cornice-tutorial-03</id>
+    <content type="html"><![CDATA[<h2>はじめに</h2>
+
+<p>公式サイトの<a href="http://cornice.readthedocs.org/en/latest/tutorial.html">チュートリアル</a>の写経、第三回。
+ユーザー管理サービスの実装において、Validatorの話がでてくるので、内容を抑えつつ一覧、追加、削除の実装を進めていきたいと思います。</p>
+
+<!-- more -->
+
+<h2>サービスの処理フロー</h2>
+
+<p>サービスの各処理はその前後に処理を挟むことができます。前方に挟む方をValidator、後方をFilterと呼びます。
+処理の指定はサービス定義、またはデコレータをHTTPメソッドのアノテーションとして使用し、その引数にその関数を渡すことで行います。</p>
+
+<p>即ち処理フローは、</p>
+
+<ul>
+<li>Validator（オプション）</li>
+<li>本処理（必須）</li>
+<li>Filter（オプション）</li>
+</ul>
+
+<p>となります。</p>
+
+<h2>Validator</h2>
+
+<p>Validatorとは、サービス実装コードの本処理の全面で実行されるプリプロセスであり、CorniceにおけるValidatorの責務は</p>
+
+<ul>
+<li>リクエスト入力値のチェック</li>
+<li>リクエスト入力値の変換（例えば任意のオブジェクトへ等）</li>
+</ul>
+
+<p>とされています。
+ここで入力値として、クエリパラメータやPOSTパラメータだけでなく、HTTPヘッダも対象とすることができます。</p>
+
+<p>Validatorの指定はサービスの定義またはメソッドアノテーションの引数として以下のように行います。</p>
+
+<blockquote>
+<p>(サービス定義)</p>
+
+<p>service = Service(..., validators=<関数>, ...)</p>
+
+<p>（メソッドアノテーション）</p>
+
+<p>@service.Get(..., validators=<関数>, ...)</p>
+</blockquote>
+
+<p>Validator関数のインターフェースは、Requestオブジェクトを受け取り、何も返さない手続きです。</p>
+
+<p>入力値が妥当な場合、Request#validatedディクショナリに、エラーの場合、Request#errorsディクショナリにそれぞれ値を格納します。
+実例は後の写経の節で。</p>
+
+<p>Requestは基盤として使用しているPyramidのものをベースに、Validate結果格納用のディクショナリが付与されたものとなっています。
+Requestオブジェクトを介して受け取れる値については<a href="http://docs.pylonsproject.jp/projects/pyramid-doc-ja/en/latest/api/request.html#pyramid.request.Request">APIリファレンス</a>を確認してください。</p>
+
+<p>Request#errorsディクショナリに１つでも値が格納された場合、本処理は実行されず、組み込みのエラーハンドラが実行されます。</p>
+
+<h2>エラーハンドラ</h2>
+
+<p>組み込みのエラーハンドラは、正常処理の時と同様に、simpleJsonを使用します。</p>
+
+<p>このエラーハンドラもまたサービスの定義またはメソッドアノテーションの引数として指定することができます。</p>
+
+<blockquote>
+<p>(サービス定義)</p>
+
+<p>service = Service(..., error_handler=<関数>, ...)</p>
+
+<p>（メソッドアノテーション）</p>
+
+<p>@service.Get(..., error_handler=<関数>, ...)</p>
+</blockquote>
+
+<p>エラーハンドラ関数のインターフェースは、エラー内容を引数に取り、<a href="http://pylons-webframework.readthedocs.org/en/v0.9.7/thirdparty/webob.html#module-webob.exc">webob.exc.HTTPError</a>の派生クラスを返す関数です。</p>
+
+<blockquote>
+<p>error<em>handler</em>func(errors): Response</p>
+</blockquote>
+
+<p>エラー内容として、Request#errorsディクショナリが渡されます。</p>
+
+<p>どのように実装するかは、corniceの<code>util.py</code>に記述されている、<code>json_error</code>関数を眺めてみるのがよいかと思います。</p>
+
+<h2>Filter</h2>
+
+<p>Filterは、サービス実装コードの本処理から返されるレスポンスを加工する目的のために使用されます。</p>
+
+<p>Filterの指定はValidator同様に、サービス定義またはメソッドアノテーションの引数として以下のように指定します。</p>
+
+<blockquote>
+<p>(サービス定義)</p>
+
+<p>service = Service(..., filters=<関数>, ...)</p>
+
+<p>（メソッドアノテーション）</p>
+
+<p>@service.Get(..., filters=<関数>, ...)</p>
+</blockquote>
+
+<p>Filterのインターフェースは、レスポンスデータを受け取り、加工されたレスポンスを返す関数です。</p>
+
+<blockquote>
+<p>filter_interface(レスポンス): レスポンス</p>
+</blockquote>
+
+<p>もしくは、オプションとしてRequestオブジェクトを第二引数で受け取ることもできます。</p>
+
+<blockquote>
+<p>filter_interface(レスポンス, Request): レスポンス</p>
+</blockquote>
+
+<p>Filter処理は、corniceの土台であるpyramidのレイヤーで実行されます。
+この処理がエラーのエスポンスにも作用するかどうかは、確認できておらず不明です。</p>
+
+<h2>チュートリアルのユーザー管理機能（前回の続き）</h2>
+
+<p>前回の続きとして、ユーザー登録を写経します。</p>
+
+<h3>ユーザー登録</h3>
+
+<p>ユーザー登録の仕様は、POSTデータとして、ユーザー名を送信します。</p>
+
+<p>ユニークチェックを行い、重複がなければ、</p>
+
+<blockquote>
+<p>ユーザー名: ランダムなハッシュ</p>
+</blockquote>
+
+<p>をディクショナリに保持させます。</p>
+
+<p>まず、この入力値に対するValidatorを用意します。</p>
+
+<p>```
+import os
+import binascii</p>
+
+<p>def validate_unique(request):
+    name = request.params.get(&#39;user&#39;, &#39;&#39;)</p>
+
+<pre><code>if name == &#39;&#39;:
+    request.errors.add(&#39;url&#39;, &#39;name&#39;, &#39;user is not passed ...&#39;)
+if name in _USERS:
+    request.errors.add(&#39;url&#39;, &#39;name&#39;, &#39;This user exists !&#39;)
+else:
+    user = { &#39;name&#39;:name, &#39;token&#39;: binascii.b2a_hex(os.urandom(20)) }
+    request.validated[&#39;user&#39;] = user
+</code></pre>
+
+<p>```</p>
+
+<p>このValidatorを指定したユーザー登録処理を実装します。</p>
+
+<p>```
+@users.post(validators=validate<em>unique)
+def create</em>user(request):
+    &quot;&quot;&quot;Add a new user&quot;&quot;&quot;
+    user = request.validated[&#39;user&#39;]</p>
+
+<pre><code>_Users[user[&#39;name&#39;]] = user[&#39;token&#39;]
+
+return { &#39;token&#39;: &#39;%s-%s&#39; % (user[&#39;name&#39;], user[&#39;token&#39;]) }
+</code></pre>
+
+<p>```</p>
+
+<p><code>pserve cornice_tutorial.ini</code> でサービスを起動。</p>
+
+<blockquote>
+<p>curl -X POST http://localhost:6543/users -d user=ktz</p>
+</blockquote>
+
+<p>の場合</p>
+
+<blockquote>
+<p>{&quot;token&quot;: &quot;ktz-b&#39;04afcabc1348c9253be856ee81cde78a75185ca9&#39;&quot;}</p>
+</blockquote>
+
+<p>という出力が返され、
+再度同じリクエストを送ると、</p>
+
+<blockquote>
+<p>{&quot;status&quot;: &quot;error&quot;, &quot;errors&quot;: [{&quot;location&quot;: &quot;url&quot;, &quot;description&quot;: &quot;This user exists !&quot;, &quot;name&quot;: &quot;name&quot;}]}</p>
+</blockquote>
+
+<p>というエラー出力が、</p>
+
+<blockquote>
+<p>curl -X POST http://localhost:6543/users</p>
+</blockquote>
+
+<p>の場合、</p>
+
+<blockquote>
+<p>{&quot;errors&quot;: [{&quot;description&quot;: &quot;user is not passed ...&quot;, &quot;name&quot;: &quot;name&quot;, &quot;location&quot;: &quot;url&quot;}], &quot;status&quot;: &quot;error&quot;}</p>
+</blockquote>
+
+<p>が返され、Validatorが作用しているのが分かります。</p>
+
+<p>また、</p>
+
+<blockquote>
+<p>curl http://localhost:6543/users</p>
+</blockquote>
+
+<p>のリクエストで、</p>
+
+<blockquote>
+<p>{&quot;users&quot;: {&quot;ktz&quot;: &quot;04afcabc1348c9253be856ee81cde78a75185ca9&quot;}}</p>
+</blockquote>
+
+<p>と返され、問題なく追加されいるようです。</p>
+
+<h3>つづく</h3>
+
+<h3>補足・・・</h3>
+
+<blockquote>
+<p>curl -X POST http://localhost:6543/users -d user=りたりん</p>
+</blockquote>
+
+<p>の場合、レスポンスは</p>
+
+<blockquote>
+<p>{&quot;token&quot;: &quot;\u308a\u305f\u308a\u3093-b&#39;a1ef940c4259833e8bd21da6b1a32a9b8b7e788f&#39;&quot;}</p>
+</blockquote>
+
+<p>のように、日本語が文字参照に変換された形となります。
+これは、規定のレンダラである<code>json_renderer</code>が行っています。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Cornice Tutorial (2)]]></title>
@@ -119,7 +354,7 @@ def list_users(request):
 
 <p>と出力されれば、とりあえずOKということで。</p>
 
-<h3>つづく...</h3>
+<h3><a href="/2013/07-04/cornice-tutorial-03/">Cornice Tutorial (3)</a>へつづく...</h3>
 
 <h3>おまけ</h3>
 
