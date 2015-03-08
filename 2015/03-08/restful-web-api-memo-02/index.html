@@ -1,0 +1,224 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>restful-web-api-memo-02 - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Chapter 2. A Simple API GETリクエスト リソース状態の変更は意図しない アクセスカウンタやログ保存のような付随した事象の変更はOK 安全なメソッド
+過去にGETリクエストで、リソース状態の変更がしばしば行われていたが、これは間違った設計 レスポンス status code &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Restful-web-api-memo-02</h2>
+	<div class="entry-content"><h2>Chapter 2. A Simple API</h2>
+
+<h3>GETリクエスト</h3>
+
+<ul>
+<li>リソース状態の変更は意図しない
+
+<ul>
+<li>アクセスカウンタやログ保存のような付随した事象の変更はOK</li>
+</ul></li>
+<li><p>安全なメソッド</p></li>
+<li><p>過去にGETリクエストで、リソース状態の変更がしばしば行われていたが、これは間違った設計</p></li>
+</ul>
+
+<h3>レスポンス</h3>
+
+<ul>
+<li>status code
+
+<ul>
+<li>リクエストがどう処理されたかという結果をクライアントに知らせる</li>
+</ul></li>
+<li>entity-body
+
+<ul>
+<li>ドキュメント本体</li>
+</ul></li>
+<li>レスポンスヘッダ
+
+<ul>
+<li>entity-bodyを記述するためのKey-Valueペア</li>
+<li>status codeの後、entity-bodyの前に送られる</li>
+<li>content-type
+
+<ul>
+<li>どんなentity-bodyが返されたかクライアントに知らせる</li>
+<li>media-type</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h4>JSON</h4>
+
+<ul>
+<li>APIレスポンスの表現として用いられるフォーマット(RFC4627)</li>
+</ul>
+
+<h4>Collection+JSON</h4>
+
+<ul>
+<li>Publishing APIの目的で用いることができるフォーマット</li>
+<li>6章参照</li>
+<li>利用可能なリソースの一覧を発行するための標準</li>
+<li>collection, items, valueのそれぞれにhrefプロパティをもつ</li>
+<li>リスト、明細、フォームテンプレート、検索結果のいづれでも同じフォーマット</li>
+<li><p>hrefと名付けられたとき、その内容はかならずURI</p></li>
+<li><p>Collection+JSONを使った、itemの追加</p>
+
+<ul>
+<li>template構造に基づいて、内容を埋める
+
+<ul>
+<li>content-type: application/vnd. collection+jsonでPOSTリクエストを発行する</li>
+<li>成功したら、ステータスコード201を返す</li>
+<li>また、レスポンスには新しいリソースのURIを含めておく</li>
+<li>新しく作成されたリソースもまたGETリクエストで取得すると、それもまた、Collection+JSON</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>POSTリクエスト</h3>
+
+<p>（なんかまとめづらい内容なので省略）</p>
+
+<h3>アプリケーションセマンティクスがセマンティクスギャップを作ること</h3>
+
+<ul>
+<li><p>アプリケーションセマンティクス</p>
+
+<ul>
+<li>アプリケーション特有の構造</li>
+<li>media-typeのフォーマットとしては規定されていない構造</li>
+</ul></li>
+<li><p>標準化された、もしくは互いに合意されたアプリケーションセマンティクスであれば、セマンティクスギャップ消失する</p></li>
+<li><p>あえてセマンティクスギャップを広げることで、APIに差別化をもたらすことができるかもしれない</p></li>
+</ul>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T19:53:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2015</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

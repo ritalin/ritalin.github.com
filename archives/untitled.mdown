@@ -1,0 +1,29 @@
+他に以下のパラメーターも定義できる模様
+
+* renderer
+	* Rendererクラスを指定する。
+	* ver 0.14時点では、`simplejson`のみが定義されている。
+	* どのように実装するかは未確認のため不明。
+* validators
+	* A list of callables to pass the request into before passing it to the associated view.
+* filters
+	* A list of callables to pass the response into before returning it to the client.
+* accept
+	* A list of Accept header values accepted for this service (or method if overwritten when defining a method). It can also be a callable, in which case the values will be discovered at runtime. If a callable is passed, it should be able to take the request as a first argument.
+* content_type
+	* A list of Content-Type header values accepted for this service (or method if overwritten when defining a method). It can also be a callable, in which case the values will be discovered at runtime. If a callable is passed, it should be able to take the request as a first argument.
+* factory
+	* A factory returning callables which return boolean values. The callables take the request as their first argument and return boolean values. This param is exclusive with the ‘acl’ one.
+* acl
+	* A callable defininng the ACL (returns true or false, function of the given request). Exclusive with the ‘factory’ option.
+* klass
+	* The class to use when resolving views (if they are not callables)
+* error_handler
+	* Validationエラーの際に使用されるRenderer
+	* 規定値は、`‘json_error’`
+
+ContentType Validator
+Content Negotiation
+ACL Filter
+サービスで指定した場合は、全リクエストが対象かどうか
+Request = pyramid#Request <- webob#BaseRequest
