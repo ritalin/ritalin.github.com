@@ -1,0 +1,406 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>rRESTful Web API 読書メモ(6) - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Chapter 6. The Collection Pattern コレクションもまたリソース コレクションに含まれるリソースは&quot;item&quot;や&quot;entry&quot;、&quot;member&quot;と呼ばれる Pagenation &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">rRESTful Web API 読書メモ(6)</h2>
+	<div class="entry-content"><h2>Chapter 6. The Collection Pattern</h2>
+
+<ul>
+<li>コレクションもまたリソース
+
+<ul>
+<li>  コレクションに含まれるリソースは&quot;item&quot;や&quot;entry&quot;、&quot;member&quot;と呼ばれる</li>
+</ul></li>
+<li>  Pagenation
+
+<ul>
+<li>  大量のコレクションメンバーを持つ場合、全てを一度に返すことは通常しない</li>
+<li>  最初の一部だけをコレクションとして返し、残りはrel=&quot;next&quot;を付与したリンクだけを提供する
+
+<ul>
+<li>  nextはIANAで登録されている</li>
+<li>  ほかにprev, first, lastもIANAで定義されている</li>
+</ul></li>
+<li>  Collection+JSONはリレーションを明示的にサポートしてはいない
+
+<ul>
+<li>  必要ならリレーションを組み込めばいい</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>Collection+JSON</h3>
+
+<ul>
+<li>問題領域とは独立した汎用フォーマット</li>
+<li>手軽にREST制約を組み込める</li>
+<li>httpを介して取得するリソースのためのプロトコルセマンティクス</li>
+<li>プロパティ
+
+<ul>
+<li>href
+
+<ul>
+<li>コレクション自身へのリンク</li>
+</ul></li>
+<li>items
+
+<ul>
+<li>コレクションの要素</li>
+<li>アプリケーション特化データの集合
+
+<ul>
+<li>href
+
+<ul>
+<li>要素へのリンク</li>
+<li>GETリクエストで単独のリソースとして取得できる</li>
+<li>PUTやDELETEで変更、削除</li>
+</ul></li>
+<li>links
+
+<ul>
+<li>要素に関連するほかのリソースへのリンク</li>
+<li>例えば、本リソースに対する著者、出版社等</li>
+<li>render=&quot;link&quot;
+
+<ul>
+<li></li>
+</ul></li>
+<li>render=&quot;image&quot;
+
+<ul>
+<li></li>
+</ul></li>
+</ul></li>
+<li>data
+
+<ul>
+<li>要素を構成する内容</li>
+<li>アプリケーションセマンティクスの要</li>
+<li>&quot;name&quot;と&quot;value&quot;から成るJSONオブジェクトの集合</li>
+<li>各ペアには備考として&quot;prompt&quot;をもたせられる</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>links
+
+<ul>
+<li>コレクションに関連するほかの要素</li>
+</ul></li>
+<li>queries
+
+<ul>
+<li>コレクションを検索するためのテンプレート</li>
+</ul></li>
+<li>templates
+
+<ul>
+<li>コレクションに新しい要素を加えるためのテンプレート</li>
+</ul></li>
+<li>error
+
+<ul>
+<li>エラーメッセージ</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>AtomPub</h3>
+
+<ul>
+<li>Atomフォーマット
+
+<ul>
+<li>RSSに代わり、ニュースを同報する仕組みとしてRFC4287で標準化</li>
+<li>ニュース記事を一つ以上のカテゴリに分類できる</li>
+</ul></li>
+<li>AtomPubはニュースを編集 / 発行(CRUD)などを行うためのAtomフォーマットを使ったワークフロー(RFC5023)</li>
+<li>media-typeはapplication/atom+xml</li>
+<li>新しいエントリーはURIにPOSTすることで行う</li>
+<li>リンクにrel=&quot;edit&quot;を付与することで編集可能なエントリーであることを示す(PUTサポート) </li>
+<li>Collection+JSONと同じコンセプトをもつ
+
+<ul>
+<li>コレクション要素は&quot;item&quot; -&gt; &quot;feed&quot;</li>
+<li>Collection+JSONは汎用フォーマットなので、itemに特別なアプリケーションセマンティクスわ定義していない</li>
+<li>AtomPubはニュース配信プロトコルなので、エントリーはニュース記事</li>
+</ul></li>
+<li>コレクションパターンのプラグイン基盤としても用いられる
+
+<ul>
+<li>Atom Threading Extension
+
+<ul>
+<li>RFC4685</li>
+<li>メールスレッド表現</li>
+<li>rel=&quot;replies&quot;</li>
+</ul></li>
+<li>Atom deleted entry element
+
+<ul>
+<li>RFC6721</li>
+<li>エントリーを削除するのではなく墓石を置削除扱いとする</li>
+</ul></li>
+<li>Feed Paging and Archiving
+
+<ul>
+<li>RFC5005</li>
+<li>アーカイブフィードコンセプトを定義</li>
+<li>複数のリソースをまたがるきょだなフィードをPagingする方法</li>
+<li>rel属性として、next-archive, prev-archive, currentを使う</li>
+</ul></li>
+<li>OpenSearch
+
+<ul>
+<li>xmlベースの検索プロトコル標準</li>
+<li>rel=&quot;search&quot;</li>
+<li>Collection+JSONにおけるqueriesプロパティど同等のもの</li>
+</ul></li>
+<li>PubSubHubbub
+
+<ul>
+<li>Atomフィードが更新されたときに通知を行うためのプロトコル</li>
+<li>rel=&quot;hub&quot;</li>
+</ul></li>
+<li>これらのリレーションは全てIANAに登録されている
+
+<ul>
+<li>何の説明もなく使用できる</li>
+</ul></li>
+</ul></li>
+<li>プロパティ
+
+<ul>
+<li>feed
+
+<ul>
+<li>ID
+
+<ul>
+<li>一意的にニュースを識別するためのもの</li>
+</ul></li>
+<li>title
+
+<ul>
+<li>見出し</li>
+</ul></li>
+<li>subtitle</li>
+<li>author</li>
+<li>date, time
+
+<ul>
+<li>発行日時 / 最終更新日時</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>アプリケーションセマンティクスのためにプロパティを拡張することが認められている
+
+<ul>
+<li>Googleでは、マップ上のシンボル、カレンダー、スプレッドシートのセル、ビデオ用に付加的な表現を拡張している(GData)</li>
+</ul></li>
+</ul>
+
+<h3>OData</h3>
+
+<ul>
+<li>AtomPubベース</li>
+<li>MSが協力しているのでVisual studioから使いやすい</li>
+</ul>
+
+<h3>Hydra</h3>
+
+<ul>
+<li>あまり表舞台では見かけない</li>
+</ul>
+
+<h3>Semantics Challenge</h3>
+
+<ul>
+<li><p>ドメイン特化なフォーマットの場合(MAZE+xml)</p>
+
+<ul>
+<li>カスタムタイプ、リンクリレーションがセマンティクスギャップを埋める
+
+<ul>
+<li>カスタム定義したハイパーメディアタイプ</li>
+<li>問題空間のために定義されたリンクリレーション</li>
+</ul></li>
+</ul></li>
+<li><p>コレクションパターンは2種類のリソースタイプに大別される</p>
+
+<ul>
+<li>item-type
+
+<ul>
+<li>GET, PUT, DELETE</li>
+<li>内容+ item自身へのリンクをもつ</li>
+</ul></li>
+<li>collection-type
+
+<ul>
+<li>GET, POST(as append)</li>
+<li>item-typeリソースをメンバーとしてもつ</li>
+</ul></li>
+</ul></li>
+<li><p>collection-typeはリンクリレーションによるナビゲーションでアプリケーションセマンティクスを定義する</p>
+
+<ul>
+<li>first, next, search</li>
+</ul></li>
+<li><p>item-type</p>
+
+<ul>
+<li>一般的に定義されたアプリケーションセマンティクスはない</li>
+<li>Collection+JSON
+
+<ul>
+<li>item-typeリソースの意味は、prompt要素にhuman-readableな説明として記述される</li>
+</ul></li>
+</ul></li>
+<li><p>同じドメインでも、APIが異なれば、アプリケーションセマンティクスは異なる</p>
+
+<ul>
+<li>text or content</li>
+<li>post ot blogPost</li>
+<li>etc,&#8230;</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T22:47:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2015</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,296 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RESTful Web API 読書メモ(3) - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Chapter 3. Resources and Representations RESTは、プロトコルでもファイルフォーマットでもフレームワークでもない。
+RESTは設計制約のセット ステートレス
+HATEOAS
+などなど HTTP, URI, HTMLを理解することは、 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">RESTful Web API 読書メモ(3)</h2>
+	<div class="entry-content"><h2>Chapter 3. Resources and Representations</h2>
+
+<!-- more -->
+
+<ul>
+<li>RESTは、プロトコルでもファイルフォーマットでもフレームワークでもない。</li>
+<li>RESTは設計制約のセット
+
+<ul>
+<li>ステートレス</li>
+<li>HATEOAS</li>
+<li>などなど</li>
+</ul></li>
+<li><p>HTTP, URI, HTMLを理解することは、REST制約を理解するための鍵となる</p>
+
+<ul>
+<li> HTTP, URI, HTMLの根底には、リソース、表現という概念がひそんでいる</li>
+<li>Clientにとって、Resourceがなにであるかは重要ではない。ClientはURLと結果の表現だけを見ているから</li>
+<li>表現とは、有益な形にリソースを加工したドキュメントであり、リソースの現在の状態をクライアントで読み取れるようにしたもの</li>
+</ul>
+
+<p>*GET
+* 表現の問い合わせ
+* POST, PUT, PATCH
+* 表現の提案</p></li>
+<li><p>リソースは一つ以上の表現をもつ</p>
+
+<ul>
+<li>言語(en, ja,&#8230;)</li>
+<li>フォーマット(JSON, XML,&#8230;)</li>
+<li>要約と全文</li>
+</ul></li>
+<li><p>クライアントからは、</p>
+
+<ul>
+<li>content negotiation</li>
+<li>一つのURLに複数のURI</li>
+</ul></li>
+</ul>
+
+<h3>プロトコルセマンティクス</h3>
+
+<ul>
+<li><p>リクエストメソッド</p>
+
+<ul>
+<li>GET
+
+<ul>
+<li>リソース表現を取得</li>
+<li> 安全でかつ冪等</li>
+<li>リソースの状態変更を期待する場面では使うべきでない</li>
+<li>よく使われるレスポンスコードは200(OK) or 301(Moved permanently)</li>
+<li>リソースがない場合、404(Not found)</li>
+<li>リソースが削除(DELETE)されていた場合、410(Gone)</li>
+</ul></li>
+<li>DELETE
+
+<ul>
+<li>リソースを破棄</li>
+<li>安全ではないが冪等</li>
+<li>よく使われるレスポンスコードは204(No content), 200(OK), 202(Accepted: 後で削除)</li>
+</ul></li>
+<li>POST(to append)
+
+<ul>
+<li>指定された表現でリソースを新規作成</li>
+<li>追記の場合のレスポンスコードは201(Created)</li>
+<li>201は作成されたリソースのURIを示すLocationヘッダをもつ</li>
+<li>作成はするがまだ完了していない場合、202(Accepted)が返される</li>
+<li>安全でもなく冪等でもない</li>
+</ul></li>
+<li>POST(overload)
+
+<ul>
+<li>PUT, DELETEの代わりに投げつける</li>
+</ul></li>
+<li>PUT
+
+<ul>
+<li>リソースを置き換える</li>
+<li>GETで取得し、修正してPUTで投げる</li>
+<li>リクエスト内容に不備があれば、サーバーは拒否する自由がある</li>
+<li>返されるステータスコードは、200(OK), 204(No content)</li>
+<li>冪等である</li>
+<li>既知のURLに新しいリソースを作成するためにも用いられる</li>
+<li>新規リソースを作成する場合でさえ冪等</li>
+</ul></li>
+<li>HEAD
+
+<ul>
+<li>リソースのヘッダレスポンスのみ返す</li>
+</ul></li>
+<li>OPTIONS
+
+<ul>
+<li>利用できるhttpメソッドの列挙</li>
+</ul></li>
+<li>CONNECT, TRACE
+
+<ul>
+<li>プロキシのためのもの</li>
+</ul></li>
+</ul></li>
+<li><p>RFC-5789</p>
+
+<ul>
+<li>PATCH
+
+<ul>
+<li>指定された表現に基づいてリソースの一部を修正する</li>
+<li>PUTとは異なり微調整が可能</li>
+<li>リクエストも変更対象の差分だけを送ることが可能</li>
+<li>変更後のリソースをクライアントに戻す場合、200(OK)を返す</li>
+<li>成功を伝えるだけであれば、304(No Content)を返す</li>
+</ul></li>
+</ul></li>
+<li><p>標準候補だった(RFC2068で入り、2616で破棄)</p>
+
+<ul>
+<li>LINK
+
+<ul>
+<li>別のリソースとリンクを張る</li>
+<li>安全ではないが冪等</li>
+<li>URLはLINKヘッダで指定</li>
+</ul></li>
+<li>UNLINK
+
+<ul>
+<li>別のリソースとのリンクを破棄する</li>
+<li> 安全ではないが冪等</li>
+<li>URLはLINKヘッダで指定</li>
+</ul></li>
+</ul></li>
+<li><p>WebDAV(RFC4918)</p>
+
+<ul>
+<li>COPY, MOVE, LOCKなど7つのメソッドを追加</li>
+</ul></li>
+<li><p>RESTful system</p>
+
+<ul>
+<li>独立したコンポーネント(サーバー、クライアント、キャッシュ、プロキシ)で構成されている</li>
+<li>HTTPのプロトコルセマンティクスの大半はHTTPメソッドとして定義されている</li>
+<li>APIをhtmlで記述する場合、メソッドはGET, POSTに制限される</li>
+<li>ファイルシステムGUIアプリなら、HTTP+WebDAVのメソッドが使われるだろう</li>
+<li>キャッシュやプロキシならPATCHメソッドの使用が考えられる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="/2015/03-08/restful-web-api-memo-04/">RESTful Web API 読書メモ(4)</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T22:11:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2015</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

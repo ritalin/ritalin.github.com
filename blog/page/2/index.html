@@ -7,7 +7,7 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content=" いくつか引っかかったので、忘れないうちにメモとして残しとく。 続きを読む・・・ Dec 20th, 2012 RhinoMocks, c#, tdd ">
+	<meta name="description" content=" TypeProvider実装のための記憶保管のためにメモとして残す 続きを読む・・・ Apr 4th, 2013 F# ">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -73,6 +73,186 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2013/04-04/type-provider-memo/">
+		
+			Type Provider Memo</a>
+	</h2>
+	<div class="entry-content">
+		<p>TypeProvider実装のための記憶保管のためにメモとして残す</p>
+
+
+		
+		<a href="/2013/04-04/type-provider-memo/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-04T23:04:00+09:00" pubdate data-updated="true">Apr 4<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/f-/'>F#</a>
+
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2013/03-22/mocha-testing-apart-from-js/">
+		
+			MochaでJavascript以外を指定してテストしたい</a>
+	</h2>
+	<div class="entry-content">
+		<p>Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
+が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。</p>
+
+
+		
+		<a href="/2013/03-22/mocha-testing-apart-from-js/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T20:01:00+09:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/node/'>node</a>, <a class='category' href='/blog/categories/test/'>test</a>
+
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2013/01-10/factory-method/">
+		
+			Factoryの具象クラスをインスタンスするのは誰？</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Simple Factory</h2>
+
+<p>というのが、デザインパターンとしてあるのですね。今日Twitter上のTLに流れてきて、気になってググってみたら、<a href="http://d.hatena.ne.jp/asakichy/20090414/1239718537">Strategic Choice</a>さんのブログに行き着きました。</p>
+
+<p>Factory Methodとの違いは、Factoryを具象クラス一本に絞ったという感じでしょうか。</p>
+
+
+		
+		<a href="/2013/01-10/factory-method/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-01-10T22:04:00+09:00" pubdate data-updated="true">Jan 10<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/design-pattern/'>design-pattern</a>
+
+
+</div>
+	
+</div></article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2012/12-27/pipelined-dci/">
+		
+			DCI (Data - Context - Interaction)のパイプライン化</a>
+	</h2>
+	<div class="entry-content">
+		<p>なんだか最近、DCIの話題が花盛りですね。</p>
+
+<p>さて、<a href="https://groups.google.com/forum/?fromgroups=#!topic/object-composition/u-aVj_FexM4">Google Group: object-composition</a>にて、DCIとMVCの関係について、面白い考察を行っている人がいます。</p>
+
+<p>曰く、Model表現をViewのための表現に変換するためのRole (Interaction) をContextに組み込むのはどうかと提起しています。</p>
+
+<p>私の中では、アプリケーションにおけるDCIの位置づけは、Modelのなかを覗き込んだときに、そこにいるものと思っています。</p>
+
+<p>Modelの中の構成体ゆえ、View表現を持つことはあまり良いものではないと考えています。
+しかし、View表現への変換をRoleとして組み込むのは面白いと思いました。</p>
+
+<p>そこで表題に繋がるわけですが、Model層を構成するDCIをより大きな、Dとみなし、そこにView表現に変換するRoleを組み込んだらどうなのかなと思いました。</p>
+
+
+		
+		<a href="/2012/12-27/pipelined-dci/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-27T21:56:00+09:00" pubdate data-updated="true">Dec 27<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/modeling/'>Modeling</a>
+
+
+</div>
+	
+</div></article>
 
 
     <article class="post">
@@ -1035,106 +1215,12 @@ namespace Common.Test {
 	
 </div></article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/11-30/usual-day/">
-		
-			立ててみた</a>
-	</h2>
-	<div class="entry-content">
-		<p>世間様では、明日から「あどべんと　かれんだー」なるものが同時多発的に行われるようですね。
-前からやってみたいなと思ってましたが、いつも時間が取れず見る側でした。</p>
-
-<p>今年は11月から、割とゆっくりとした進行だったので、参加ついでにgithub page作ってみました。
-（11月頭に作って、放置プレー状態でしたががが）</p>
-
-<p>今のところ、</p>
-
-<ul>
-<li>12/2 <a href="http://atnd.org/events/33905">C# Advent Calender 2012</a></li>
-<li>12/6 <a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>（予定）</li>
-<li>12/8 <a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a></li>
-</ul>
-
-<p>の３つを予定してます。
-まずはC# の記事をなんとか仕上げなければ（しろめ）</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-30T21:54:00+09:00" pubdate data-updated="true">Nov 30<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-</div>
-	
-</div></article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/11-11/test/">
-		
-			Test</a>
-	</h2>
-	<div class="entry-content">
-		<p>テスト本文</p>
-
-<ul>
-<li>りすと１</li>
-<li>りすと２</li>
-</ul>
-
-<p><img src="/images/items/mountain-lion.png" alt="Alt マウンテン獅子"></p>
-
-<p><img class="right" src="../../../images/items/20121217/step1.png" width="300" height="250" title="Step1" ></p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-11-11T16:22:00+09:00" pubdate data-updated="true">Nov 11<span>th</span>, 2012</time></div>
-	<div class="tags">
-
-</div>
-	
-</div></article>
-
 <nav id="pagenavi">
     
         <a href="/" class="prev">Prev</a>
     
+    
+        <a href="/blog/page/3/" class="next">Next</a>
     
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav></div>

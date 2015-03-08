@@ -1,0 +1,315 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RESTful Web API 読書メモ(4) - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Hypermedia ハイパーメディア リソースを互いに結びつけ合わせること
+将来発行することになるリクエストをサーバーがクライアントに伝える方法
+あたかもメニューのようなもの ハイパーメディアとしてのHTML リンクを選択すること = リンク先のリソースに&quot;visit&quot; &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">RESTful Web API 読書メモ(4)</h2>
+	<div class="entry-content"><h2>Hypermedia</h2>
+
+<!-- more -->
+
+<ul>
+<li><p>ハイパーメディア</p>
+
+<ul>
+<li>リソースを互いに結びつけ合わせること</li>
+<li>将来発行することになるリクエストをサーバーがクライアントに伝える方法</li>
+<li>あたかもメニューのようなもの</li>
+</ul></li>
+<li><p>ハイパーメディアとしてのHTML</p>
+
+<ul>
+<li>リンクを選択すること = リンク先のリソースに&quot;visit&quot;すること
+
+<ul>
+<li>表示されたリソースを新しいリソースで置き換えること</li>
+</ul></li>
+<li>aタグ
+
+<ul>
+<li>あるURLに対して、リンクを選択した場合のみ発行されるGETリクエストを発行するもの</li>
+<li>imgタグ
+
+<ul>
+<li>あるURLに対して、バックグラウンドで自動的にGETリクエストを発行するもの</li>
+</ul></li>
+<li>formタグ(method=POST)
+
+<ul>
+<li>あるURLに対して、submitした場合に、クライアントが生成したエンティティボディをもつPOSTリクエストを発行するもの</li>
+</ul></li>
+<li>formタグ(method=GET)
+
+<ul>
+<li>submitした場合に、クライアントが生成したクエリボディをもつURLにGETリクてを発行するもの</li>
+<li>human-readableなURLは作られない</li>
+<li>RFC6570, URI Templateを使うと、human-readableにできる</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>URIとURLの違い</p>
+
+<ul>
+<li>URL
+
+<ul>
+<li>リソースを見分けるための短い文字列</li>
+<li>URLはURIの一種</li>
+<li>RFC3986で標準化</li>
+<li>何らかの表現と関連づいてる</li>
+</ul></li>
+<li>URI
+
+<ul>
+<li>リソースを見分けるための短い文字列</li>
+<li>RFC3986で標準化</li>
+<li>表現をもつ保障はない</li>
+<li>URNもURIの一種</li>
+</ul></li>
+<li>URLなしでは、リソースを表現として得られない -&gt; REST制約を満たせない</li>
+<li>URNでリンクをつくってもハイパーメディア制約を満たせない</li>
+<li>URLであれば、REST制約を満たせる</li>
+</ul></li>
+<li><p>HTTPリクエストやレスポンスのLINKヘッダ(RFC5988)</p>
+
+<ul>
+<li>画像やただのplain textをハイパーメディアを付与する
+
+<ul>
+<li>画像であればスライドショー</li>
+<li>テキストであれば、本文の続き</li>
+</ul></li>
+</ul></li>
+<li><p>ハイパーメディアの仕事</p>
+
+<ul>
+<li>クライアントにHTTPリクエストの構築方法を伝達
+
+<ul>
+<li>aタグ: メソッド(暗黙的)とURL(明示的) を提示している</li>
+<li>formタグ: メソッド、URL、送信本文を提示
+
+<ul>
+<li>encType属性を付与することでContent-Typeヘッダを提示できる</li>
+</ul></li>
+<li>URI Template: URLを提示</li>
+</ul></li>
+<li>HTTPレスポンスについての約束事をとりつける
+
+<ul>
+<li>imgタグ:
+
+<ul>
+<li>aタグ同様GETリクエストとなることを提示</li>
+<li>サーバーがレスポンスとして画像を返すことを約束づけている</li>
+</ul></li>
+<li>AtomPubのlinkタグ
+
+<ul>
+<li>rel=&quot;edit&quot;の付与で、GETに加えPUT, DELETEのサポートを約束づけている</li>
+<li>AtomPub Member Entity表現がレスポンスとして返されることを約束づけている</li>
+</ul></li>
+</ul></li>
+<li>ワークフロー制御の提案
+
+<ul>
+<li>リソース間の関係を提示
+
+<ul>
+<li>aタグ
+
+<ul>
+<li>現在のページから指定されたURLのページに移動する</li>
+<li>out-bound リンク(アプリケーション状態を変化させる) </li>
+</ul></li>
+<li>imgタグ
+
+<ul>
+<li>embeddedリンク(アプリケーション状態を変化させない) </li>
+</ul></li>
+<li>scriptタグ
+
+<ul>
+<li>表現をダウンロードし、実行</li>
+</ul></li>
+<li>link rel=&quot;stylesheet&quot;
+
+<ul>
+<li>スタイルシートを適用する</li>
+</ul></li>
+<li>framesetタグ
+
+<ul>
+<li>別のhtmlドキュメントを埋め込む</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>ハイパーメディアの偽物にご用心</p>
+
+<ul>
+<li>JSONはハイパーメディアをサポートしていない。</li>
+<li>URLに見えても、仕様上、所詮ただの文字列</li>
+<li>web APIのレスポンスとして生JSONを使用することはREST制約を満たせない</li>
+<li>web APIのレスポンスにはハイパーメディアをサポートするmedia typeを使うべき</li>
+</ul></li>
+<li><p>imgタグとscriptタグもGETでリソース表現を取得する点でプロトコルセマンティクスや違いはない</p></li>
+<li><p>各々のタグから導かれるアプリケーションセマンティクスに従って処理を行う</p></li>
+</ul>
+
+<h3>Semantics Challenge</h3>
+
+<ul>
+<li>Webブラウザは、人との対話を通してリンク先を決定する</li>
+<li><p>いかにすれば、人の介在なしにこの振る舞いを実現できるのか？</p></li>
+<li><p>HTMLのimgタグも、scriptタグも、HTTPの観点では違いはない</p>
+
+<ul>
+<li>同一のプロトコルセマンティクスを持つ</li>
+<li>アプリケーションセマンティクスは異なるが・・・</li>
+</ul></li>
+<li><p>ドメイン特化アプリの場合、ハイパーメディアコントロールがセマンティクスギャップを埋める可能性を持つ</p>
+
+<ul>
+<li>画像収集アプリであれば、imgタグだけを踏み、scriptタグを無視する</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="/2015/03-08/restful-web-api-memo-05/">RESTful Web API 読書メモ(5)</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T22:15:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2015</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-08T20:35:56+09:00</updated>
+  <updated>2015-03-08T23:16:30+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,742 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[rRESTful Web API 読書メモ(6)]]></title>
+    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-06/"/>
+    <updated>2015-03-08T22:47:00+09:00</updated>
+    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-06</id>
+    <content type="html"><![CDATA[<h2>Chapter 6. The Collection Pattern</h2>
+
+<ul>
+<li>コレクションもまたリソース
+
+<ul>
+<li>  コレクションに含まれるリソースは&quot;item&quot;や&quot;entry&quot;、&quot;member&quot;と呼ばれる</li>
+</ul></li>
+<li>  Pagenation
+
+<ul>
+<li>  大量のコレクションメンバーを持つ場合、全てを一度に返すことは通常しない</li>
+<li>  最初の一部だけをコレクションとして返し、残りはrel=&quot;next&quot;を付与したリンクだけを提供する
+
+<ul>
+<li>  nextはIANAで登録されている</li>
+<li>  ほかにprev, first, lastもIANAで定義されている</li>
+</ul></li>
+<li>  Collection+JSONはリレーションを明示的にサポートしてはいない
+
+<ul>
+<li>  必要ならリレーションを組み込めばいい</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>Collection+JSON</h3>
+
+<ul>
+<li>問題領域とは独立した汎用フォーマット</li>
+<li>手軽にREST制約を組み込める</li>
+<li>httpを介して取得するリソースのためのプロトコルセマンティクス</li>
+<li>プロパティ
+
+<ul>
+<li>href
+
+<ul>
+<li>コレクション自身へのリンク</li>
+</ul></li>
+<li>items
+
+<ul>
+<li>コレクションの要素</li>
+<li>アプリケーション特化データの集合
+
+<ul>
+<li>href
+
+<ul>
+<li>要素へのリンク</li>
+<li>GETリクエストで単独のリソースとして取得できる</li>
+<li>PUTやDELETEで変更、削除</li>
+</ul></li>
+<li>links
+
+<ul>
+<li>要素に関連するほかのリソースへのリンク</li>
+<li>例えば、本リソースに対する著者、出版社等</li>
+<li>render=&quot;link&quot;
+
+<ul>
+<li></li>
+</ul></li>
+<li>render=&quot;image&quot;
+
+<ul>
+<li></li>
+</ul></li>
+</ul></li>
+<li>data
+
+<ul>
+<li>要素を構成する内容</li>
+<li>アプリケーションセマンティクスの要</li>
+<li>&quot;name&quot;と&quot;value&quot;から成るJSONオブジェクトの集合</li>
+<li>各ペアには備考として&quot;prompt&quot;をもたせられる</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>links
+
+<ul>
+<li>コレクションに関連するほかの要素</li>
+</ul></li>
+<li>queries
+
+<ul>
+<li>コレクションを検索するためのテンプレート</li>
+</ul></li>
+<li>templates
+
+<ul>
+<li>コレクションに新しい要素を加えるためのテンプレート</li>
+</ul></li>
+<li>error
+
+<ul>
+<li>エラーメッセージ</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>AtomPub</h3>
+
+<ul>
+<li>Atomフォーマット
+
+<ul>
+<li>RSSに代わり、ニュースを同報する仕組みとしてRFC4287で標準化</li>
+<li>ニュース記事を一つ以上のカテゴリに分類できる</li>
+</ul></li>
+<li>AtomPubはニュースを編集 / 発行(CRUD)などを行うためのAtomフォーマットを使ったワークフロー(RFC5023)</li>
+<li>media-typeはapplication/atom+xml</li>
+<li>新しいエントリーはURIにPOSTすることで行う</li>
+<li>リンクにrel=&quot;edit&quot;を付与することで編集可能なエントリーであることを示す(PUTサポート) </li>
+<li>Collection+JSONと同じコンセプトをもつ
+
+<ul>
+<li>コレクション要素は&quot;item&quot; -&gt; &quot;feed&quot;</li>
+<li>Collection+JSONは汎用フォーマットなので、itemに特別なアプリケーションセマンティクスわ定義していない</li>
+<li>AtomPubはニュース配信プロトコルなので、エントリーはニュース記事</li>
+</ul></li>
+<li>コレクションパターンのプラグイン基盤としても用いられる
+
+<ul>
+<li>Atom Threading Extension
+
+<ul>
+<li>RFC4685</li>
+<li>メールスレッド表現</li>
+<li>rel=&quot;replies&quot;</li>
+</ul></li>
+<li>Atom deleted entry element
+
+<ul>
+<li>RFC6721</li>
+<li>エントリーを削除するのではなく墓石を置削除扱いとする</li>
+</ul></li>
+<li>Feed Paging and Archiving
+
+<ul>
+<li>RFC5005</li>
+<li>アーカイブフィードコンセプトを定義</li>
+<li>複数のリソースをまたがるきょだなフィードをPagingする方法</li>
+<li>rel属性として、next-archive, prev-archive, currentを使う</li>
+</ul></li>
+<li>OpenSearch
+
+<ul>
+<li>xmlベースの検索プロトコル標準</li>
+<li>rel=&quot;search&quot;</li>
+<li>Collection+JSONにおけるqueriesプロパティど同等のもの</li>
+</ul></li>
+<li>PubSubHubbub
+
+<ul>
+<li>Atomフィードが更新されたときに通知を行うためのプロトコル</li>
+<li>rel=&quot;hub&quot;</li>
+</ul></li>
+<li>これらのリレーションは全てIANAに登録されている
+
+<ul>
+<li>何の説明もなく使用できる</li>
+</ul></li>
+</ul></li>
+<li>プロパティ
+
+<ul>
+<li>feed
+
+<ul>
+<li>ID
+
+<ul>
+<li>一意的にニュースを識別するためのもの</li>
+</ul></li>
+<li>title
+
+<ul>
+<li>見出し</li>
+</ul></li>
+<li>subtitle</li>
+<li>author</li>
+<li>date, time
+
+<ul>
+<li>発行日時 / 最終更新日時</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>アプリケーションセマンティクスのためにプロパティを拡張することが認められている
+
+<ul>
+<li>Googleでは、マップ上のシンボル、カレンダー、スプレッドシートのセル、ビデオ用に付加的な表現を拡張している(GData)</li>
+</ul></li>
+</ul>
+
+<h3>OData</h3>
+
+<ul>
+<li>AtomPubベース</li>
+<li>MSが協力しているのでVisual studioから使いやすい</li>
+</ul>
+
+<h3>Hydra</h3>
+
+<ul>
+<li>あまり表舞台では見かけない</li>
+</ul>
+
+<h3>Semantics Challenge</h3>
+
+<ul>
+<li><p>ドメイン特化なフォーマットの場合(MAZE+xml)</p>
+
+<ul>
+<li>カスタムタイプ、リンクリレーションがセマンティクスギャップを埋める
+
+<ul>
+<li>カスタム定義したハイパーメディアタイプ</li>
+<li>問題空間のために定義されたリンクリレーション</li>
+</ul></li>
+</ul></li>
+<li><p>コレクションパターンは2種類のリソースタイプに大別される</p>
+
+<ul>
+<li>item-type
+
+<ul>
+<li>GET, PUT, DELETE</li>
+<li>内容+ item自身へのリンクをもつ</li>
+</ul></li>
+<li>collection-type
+
+<ul>
+<li>GET, POST(as append)</li>
+<li>item-typeリソースをメンバーとしてもつ</li>
+</ul></li>
+</ul></li>
+<li><p>collection-typeはリンクリレーションによるナビゲーションでアプリケーションセマンティクスを定義する</p>
+
+<ul>
+<li>first, next, search</li>
+</ul></li>
+<li><p>item-type</p>
+
+<ul>
+<li>一般的に定義されたアプリケーションセマンティクスはない</li>
+<li>Collection+JSON
+
+<ul>
+<li>item-typeリソースの意味は、prompt要素にhuman-readableな説明として記述される</li>
+</ul></li>
+</ul></li>
+<li><p>同じドメインでも、APIが異なれば、アプリケーションセマンティクスは異なる</p>
+
+<ul>
+<li>text or content</li>
+<li>post ot blogPost</li>
+<li>etc,&#8230;</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[ESTful Web API 読書メモ(5)]]></title>
+    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-05/"/>
+    <updated>2015-03-08T22:19:00+09:00</updated>
+    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-05</id>
+    <content type="html"><![CDATA[<h2>Chapter.5 Domain-Specific Designs</h2>
+
+<ul>
+<li> ドメイン特化設計
+
+<ul>
+<li>ドメイン特化のmedia-typeではなく、一般的なmedia-typeにアプリケーションセマンティクスを加える方が良い
+
+<ul>
+<li>Aplication/vnd.xxx.Maze+XML</li>
+</ul></li>
+<li>API設計する際に平均的な開発者が最初に選択する</li>
+<li>RFC5988
+
+<ul>
+<li>リンク間の関係を定義</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<ul>
+<li>Maze+XMLでスタート地点を得るためにAPI callメタファを使うと
+
+<ul>
+<li>迷路一覧をGET
+
+<ul>
+<li>rel=&quot;maze&quot;で対象の迷路が判明</li>
+</ul></li>
+<li>対象の迷路をGET
+
+<ul>
+<li>rel=&quot;start&quot;でエントランスが判明</li>
+</ul></li>
+<li>迷路のエントランスセルをGET
+
+<ul>
+<li>relで各方角のセルが判明</li>
+</ul></li>
+</ul></li>
+<li>API callメタファ
+
+<ul>
+<li>サーバーの実装の詳細が露出しがちになる</li>
+<li>サーバーとクライアントが密結合となる</li>
+<li>APIをおいそれと修正出来なくなる</li>
+</ul></li>
+<li><p>ドメイン特化API</p>
+
+<ul>
+<li>作成者
+
+<ul>
+<li>human-readableな仕様を書く</li>
+<li>その仕様にmedia-typeを関連付けIANAに登録する</li>
+</ul></li>
+<li>利用者
+
+<ul>
+<li>IANAレジストリで未知のmedia-typeを探す</li>
+<li>登録された仕様を読み、利用方法を学ぶ</li>
+</ul></li>
+</ul></li>
+<li><p>クライアント</p>
+
+<ul>
+<li>human-driven</li>
+<li>clawler
+
+<ul>
+<li>全てのハイパーメディアをたどる</li>
+</ul></li>
+<li>script
+
+<ul>
+<li>最初に遭遇したハイパーメディアのみをたどる</li>
+</ul></li>
+<li>monitor
+
+<ul>
+<li>ハイパーメディアを列挙する</li>
+</ul></li>
+<li>agent
+
+<ul>
+<li>アルゴリズムを基づき、ハイパーメディアを取捨選択する</li>
+</ul></li>
+</ul></li>
+<li><p>自動化されたクライアントは、ハイパーメディアAPIのメリットを最も享受できる</p>
+
+<ul>
+<li>ゴールが見えている</li>
+<li>ゴールへのみちが示されている</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-06/">RESTful Web API 読書メモ(6)</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web API 読書メモ(4)]]></title>
+    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-04/"/>
+    <updated>2015-03-08T22:15:00+09:00</updated>
+    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-04</id>
+    <content type="html"><![CDATA[<h2>Hypermedia</h2>
+
+<!-- more -->
+
+<ul>
+<li><p>ハイパーメディア</p>
+
+<ul>
+<li>リソースを互いに結びつけ合わせること</li>
+<li>将来発行することになるリクエストをサーバーがクライアントに伝える方法</li>
+<li>あたかもメニューのようなもの</li>
+</ul></li>
+<li><p>ハイパーメディアとしてのHTML</p>
+
+<ul>
+<li>リンクを選択すること = リンク先のリソースに&quot;visit&quot;すること
+
+<ul>
+<li>表示されたリソースを新しいリソースで置き換えること</li>
+</ul></li>
+<li>aタグ
+
+<ul>
+<li>あるURLに対して、リンクを選択した場合のみ発行されるGETリクエストを発行するもの</li>
+<li>imgタグ
+
+<ul>
+<li>あるURLに対して、バックグラウンドで自動的にGETリクエストを発行するもの</li>
+</ul></li>
+<li>formタグ(method=POST)
+
+<ul>
+<li>あるURLに対して、submitした場合に、クライアントが生成したエンティティボディをもつPOSTリクエストを発行するもの</li>
+</ul></li>
+<li>formタグ(method=GET)
+
+<ul>
+<li>submitした場合に、クライアントが生成したクエリボディをもつURLにGETリクてを発行するもの</li>
+<li>human-readableなURLは作られない</li>
+<li>RFC6570, URI Templateを使うと、human-readableにできる</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>URIとURLの違い</p>
+
+<ul>
+<li>URL
+
+<ul>
+<li>リソースを見分けるための短い文字列</li>
+<li>URLはURIの一種</li>
+<li>RFC3986で標準化</li>
+<li>何らかの表現と関連づいてる</li>
+</ul></li>
+<li>URI
+
+<ul>
+<li>リソースを見分けるための短い文字列</li>
+<li>RFC3986で標準化</li>
+<li>表現をもつ保障はない</li>
+<li>URNもURIの一種</li>
+</ul></li>
+<li>URLなしでは、リソースを表現として得られない -&gt; REST制約を満たせない</li>
+<li>URNでリンクをつくってもハイパーメディア制約を満たせない</li>
+<li>URLであれば、REST制約を満たせる</li>
+</ul></li>
+<li><p>HTTPリクエストやレスポンスのLINKヘッダ(RFC5988)</p>
+
+<ul>
+<li>画像やただのplain textをハイパーメディアを付与する
+
+<ul>
+<li>画像であればスライドショー</li>
+<li>テキストであれば、本文の続き</li>
+</ul></li>
+</ul></li>
+<li><p>ハイパーメディアの仕事</p>
+
+<ul>
+<li>クライアントにHTTPリクエストの構築方法を伝達
+
+<ul>
+<li>aタグ: メソッド(暗黙的)とURL(明示的) を提示している</li>
+<li>formタグ: メソッド、URL、送信本文を提示
+
+<ul>
+<li>encType属性を付与することでContent-Typeヘッダを提示できる</li>
+</ul></li>
+<li>URI Template: URLを提示</li>
+</ul></li>
+<li>HTTPレスポンスについての約束事をとりつける
+
+<ul>
+<li>imgタグ:
+
+<ul>
+<li>aタグ同様GETリクエストとなることを提示</li>
+<li>サーバーがレスポンスとして画像を返すことを約束づけている</li>
+</ul></li>
+<li>AtomPubのlinkタグ
+
+<ul>
+<li>rel=&quot;edit&quot;の付与で、GETに加えPUT, DELETEのサポートを約束づけている</li>
+<li>AtomPub Member Entity表現がレスポンスとして返されることを約束づけている</li>
+</ul></li>
+</ul></li>
+<li>ワークフロー制御の提案
+
+<ul>
+<li>リソース間の関係を提示
+
+<ul>
+<li>aタグ
+
+<ul>
+<li>現在のページから指定されたURLのページに移動する</li>
+<li>out-bound リンク(アプリケーション状態を変化させる) </li>
+</ul></li>
+<li>imgタグ
+
+<ul>
+<li>embeddedリンク(アプリケーション状態を変化させない) </li>
+</ul></li>
+<li>scriptタグ
+
+<ul>
+<li>表現をダウンロードし、実行</li>
+</ul></li>
+<li>link rel=&quot;stylesheet&quot;
+
+<ul>
+<li>スタイルシートを適用する</li>
+</ul></li>
+<li>framesetタグ
+
+<ul>
+<li>別のhtmlドキュメントを埋め込む</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>ハイパーメディアの偽物にご用心</p>
+
+<ul>
+<li>JSONはハイパーメディアをサポートしていない。</li>
+<li>URLに見えても、仕様上、所詮ただの文字列</li>
+<li>web APIのレスポンスとして生JSONを使用することはREST制約を満たせない</li>
+<li>web APIのレスポンスにはハイパーメディアをサポートするmedia typeを使うべき</li>
+</ul></li>
+<li><p>imgタグとscriptタグもGETでリソース表現を取得する点でプロトコルセマンティクスや違いはない</p></li>
+<li><p>各々のタグから導かれるアプリケーションセマンティクスに従って処理を行う</p></li>
+</ul>
+
+<h3>Semantics Challenge</h3>
+
+<ul>
+<li>Webブラウザは、人との対話を通してリンク先を決定する</li>
+<li><p>いかにすれば、人の介在なしにこの振る舞いを実現できるのか？</p></li>
+<li><p>HTMLのimgタグも、scriptタグも、HTTPの観点では違いはない</p>
+
+<ul>
+<li>同一のプロトコルセマンティクスを持つ</li>
+<li>アプリケーションセマンティクスは異なるが・・・</li>
+</ul></li>
+<li><p>ドメイン特化アプリの場合、ハイパーメディアコントロールがセマンティクスギャップを埋める可能性を持つ</p>
+
+<ul>
+<li>画像収集アプリであれば、imgタグだけを踏み、scriptタグを無視する</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-05/">RESTful Web API 読書メモ(5)</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web API 読書メモ(3)]]></title>
+    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-03/"/>
+    <updated>2015-03-08T22:11:00+09:00</updated>
+    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-03</id>
+    <content type="html"><![CDATA[<h2>Chapter 3. Resources and Representations</h2>
+
+<!-- more -->
+
+<ul>
+<li>RESTは、プロトコルでもファイルフォーマットでもフレームワークでもない。</li>
+<li>RESTは設計制約のセット
+
+<ul>
+<li>ステートレス</li>
+<li>HATEOAS</li>
+<li>などなど</li>
+</ul></li>
+<li><p>HTTP, URI, HTMLを理解することは、REST制約を理解するための鍵となる</p>
+
+<ul>
+<li> HTTP, URI, HTMLの根底には、リソース、表現という概念がひそんでいる</li>
+<li>Clientにとって、Resourceがなにであるかは重要ではない。ClientはURLと結果の表現だけを見ているから</li>
+<li>表現とは、有益な形にリソースを加工したドキュメントであり、リソースの現在の状態をクライアントで読み取れるようにしたもの</li>
+</ul>
+
+<p>*GET
+* 表現の問い合わせ
+* POST, PUT, PATCH
+* 表現の提案</p></li>
+<li><p>リソースは一つ以上の表現をもつ</p>
+
+<ul>
+<li>言語(en, ja,&#8230;)</li>
+<li>フォーマット(JSON, XML,&#8230;)</li>
+<li>要約と全文</li>
+</ul></li>
+<li><p>クライアントからは、</p>
+
+<ul>
+<li>content negotiation</li>
+<li>一つのURLに複数のURI</li>
+</ul></li>
+</ul>
+
+<h3>プロトコルセマンティクス</h3>
+
+<ul>
+<li><p>リクエストメソッド</p>
+
+<ul>
+<li>GET
+
+<ul>
+<li>リソース表現を取得</li>
+<li> 安全でかつ冪等</li>
+<li>リソースの状態変更を期待する場面では使うべきでない</li>
+<li>よく使われるレスポンスコードは200(OK) or 301(Moved permanently)</li>
+<li>リソースがない場合、404(Not found)</li>
+<li>リソースが削除(DELETE)されていた場合、410(Gone)</li>
+</ul></li>
+<li>DELETE
+
+<ul>
+<li>リソースを破棄</li>
+<li>安全ではないが冪等</li>
+<li>よく使われるレスポンスコードは204(No content), 200(OK), 202(Accepted: 後で削除)</li>
+</ul></li>
+<li>POST(to append)
+
+<ul>
+<li>指定された表現でリソースを新規作成</li>
+<li>追記の場合のレスポンスコードは201(Created)</li>
+<li>201は作成されたリソースのURIを示すLocationヘッダをもつ</li>
+<li>作成はするがまだ完了していない場合、202(Accepted)が返される</li>
+<li>安全でもなく冪等でもない</li>
+</ul></li>
+<li>POST(overload)
+
+<ul>
+<li>PUT, DELETEの代わりに投げつける</li>
+</ul></li>
+<li>PUT
+
+<ul>
+<li>リソースを置き換える</li>
+<li>GETで取得し、修正してPUTで投げる</li>
+<li>リクエスト内容に不備があれば、サーバーは拒否する自由がある</li>
+<li>返されるステータスコードは、200(OK), 204(No content)</li>
+<li>冪等である</li>
+<li>既知のURLに新しいリソースを作成するためにも用いられる</li>
+<li>新規リソースを作成する場合でさえ冪等</li>
+</ul></li>
+<li>HEAD
+
+<ul>
+<li>リソースのヘッダレスポンスのみ返す</li>
+</ul></li>
+<li>OPTIONS
+
+<ul>
+<li>利用できるhttpメソッドの列挙</li>
+</ul></li>
+<li>CONNECT, TRACE
+
+<ul>
+<li>プロキシのためのもの</li>
+</ul></li>
+</ul></li>
+<li><p>RFC-5789</p>
+
+<ul>
+<li>PATCH
+
+<ul>
+<li>指定された表現に基づいてリソースの一部を修正する</li>
+<li>PUTとは異なり微調整が可能</li>
+<li>リクエストも変更対象の差分だけを送ることが可能</li>
+<li>変更後のリソースをクライアントに戻す場合、200(OK)を返す</li>
+<li>成功を伝えるだけであれば、304(No Content)を返す</li>
+</ul></li>
+</ul></li>
+<li><p>標準候補だった(RFC2068で入り、2616で破棄)</p>
+
+<ul>
+<li>LINK
+
+<ul>
+<li>別のリソースとリンクを張る</li>
+<li>安全ではないが冪等</li>
+<li>URLはLINKヘッダで指定</li>
+</ul></li>
+<li>UNLINK
+
+<ul>
+<li>別のリソースとのリンクを破棄する</li>
+<li> 安全ではないが冪等</li>
+<li>URLはLINKヘッダで指定</li>
+</ul></li>
+</ul></li>
+<li><p>WebDAV(RFC4918)</p>
+
+<ul>
+<li>COPY, MOVE, LOCKなど7つのメソッドを追加</li>
+</ul></li>
+<li><p>RESTful system</p>
+
+<ul>
+<li>独立したコンポーネント(サーバー、クライアント、キャッシュ、プロキシ)で構成されている</li>
+<li>HTTPのプロトコルセマンティクスの大半はHTTPメソッドとして定義されている</li>
+<li>APIをhtmlで記述する場合、メソッドはGET, POSTに制限される</li>
+<li>ファイルシステムGUIアプリなら、HTTP+WebDAVのメソッドが使われるだろう</li>
+<li>キャッシュやプロキシならPATCHメソッドの使用が考えられる</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-04/">RESTful Web API 読書メモ(4)</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RESTful Web API 読書メモ(2)]]></title>
@@ -71,7 +807,7 @@
 
 <ul>
 <li>Publishing APIの目的で用いることができるフォーマット</li>
-<li>6章参照</li>
+<li><a href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-06/">6章参照</a></li>
 <li>利用可能なリソースの一覧を発行するための標準</li>
 <li>collection, items, valueのそれぞれにhrefプロパティをもつ</li>
 <li>リスト、明細、フォームテンプレート、検索結果のいづれでも同じフォーマット</li>
@@ -107,7 +843,11 @@
 <li><p>あえてセマンティクスギャップを広げることで、APIに差別化をもたらすことができるかもしれない</p></li>
 </ul>
 
+<hr>
+
 <h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-03/">RESTful Web API 読書メモ(3)</a></p>
 ]]></content>
   </entry>
   
@@ -169,7 +909,7 @@
 <li>DELETE</li>
 </ul>
 
-<p>3章参照</p></li>
+<p><a href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-03/">3章参照</a></p></li>
 </ul>
 
 <h3>Application State</h3>
@@ -2168,48 +2908,6 @@ namespace Common.Test {
 <p>モナドとかよく分からないですので、写経元見てもらった方がいいと思います。</p>
 
 <p>以上、淡々と並べてみました。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[立ててみた]]></title>
-    <link href="http://ritalin.github.com/2012/11-30/usual-day/"/>
-    <updated>2012-11-30T21:54:00+09:00</updated>
-    <id>http://ritalin.github.com/2012/11-30/usual-day</id>
-    <content type="html"><![CDATA[<p>世間様では、明日から「あどべんと　かれんだー」なるものが同時多発的に行われるようですね。
-前からやってみたいなと思ってましたが、いつも時間が取れず見る側でした。</p>
-
-<p>今年は11月から、割とゆっくりとした進行だったので、参加ついでにgithub page作ってみました。
-（11月頭に作って、放置プレー状態でしたががが）</p>
-
-<p>今のところ、</p>
-
-<ul>
-<li>12/2 <a href="http://atnd.org/events/33905">C# Advent Calender 2012</a></li>
-<li>12/6 <a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>（予定）</li>
-<li>12/8 <a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a></li>
-</ul>
-
-<p>の３つを予定してます。
-まずはC# の記事をなんとか仕上げなければ（しろめ）</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[test]]></title>
-    <link href="http://ritalin.github.com/2012/11-11/test/"/>
-    <updated>2012-11-11T16:22:00+09:00</updated>
-    <id>http://ritalin.github.com/2012/11-11/test</id>
-    <content type="html"><![CDATA[<p>テスト本文</p>
-
-<ul>
-<li>りすと１</li>
-<li>りすと２</li>
-</ul>
-
-<p><img src="http://ritalin.github.com/images/items/mountain-lion.png" alt="Alt マウンテン獅子"></p>
-
-<p><img class="right" src="../../../images/items/20121217/step1.png" width="300" height="250" title="Step1" ></p>
 ]]></content>
   </entry>
   

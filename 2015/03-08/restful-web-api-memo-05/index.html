@@ -1,0 +1,240 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ESTful Web API 読書メモ(5) - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Chapter.5 Domain-Specific Designs ドメイン特化設計 ドメイン特化のmedia-typeではなく、一般的なmedia-typeにアプリケーションセマンティクスを加える方が良い Aplication/vnd.xxx.Maze+XML &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">ESTful Web API 読書メモ(5)</h2>
+	<div class="entry-content"><h2>Chapter.5 Domain-Specific Designs</h2>
+
+<ul>
+<li> ドメイン特化設計
+
+<ul>
+<li>ドメイン特化のmedia-typeではなく、一般的なmedia-typeにアプリケーションセマンティクスを加える方が良い
+
+<ul>
+<li>Aplication/vnd.xxx.Maze+XML</li>
+</ul></li>
+<li>API設計する際に平均的な開発者が最初に選択する</li>
+<li>RFC5988
+
+<ul>
+<li>リンク間の関係を定義</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<ul>
+<li>Maze+XMLでスタート地点を得るためにAPI callメタファを使うと
+
+<ul>
+<li>迷路一覧をGET
+
+<ul>
+<li>rel=&quot;maze&quot;で対象の迷路が判明</li>
+</ul></li>
+<li>対象の迷路をGET
+
+<ul>
+<li>rel=&quot;start&quot;でエントランスが判明</li>
+</ul></li>
+<li>迷路のエントランスセルをGET
+
+<ul>
+<li>relで各方角のセルが判明</li>
+</ul></li>
+</ul></li>
+<li>API callメタファ
+
+<ul>
+<li>サーバーの実装の詳細が露出しがちになる</li>
+<li>サーバーとクライアントが密結合となる</li>
+<li>APIをおいそれと修正出来なくなる</li>
+</ul></li>
+<li><p>ドメイン特化API</p>
+
+<ul>
+<li>作成者
+
+<ul>
+<li>human-readableな仕様を書く</li>
+<li>その仕様にmedia-typeを関連付けIANAに登録する</li>
+</ul></li>
+<li>利用者
+
+<ul>
+<li>IANAレジストリで未知のmedia-typeを探す</li>
+<li>登録された仕様を読み、利用方法を学ぶ</li>
+</ul></li>
+</ul></li>
+<li><p>クライアント</p>
+
+<ul>
+<li>human-driven</li>
+<li>clawler
+
+<ul>
+<li>全てのハイパーメディアをたどる</li>
+</ul></li>
+<li>script
+
+<ul>
+<li>最初に遭遇したハイパーメディアのみをたどる</li>
+</ul></li>
+<li>monitor
+
+<ul>
+<li>ハイパーメディアを列挙する</li>
+</ul></li>
+<li>agent
+
+<ul>
+<li>アルゴリズムを基づき、ハイパーメディアを取捨選択する</li>
+</ul></li>
+</ul></li>
+<li><p>自動化されたクライアントは、ハイパーメディアAPIのメリットを最も享受できる</p>
+
+<ul>
+<li>ゴールが見えている</li>
+<li>ゴールへのみちが示されている</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="/2015/03-08/restful-web-api-memo-06/">RESTful Web API 読書メモ(6)</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T22:19:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2015</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
