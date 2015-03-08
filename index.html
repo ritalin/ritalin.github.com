@@ -7,8 +7,7 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="Chapter 2. A Simple API GETリクエスト リソース状態の変更は意図しない アクセスカウンタやログ保存のような付随した事象の変更はOK 安全なメソッド
-過去にGETリクエストで、リソース状態の変更がしばしば行われていたが、これは間違った設計 レスポンス status &hellip;">
+	<meta name="description" content=" Chapter 2. A Simple API 続きを読む・・・ Mar 8th, 2015 rest ">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -86,93 +85,9 @@
 	<div class="entry-content">
 		<h2>Chapter 2. A Simple API</h2>
 
-<h3>GETリクエスト</h3>
-
-<ul>
-<li>リソース状態の変更は意図しない
-
-<ul>
-<li>アクセスカウンタやログ保存のような付随した事象の変更はOK</li>
-</ul></li>
-<li><p>安全なメソッド</p></li>
-<li><p>過去にGETリクエストで、リソース状態の変更がしばしば行われていたが、これは間違った設計</p></li>
-</ul>
-
-<h3>レスポンス</h3>
-
-<ul>
-<li>status code
-
-<ul>
-<li>リクエストがどう処理されたかという結果をクライアントに知らせる</li>
-</ul></li>
-<li>entity-body
-
-<ul>
-<li>ドキュメント本体</li>
-</ul></li>
-<li>レスポンスヘッダ
-
-<ul>
-<li>entity-bodyを記述するためのKey-Valueペア</li>
-<li>status codeの後、entity-bodyの前に送られる</li>
-<li>content-type
-
-<ul>
-<li>どんなentity-bodyが返されたかクライアントに知らせる</li>
-<li>media-type</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<h4>JSON</h4>
-
-<ul>
-<li>APIレスポンスの表現として用いられるフォーマット(RFC4627)</li>
-</ul>
-
-<h4>Collection+JSON</h4>
-
-<ul>
-<li>Publishing APIの目的で用いることができるフォーマット</li>
-<li>6章参照</li>
-<li>利用可能なリソースの一覧を発行するための標準</li>
-<li>collection, items, valueのそれぞれにhrefプロパティをもつ</li>
-<li>リスト、明細、フォームテンプレート、検索結果のいづれでも同じフォーマット</li>
-<li><p>hrefと名付けられたとき、その内容はかならずURI</p></li>
-<li><p>Collection+JSONを使った、itemの追加</p>
-
-<ul>
-<li>template構造に基づいて、内容を埋める
-
-<ul>
-<li>content-type: application/vnd. collection+jsonでPOSTリクエストを発行する</li>
-<li>成功したら、ステータスコード201を返す</li>
-<li>また、レスポンスには新しいリソースのURIを含めておく</li>
-<li>新しく作成されたリソースもまたGETリクエストで取得すると、それもまた、Collection+JSON</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<h3>POSTリクエスト</h3>
-
-<p>（なんかまとめづらい内容なので省略）</p>
-
-<h3>アプリケーションセマンティクスがセマンティクスギャップを作ること</h3>
-
-<ul>
-<li><p>アプリケーションセマンティクス</p>
-
-<ul>
-<li>アプリケーション特有の構造</li>
-<li>media-typeのフォーマットとしては規定されていない構造</li>
-</ul></li>
-<li><p>標準化された、もしくは互いに合意されたアプリケーションセマンティクスであれば、セマンティクスギャップ消失する</p></li>
-<li><p>あえてセマンティクスギャップを広げることで、APIに差別化をもたらすことができるかもしれない</p></li>
-</ul>
 
 		
-		
+		<a href="/2015/03-08/restful-web-api-memo-02/" class="more-link">続きを読む・・・</a>
 	</div>
 
 
@@ -215,119 +130,9 @@
 <li>Webは分散コンピューティングの力を秘めている</li>
 </ul>
 
-<h3>Webを形作るテクノロジ</h3>
-
-<ul>
-<li>URL
-
-<ul>
-<li>リソースの識別子</li>
-</ul></li>
-<li>HTTPプロトコル
-
-<ul>
-<li>URLにHTTPリクエストを投げ、リソースを表現として取得する</li>
-</ul></li>
-<li>HTMLフォーマット</li>
-</ul>
-
-<h3>Addressability</h3>
-
-<p>すべてのリソースが自身を時期別するURLを持つこと</p>
-
-<h3>自己記述性メッセージ</h3>
-
-<p>Webはリンクを介した対話を提供する</p>
-
-<h3>標準化されたメソッド</h3>
-
-<ul>
-<li><p>HTTPメソッド(RFC2616)</p>
-
-<ul>
-<li>GET
-
-<ul>
-<li>リソースの表現を交換すること
-
-<ul>
-<li>表現 = リソース状態を時にはtextで、時には画像として、求められた形で返すこと</li>
-</ul></li>
-</ul></li>
-<li>HEAD</li>
-<li>POST</li>
-<li>PUT</li>
-<li>DELETE</li>
-</ul>
-
-<p>3章参照</p></li>
-</ul>
-
-<h3>Application State</h3>
-
-<p>クライアントサイドの状態</p>
-
-<ul>
-<li><p>アプリケーション状態はユーザーからのインタラクション、またはサーバーからの応答で更新されて</p></li>
-<li><p>例</p>
-
-<ul>
-<li>マイクロブログに投稿する内容</li>
-<li>選択したチェックボックス</li>
-<li>カートの中身</li>
-</ul></li>
-</ul>
-
-<h3>Resource state</h3>
-
-<p>サーバーサイドの状態</p>
-
-<ul>
-<li><p>クライアントは直接リソース状態を制御できない</p>
-
-<ul>
-<li>クライアントに保持されるアプリケーション状態と、サーバーに保存されたリソース状態を交換することで間接的に制御</li>
-</ul></li>
-<li><p>例</p>
-
-<ul>
-<li>リソースに記録された内容</li>
-<li>投稿された内容</li>
-<li>ある日時の天気</li>
-</ul></li>
-</ul>
-
-<h3>Connectedness</h3>
-
-<p>wwwは連結性(connectedness)の原理で動いている(HATEOASと呼ばれる)</p>
-
-<p>HATEOAS = hypermedia as the engine of application state</p>
-
-<p>hypermedia = アプリケーション状態のエンジン = linkをクリックしたり、formから提出すること</p>
-
-<h3>REST APIの問題点</h3>
-
-<ul>
-<li>しばしば別の、Human-readableドキュメントでAPIの利用方法が説明される
-
-<ul>
-<li>自己記述性メッセージとConnectednessの原則を破壊する</li>
-</ul></li>
-<li>サイトが変更されても、古いクライアントアプリでも動くよう後方互換性をもたせるべき</li>
-</ul>
-
-<h3>Semantic Challenge</h3>
-
-<ul>
-<li>Web APIの最大の挑戦
-
-<ul>
-<li>ドキュメント構造の理解と、その意味を理解することの間のセマンティクスギャップを埋めること</li>
-</ul></li>
-</ul>
 
 		
-		
+		<a href="/2015/03-08/restful-web-api-memo-01/" class="more-link">続きを読む・・・</a>
 	</div>
 
 
