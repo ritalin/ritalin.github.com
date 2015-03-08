@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.com/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-08T20:08:07+09:00</updated>
+  <updated>2015-03-08T20:34:08+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -106,6 +106,8 @@
 <li><p>標準化された、もしくは互いに合意されたアプリケーションセマンティクスであれば、セマンティクスギャップ消失する</p></li>
 <li><p>あえてセマンティクスギャップを広げることで、APIに差別化をもたらすことができるかもしれない</p></li>
 </ul>
+
+<h2>つづき・・・</h2>
 ]]></content>
   </entry>
   
@@ -234,8 +236,6 @@
 </ul>
 
 <h2>つづき・・・</h2>
-
-<p><a href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-02/">RESTful Web API 読書メモ(2)</a></p>
 ]]></content>
   </entry>
   
