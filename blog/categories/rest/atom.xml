@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rest | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/rest/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-08T23:16:46+09:00</updated>
+  <updated>2015-03-09T22:05:31+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -14,7 +14,337 @@
 
   
   <entry>
-    <title type="html"><![CDATA[rRESTful Web API 読書メモ(6)]]></title>
+    <title type="html"><![CDATA[RESTful Web API 読書メモ(7)]]></title>
+    <link href="http://ritalin.github.com/2015/03-09/restful-web-api-memo-07/"/>
+    <updated>2015-03-09T21:08:00+09:00</updated>
+    <id>http://ritalin.github.com/2015/03-09/restful-web-api-memo-07</id>
+    <content type="html"><![CDATA[<h2>Chapter 7. Pure hypermedia Design</h2>
+
+<ul>
+<li>コレクションパターンは強力であるが、何でもかんでも使えるではない</li>
+<li><p>MAZE+xmlのコレクションパターンでの表現（5章）</p>
+
+<ul>
+<li>どう見ても迷路ゲームのアプリケーションセマンティクスにマッチしていない</li>
+</ul></li>
+<li><p>APIの設計方針として、汎用的なハイパーメディアを用いることができる</p></li>
+</ul>
+
+<!-- more -->
+
+<h3>HTML</h3>
+
+<ul>
+<li>多くのOS標準搭載されたブラウザにレンダリングさせてデバッグできる</li>
+<li>XMLやJSONよりも、よりドキュメントとしての構造を強いている</li>
+<li>標準化されたハイパーメディアコントロールを有している
+
+<ul>
+<li>formタグ(method=&quot;GET&quot; = outbound link
+
+<ul>
+<li>inputタグによるURIテンプレート代替</li>
+</ul></li>
+<li>formタグ(method=&quot;POST&quot; = リソース生成依頼</li>
+<li>linkタグ(rel=&quot;stylesheet&quot;) = embedded link</li>
+<li>linkタグ(rel=&quot;self&quot;) = outbound link</li>
+<li>aタグ = outbound link</li>
+<li>imgタグ、scriptタグ = embedded link</li>
+<li>特別な問題領域に特化したものではない</li>
+</ul></li>
+<li><p>解析 / 生成のためのツールが多くある</p></li>
+<li><p>データ構造としてのHTML</p>
+
+<ul>
+<li>ol = JSON順序リスト</li>
+<li>ul = JSON非順序リスト</li>
+<li>dl = JSONオブジェクト</li>
+<li>table = 二次元配列</li>
+<li>div/span = グループ化</li>
+</ul></li>
+<li><p>汎用属性</p>
+
+<ul>
+<li>rel
+
+<ul>
+<li>IANAに登録されたリレーションを用いることで、HTMLにアプリケーションセマンティクスを組み込める</li>
+</ul></li>
+<li>id
+
+<ul>
+<li>文書内で一意の識別子</li>
+<li>idでアプリケーションセマンティクスをフックするのはオススメではない
+
+<ul>
+<li>複数の文書をマージしたい場合に一意性が保証出来ないため</li>
+</ul></li>
+</ul></li>
+<li>class
+
+<ul>
+<li>最も柔軟性のある属性</li>
+<li>wwwではcssによるフォーマッティングに用いられる</li>
+<li>アプリケーションセマンティクスとしては、グループ化のタグとして用いることができる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>microformat</h3>
+
+<ul>
+<li>htmlにアプリケーションセマンティクスを付与する技術</li>
+<li>classとrel属性に与える値のみを定義する</li>
+<li>html + microformatでドメイン特化なフォーマットを再現できる</li>
+<li>hCard
+
+<ul>
+<li>グループ化やフィールドのためのclassのみが定義されている</li>
+<li>hCard自身はハイパーメディアコントロールではないが、htmlから拝借して、connectednessを実現できる</li>
+<li>どのhtmlタグに付けるかは自由</li>
+<li>vCard(RFC6350)を元にしている
+
+<ul>
+<li>ハイパーメディアコントロールではない</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>Microdata</h3>
+
+<ul>
+<li>html5用、microformat改良版</li>
+<li>総本山はschema.org</li>
+<li>microformstにおけるclassの置き換え</li>
+<li>リレーションは定義出来ない</li>
+<li>class属性は本来、アプリケーションセマンティクスを体現する場ではない</li>
+<li>プロパティ
+
+<ul>
+<li>itemprop
+
+<ul>
+<li>グループ名、フィールド名の定義</li>
+</ul></li>
+<li>itemscope
+
+<ul>
+<li>Microdataによる表現を開始するタグに付与</li>
+</ul></li>
+<li>itemtype
+
+<ul>
+<li>付与したタグをハイパーメディアコントロールにする</li>
+<li>値はURL</li>
+</ul></li>
+<li>itemid</li>
+<li>itemref</li>
+</ul></li>
+</ul>
+
+<h3>フォームにアプリケーションセマンティクスを加えること</h3>
+
+<ul>
+<li><p>リンクリレーションは、リソース間の関連を記述するもの</p>
+
+<ul>
+<li>自身と同じURLに異なるリンクリレーションのリンクを貼る =&gt; リソース状態が変更されることを意味する</li>
+<li>リンクはGETリクエストの発行となるため、HTTPメソッドの制約に反する</li>
+</ul></li>
+<li><p>HTMLフォームなら、POSTリクエストを発行できる</p>
+
+<ul>
+<li>リソース状態を変更することは制約に反しない</li>
+<li>inputタグのclass属性にアプリケーションセマンティクスとなる用語を与える</li>
+<li>アクションURLを組み立てるためのテンプレートは不要
+
+<ul>
+<li>formタグがアクションURLを持つため</li>
+</ul></li>
+<li>sublitタイプのinputタグを置いて初めて、状態遷移が可能となる
+
+<ul>
+<li>遷移させたくなければ、sublitを置く必要はない</li>
+</ul></li>
+</ul></li>
+<li><p>リソース指向アプローチ</p>
+
+<ul>
+<li>リソースを識別し、そこにハイパーメディアを試みる作り</li>
+<li>まずリソースを識別することに重きを置いている</li>
+</ul></li>
+<li><p>ハイパーメディア設計</p>
+
+<ul>
+<li>リソースを識別することよりも状態遷移を識別することの方が重要</li>
+</ul></li>
+</ul>
+
+<h3>HTMLの限界</h3>
+
+<ul>
+<li>本来のHTMLは、ハイパーメディアフォーマットなどではなく、human-readableに特化した標準</li>
+<li>全てのhttpプロトコルを実現できない
+
+<ul>
+<li>PUT, DELETEはJavascriptの手助けが必要</li>
+</ul></li>
+<li>formで構成できるリクエストは、application/x-www-form-urlencodedか、multipart/form-dataのいずれか</li>
+<li>文字列と数字を区別しない
+
+<ul>
+<li>そのアプリケーションセマンティクスはhtmlの外で定義するしかない</li>
+</ul></li>
+<li>日付表現を定義していない
+
+<ul>
+<li>vCardのbdayはISO8601として個別に定義</li>
+</ul></li>
+</ul>
+
+<h3>html5</h3>
+
+<ul>
+<li>timeタグ
+
+<ul>
+<li>特定のフォーマットでdate型やtimestamp型を表現</li>
+</ul></li>
+<li>meterタグ
+
+<ul>
+<li>特定の範囲内の測定値を表現</li>
+</ul></li>
+<li>audioタグ</li>
+<li>videoタグ</li>
+<li>sourceタグ</li>
+<li>embedタグ</li>
+<li>inputタグのvalidation
+
+<ul>
+<li>値としてdate, number, urlを表現</li>
+<li>required属性で必須入力</li>
+<li>クライアントサイドバリデーション</li>
+</ul></li>
+<li>formタグ
+
+<ul>
+<li>texp/plainメディアタイプのサポート</li>
+</ul></li>
+<li>Microdata
+
+<ul>
+<li>classs属性への意味づけ</li>
+</ul></li>
+<li>PUT, DELETEは引き続き未サポート</li>
+</ul>
+
+<h3>Hypermedia Application Language (HAL)</h3>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/hal+xml</li>
+<li>application/hal+json</li>
+</ul></li>
+<li>要素としてresourceとlinkタグのみを定義されている</li>
+<li>resourceタグ
+
+<ul>
+<li>httpリソースの表現</li>
+</ul></li>
+<li>link
+
+<ul>
+<li>これ一つであらゆるハイパーメディアを扱える
+
+<ul>
+<li>GET, POST, PUT, DELETE, UNLINK</li>
+<li>プロトコルセマンティクスを指定するすべはない</li>
+<li>リレーションの意味を明示的にドキュメントとして残すしかない</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>Siren</h3>
+
+<ul>
+<li>JSONベースのハイパーメディアフォーマット</li>
+<li>HTMLとCollection+JSONの合いの子のような立ち位置</li>
+<li>entities
+
+<ul>
+<li>データをグループ化</li>
+<li>htmlのdivタグ相当</li>
+<li>URLを付与することでサブリソースとして振舞わせられる</li>
+<li>links
+
+<ul>
+<li>別のリソースへのリンク先を記述</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>Semantics Challenge</h3>
+
+<ul>
+<li>httpプロトコルセマンティクス
+
+<ul>
+<li>リソースにGET, POSTなどのリクエストメソッドを割り当てる</li>
+</ul></li>
+<li>ハイパーメディア
+
+<ul>
+<li>サーバーで次に行わせたいリクエストを伝える仕組み</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>アプリケーション状態やリソース状態をハイパーメディアで制御すること</li>
+</ul></li>
+<li>ドメイン特化フォーマット
+
+<ul>
+<li>例: Maze+XML</li>
+<li>プロトコルセマンティクスを定義</li>
+<li>アプリケーションセマンティクスも定義</li>
+<li>稀な存在</li>
+</ul></li>
+<li>標準フォーマット
+
+<ul>
+<li>Collection+JSON, AtomPubなど</li>
+<li>プロトコルセマンティクス詳細に定義している
+
+<ul>
+<li>item-typeリソース = PUTに応答</li>
+</ul></li>
+<li>アプリケーションセマンティクスは未定義</li>
+</ul></li>
+<li>microformat
+
+<ul>
+<li>アプリケーションセマンティクスを定義</li>
+<li>プロトコルセマンティクスは未定義</li>
+</ul></li>
+<li>HTML, HAL, Siren
+
+<ul>
+<li>プロトコルセマンティクスを定義</li>
+<li>アプリケーションセマンティクスも定義</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web API 読書メモ(6)]]></title>
     <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-06/"/>
     <updated>2015-03-08T22:47:00+09:00</updated>
     <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-06</id>
@@ -287,6 +617,8 @@
 <hr>
 
 <h2>つづき・・・</h2>
+
+<p><a href="/2015/03-09/restful-web-api-memo-07/">RESTful Web API 読書メモ(7)</a></p>
 ]]></content>
   </entry>
   
@@ -746,108 +1078,6 @@
 <h2>つづき・・・</h2>
 
 <p><a href="/2015/03-08/restful-web-api-memo-04/">RESTful Web API 読書メモ(4)</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RESTful Web API 読書メモ(2)]]></title>
-    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-02/"/>
-    <updated>2015-03-08T19:53:00+09:00</updated>
-    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-02</id>
-    <content type="html"><![CDATA[<h2>Chapter 2. A Simple API</h2>
-
-<!-- more -->
-
-<h3>GETリクエスト</h3>
-
-<ul>
-<li>リソース状態の変更は意図しない
-
-<ul>
-<li>アクセスカウンタやログ保存のような付随した事象の変更はOK</li>
-</ul></li>
-<li><p>安全なメソッド</p></li>
-<li><p>過去にGETリクエストで、リソース状態の変更がしばしば行われていたが、これは間違った設計</p></li>
-</ul>
-
-<h3>レスポンス</h3>
-
-<ul>
-<li>status code
-
-<ul>
-<li>リクエストがどう処理されたかという結果をクライアントに知らせる</li>
-</ul></li>
-<li>entity-body
-
-<ul>
-<li>ドキュメント本体</li>
-</ul></li>
-<li>レスポンスヘッダ
-
-<ul>
-<li>entity-bodyを記述するためのKey-Valueペア</li>
-<li>status codeの後、entity-bodyの前に送られる</li>
-<li>content-type
-
-<ul>
-<li>どんなentity-bodyが返されたかクライアントに知らせる</li>
-<li>media-type</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<h4>JSON</h4>
-
-<ul>
-<li>APIレスポンスの表現として用いられるフォーマット(RFC4627)</li>
-</ul>
-
-<h4>Collection+JSON</h4>
-
-<ul>
-<li>Publishing APIの目的で用いることができるフォーマット</li>
-<li><a href="/2015/03-08/restful-web-api-memo-06/">6章参照</a></li>
-<li>利用可能なリソースの一覧を発行するための標準</li>
-<li>collection, items, valueのそれぞれにhrefプロパティをもつ</li>
-<li>リスト、明細、フォームテンプレート、検索結果のいづれでも同じフォーマット</li>
-<li><p>hrefと名付けられたとき、その内容はかならずURI</p></li>
-<li><p>Collection+JSONを使った、itemの追加</p>
-
-<ul>
-<li>template構造に基づいて、内容を埋める
-
-<ul>
-<li>content-type: application/vnd. collection+jsonでPOSTリクエストを発行する</li>
-<li>成功したら、ステータスコード201を返す</li>
-<li>また、レスポンスには新しいリソースのURIを含めておく</li>
-<li>新しく作成されたリソースもまたGETリクエストで取得すると、それもまた、Collection+JSON</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<h3>POSTリクエスト</h3>
-
-<p>（なんかまとめづらい内容なので省略）</p>
-
-<h3>アプリケーションセマンティクスがセマンティクスギャップを作ること</h3>
-
-<ul>
-<li><p>アプリケーションセマンティクス</p>
-
-<ul>
-<li>アプリケーション特有の構造</li>
-<li>media-typeのフォーマットとしては規定されていない構造</li>
-</ul></li>
-<li><p>標準化された、もしくは互いに合意されたアプリケーションセマンティクスであれば、セマンティクスギャップ消失する</p></li>
-<li><p>あえてセマンティクスギャップを広げることで、APIに差別化をもたらすことができるかもしれない</p></li>
-</ul>
-
-<hr>
-
-<h2>つづき・・・</h2>
-
-<p><a href="/2015/03-08/restful-web-api-memo-03/">RESTful Web API 読書メモ(3)</a></p>
 ]]></content>
   </entry>
   
