@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rest | Since 1975]]></title>
   <link href="http://ritalin.github.com/blog/categories/rest/atom.xml" rel="self"/>
   <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-09T22:05:45+09:00</updated>
+  <updated>2015-03-12T00:29:46+09:00</updated>
   <id>http://ritalin.github.com/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[RESTful Web API 読書メモ(7)]]></title>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(7)]]></title>
     <link href="http://ritalin.github.com/2015/03-09/restful-web-api-memo-07/"/>
     <updated>2015-03-09T21:08:00+09:00</updated>
     <id>http://ritalin.github.com/2015/03-09/restful-web-api-memo-07</id>
@@ -340,11 +340,13 @@
 <hr>
 
 <h2>つづき・・・</h2>
+
+<p><a href="/2015/03-11/restful-web-api-memo-08/">RESTful Web APIs 読書メモ(8)</a></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[RESTful Web API 読書メモ(6)]]></title>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(6)]]></title>
     <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-06/"/>
     <updated>2015-03-08T22:47:00+09:00</updated>
     <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-06</id>
@@ -618,12 +620,12 @@
 
 <h2>つづき・・・</h2>
 
-<p><a href="/2015/03-09/restful-web-api-memo-07/">RESTful Web API 読書メモ(7)</a></p>
+<p><a href="/2015/03-09/restful-web-api-memo-07/">RESTful Web APIs 読書メモ(7)</a></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[ESTful Web API 読書メモ(5)]]></title>
+    <title type="html"><![CDATA[ESTful Web APIs 読書メモ(5)]]></title>
     <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-05/"/>
     <updated>2015-03-08T22:19:00+09:00</updated>
     <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-05</id>
@@ -729,12 +731,12 @@
 
 <h2>つづき・・・</h2>
 
-<p><a href="/2015/03-08/restful-web-api-memo-06/">RESTful Web API 読書メモ(6)</a></p>
+<p><a href="/2015/03-08/restful-web-api-memo-06/">RESTful Web APIs 読書メモ(6)</a></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[RESTful Web API 読書メモ(4)]]></title>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(4)]]></title>
     <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-04/"/>
     <updated>2015-03-08T22:15:00+09:00</updated>
     <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-04</id>
@@ -913,12 +915,12 @@
 
 <h2>つづき・・・</h2>
 
-<p><a href="/2015/03-08/restful-web-api-memo-05/">RESTful Web API 読書メモ(5)</a></p>
+<p><a href="/2015/03-08/restful-web-api-memo-05/">RESTful Web APIs 読書メモ(5)</a></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[RESTful Web API 読書メモ(3)]]></title>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(3)]]></title>
     <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-03/"/>
     <updated>2015-03-08T22:11:00+09:00</updated>
     <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-03</id>
@@ -1077,7 +1079,7 @@
 
 <h2>つづき・・・</h2>
 
-<p><a href="/2015/03-08/restful-web-api-memo-04/">RESTful Web API 読書メモ(4)</a></p>
+<p><a href="/2015/03-08/restful-web-api-memo-04/">RESTful Web APIs 読書メモ(4)</a></p>
 ]]></content>
   </entry>
   

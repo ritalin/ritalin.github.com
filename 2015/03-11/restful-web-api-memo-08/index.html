@@ -1,0 +1,367 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RESTful Web APIs 読書メモ(8) - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Chapter 8. Profiles アプリケーション特化の拡張機能に対するドキュメント化
+アプリケーション特化の用語の定義、ドキュメント化
+現在、一般的用いられていることは、大量のhuman-readableなドキュメントを作成すること APIドキュメントについてはRESTful( &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/slides">Slides</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">RESTful Web APIs 読書メモ(8)</h2>
+	<div class="entry-content"><h2>Chapter 8. Profiles</h2>
+
+<ul>
+<li>アプリケーション特化の拡張機能に対するドキュメント化</li>
+<li><p>アプリケーション特化の用語の定義、ドキュメント化</p></li>
+<li><p>現在、一般的用いられていることは、大量のhuman-readableなドキュメントを作成すること</p>
+
+<ul>
+<li>APIドキュメントについてはRESTful(自己記述性メッセージ)でない</li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>クライアントアプリはいかにしてドキュメントをさがすのか？</h3>
+
+<ul>
+<li><p>クライアントがリクエストやレスポンスの意味を推測すべきではない</p>
+
+<ul>
+<li>メッセージ自身が、詳細に説明すべき</li>
+</ul></li>
+<li><p>レスポンスはクライアントがなすべきことを全て含めるべき</p>
+
+<ul>
+<li>Content-type
+
+<ul>
+<li>リソースの解析方法を示す</li>
+</ul></li>
+<li>ハイパーメディアコントロール
+
+<ul>
+<li>次に発行すべきリクエストをレスポンスに含める</li>
+<li>プロトコルセマンティクスを明示する</li>
+</ul></li>
+<li>ドメイン特化フォーマットの場合
+
+<ul>
+<li>リソースに問題領域の状態遷移を含める</li>
+<li>アプリケーションセマンティクスを付与する</li>
+</ul></li>
+</ul></li>
+<li><p>多くの場合、プロトコルセマンティクスとアプケーションセマンティクスの両方をフォーマットから読み取ることはできない</p>
+
+<ul>
+<li>仕様Profileが欠損している</li>
+</ul></li>
+</ul>
+
+<h3>Profile</h3>
+
+<ul>
+<li><p>media-typeを元にリソースを解析しても得られない仕様(APIドキュメント)</p>
+
+<ul>
+<li>たいていHuman-readableな文書</li>
+<li>machine-readable profile
+
+<ul>
+<li>linkやdescripterで記述されたhuman-readableなドキュメント(Profile)を自動収集できる</li>
+</ul></li>
+</ul></li>
+<li><p>定義(RFC6906)</p>
+
+<ul>
+<li>リレーションを使用してProfileとリンク(rel=&quot;profile&quot;)
+
+<ul>
+<li>IANAにそのリレーションが登録されている
+
+<ul>
+<li>relをサポートするあらゆるハイパーメディアコントロールで利用可能
+
+<ul>
+<li>htmlのaタグ</li>
+<li>html, Collection+JSON, HALのlinkタグ</li>
+<li>RFC5988のLINKヘッダ</li>
+</ul></li>
+</ul></li>
+<li>Ontent-Typeパラメータに追記
+
+<ul>
+<li>application/collection+json;profile=&quot;(リンク先URL)&quot;</li>
+<li>すべてのmedia-typeで使用できるわけではない(RFC4288)
+
+<ul>
+<li>Collection+JSON</li>
+<li>JSON-LD</li>
+<li>HAL</li>
+<li>XHTML</li>
+</ul></li>
+<li>httpヘッダでprofileリンクを示したいなら、すべてで使えるLINKヘッダを使うべき</li>
+</ul></li>
+<li>Microdataのitemtype
+
+<ul>
+<li>Urlで、リンク先のprofileを指定する</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>プロトコルセマンティクスProfile</h3>
+
+<ul>
+<li>どのようなHTTPリクエスト発行されるのかについて</li>
+<li>フリーフォームな文体で記述</li>
+<li>ハイパーメディアコントロールを持たないmedia-type(JSON)に対して用意</li>
+<li>HALのようにプロトコルセマンティクスが削ぎ落とされている場合に用意</li>
+<li>ハイパーメディアコントロールであれば、リンクリレーションを用いて指定
+
+<ul>
+<li>ハイパーメディアコントロールから駆動される状態遷移を記述した文字列
+
+<ul>
+<li>GETでアプリケーション状態を遷移</li>
+<li>POST, PUT,DELETEでリソース状態を遷移</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>アプリケーションセマンティクスProfile</h3>
+
+<ul>
+<li><p>人が用語を理解するようにコンピュータにも理解させること</p></li>
+<li><p>利用するデータ構造、パラメータなどの説明文を用意</p></li>
+<li><p>用語をセマンティクス記述子に表記</p>
+
+<ul>
+<li>microformats
+
+<ul>
+<li>class属性</li>
+</ul></li>
+<li>Siren
+
+<ul>
+<li>classエンティティ</li>
+</ul></li>
+<li>生JSON
+
+<ul>
+<li>オブジェクトキー</li>
+</ul></li>
+<li>生XML
+
+<ul>
+<li>タグ名</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>XMDP</h3>
+
+<ul>
+<li>machine-readable profileの一種</li>
+<li>ほかのmicroformatを説明するためのmicroformat</li>
+<li>class属性に特別な意味があることを伝えられる
+
+<ul>
+<li>自動的に理解するわけではなく、そんなツールを書く必要がある</li>
+</ul></li>
+</ul>
+
+<h3>ALPS</h3>
+
+<ul>
+<li>XMDP同様、meta-microformst</li>
+<li>HTML専用</li>
+<li>プロパティ
+
+<ul>
+<li>descriptor
+
+<ul>
+<li>一つの用語に対して一つ作る</li>
+<li>type=&quot;semantic&quot;</li>
+<li>子要素のdocタグにhuman-readableな説明を書く</li>
+<li>docタグ以外はmachine-readable</li>
+<li><descripter href="#fn" />のようにすることで、ハイパーメディアコントロールにすることもできる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>JSON-LD</h3>
+
+<ul>
+<li>元のJSONドキュメントに&quot;context&quot;と呼ばれるmachin-readableドキュメントを組み込む</li>
+<li>APIの変更なしに組み込むことが可能</li>
+<li>RDFからの派生</li>
+<li>アプリケーションセマンティクスを直接説明せず、ハイパーメディアリンクを添えるだけ
+
+<ul>
+<li>&quot;n&quot;: <url></li>
+<li>&quot;photo_link&quot;: { &quot;@id&quot;: <url>, &quot;@type&quot;: &quot;@id&quot; }</li>
+</ul></li>
+</ul>
+
+<h3>API自身にドキュメントを埋め込む</h3>
+
+<ul>
+<li><p>APIにhuman-readableドキュメントを埋め込めるフォーマットを用いる</p>
+
+<ul>
+<li>HTML
+
+<ul>
+<li>inputタグのvalue属性</li>
+</ul></li>
+<li>HAL
+
+<ul>
+<li>linkタグのtitle属性</li>
+</ul></li>
+<li>Siren
+
+<ul>
+<li>actionオブジェクトのtitleフィールド</li>
+</ul></li>
+</ul></li>
+<li><p>machine-readableとhuman-readableドキュメントの両方を用意することについて</p>
+
+<ul>
+<li>人との対話により動くクライアント、自動化クライアントの両対応のため</li>
+<li>両方のセマンティクスギャップをより縮める</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-11T23:26:00+09:00" pubdate data-updated="true">Mar 11<span>th</span>, 2015</time></div>
+	<div class="tags">
+
+</div>
+	
+</div></article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+	
+	
+	<a class="addthis_button_tweet"></a>
+	
+	
+	<a class="addthis_counter addthis_pill_style"></a>
+	</div>
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>
