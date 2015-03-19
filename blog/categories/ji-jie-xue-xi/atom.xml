@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: "機械学習" | Since 1975]]></title>
+  <link href="http://ritalin.github.io/blog/categories/ji-jie-xue-xi/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
+  <author>
+    <name><![CDATA[ktz_alias]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Mahout in Action読了]]></title>
+    <link href="http://ritalin.github.io/2013/05-29/mahout-in-action/"/>
+    <updated>2013-05-29T23:46:00+09:00</updated>
+    <id>http://ritalin.github.io/2013/05-29/mahout-in-action</id>
+    <content type="html"><![CDATA[<p>なんとか最後まで読み通せました。
+まとめながら読んでいたので、すごく時間がかかってしまいました。</p>
+
+<h2>どんな本？</h2>
+
+<p>この本は、機械学習の処理系およびライブラリである<a href="http://mahout.apache.org">Apache Mohout</a>の実践ガイドであり、
+Mahoutを通して機械学習について体系立てて学ぶことができるようになってます。</p>
+
+<!-- more -->
+
+<p>全体で３部構成になっており、</p>
+
+<ul>
+<li>レコメンデーション</li>
+<li>クラスタリング</li>
+<li>分類</li>
+</ul>
+
+<p>のそれぞれについて、理論 -&gt; 実装 -&gt; ケーススタディが著されています。</p>
+
+<p>理論と言っても、数式が嫌というほど出てくるわけではなく、図や表でしっかり補足されているため、
+わたしのような機械学習をよく分かってない者でも十分理解できる内容でした。</p>
+
+<p>またMahoutは分散環境にも対応しており、<a href="http://hadoop.apache.org">Apache Hadoop</a>と組み合わせて実施することができます。
+分散環境に関しても十分ページを割いているので、Mahoutを通してHadoopを学習する教材としても有効だと思います。</p>
+
+<p>そのほか、<a href="http://aws.amazon.com/jp/elasticmapreduce/">Amazon Elastic MapReduce (Amazon EMR)</a>での導入方法も詳しく書かれているのも特徴でしょう。</p>
+
+<p>翻訳の品質については、さすがO&#39;REILLYということもあり、読みづらいと感じることはなかったです。ただ少し訳が堅い気はしましたが。</p>
+
+<h2>どんな人向け？</h2>
+
+<p>これから機械学習をやってみようかなという人にはうってつけだと思います。</p>
+
+<h2>リンク</h2>
+
+<iframe src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=ritalin09-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4873115841" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
+]]></content>
+  </entry>
+  
+</feed>

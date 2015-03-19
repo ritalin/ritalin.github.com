@@ -7,10 +7,10 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="Chapter 3. Resources and Representations RESTは、プロトコルでもファイルフォーマットでもフレームワークでもない。
+	<meta name="description" content="RESTful Web APIs 読書メモ(3) Chapter 3. Resources and Representations RESTは、プロトコルでもファイルフォーマットでもフレームワークでもない。
 RESTは設計制約のセット ステートレス
 HATEOAS
-などなど HTTP, URI, HTMLを理解することは、 &hellip;">
+などなど HTTP, URI &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -19,16 +19,16 @@ HATEOAS
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script async="false" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	
 </head>
+
 
 <body>
 	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
 <nav id="main-nav"><ul class="main">
 	<li><a href="/">Blog</a></li>
 	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/slides">Slides</a></li>
 </ul>
 </nav>
 <nav id="mobile-nav">
@@ -37,7 +37,6 @@ HATEOAS
 		<div class="container"><ul class="main">
 	<li><a href="/">Blog</a></li>
 	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/slides">Slides</a></li>
 </ul>
 </div>
 	</div>
@@ -46,7 +45,7 @@ HATEOAS
 		<div class="container">
 			<form action="http://google.com/search" method="get">
 				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:ritalin.github.com">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
 			</form>
 		</div>
 	</div>
@@ -56,7 +55,10 @@ HATEOAS
 		
 		
 		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
 		
+		
+    
 		
 		
 		
@@ -64,10 +66,11 @@ HATEOAS
 		
 		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
 		
+    
 	</div>
 	<form class="search" action="http://google.com/search" method="get">
 		<input class="alignright" type="text" name="q" results="0">
-		<input type="hidden" name="q" value="site:ritalin.github.com">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
 	</form>
 </nav>
 
@@ -96,12 +99,15 @@ HATEOAS
 <li> HTTP, URI, HTMLの根底には、リソース、表現という概念がひそんでいる</li>
 <li>Clientにとって、Resourceがなにであるかは重要ではない。ClientはURLと結果の表現だけを見ているから</li>
 <li>表現とは、有益な形にリソースを加工したドキュメントであり、リソースの現在の状態をクライアントで読み取れるようにしたもの</li>
+</ul></li>
 </ul>
 
 <p>*GET
-* 表現の問い合わせ
-* POST, PUT, PATCH
-* 表現の提案</p></li>
+    * 表現の問い合わせ
+ * POST, PUT, PATCH
+    * 表現の提案</p>
+
+<ul>
 <li><p>リソースは一つ以上の表現をもつ</p>
 
 <ul>
@@ -249,7 +255,7 @@ HATEOAS
   
 
 
-<time datetime="2015-03-08T22:11:00+09:00" pubdate data-updated="true">Mar 8<span>th</span>, 2015</time></div>
+<time datetime="2015-03-08T22:11:00+09:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 
@@ -258,18 +264,31 @@ HATEOAS
 
 </div>
 	
-</div></article>
+</div>
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</article>
 
 	<div class="share">
 	<div class="addthis_toolbox addthis_default_style ">
-	
-	
-	<a class="addthis_button_tweet"></a>
-	
-	
-	<a class="addthis_counter addthis_pill_style"></a>
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
 	</div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+	
 </div>
 
 
@@ -278,6 +297,7 @@ HATEOAS
 
     ktz_alias
 
+<script async="true" src="/javascripts/twitter.js"></script>
 </footer>
 	<script src="/javascripts/slash.js"></script>
 <script src="/javascripts/jquery.fancybox.pack.js"></script>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: f# | Since 1975]]></title>
+  <link href="http://ritalin.github.io/blog/categories/f-number/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
+  <author>
+    <name><![CDATA[ktz_alias]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Type Provider Memo]]></title>
+    <link href="http://ritalin.github.io/2013/04-04/type-provider-memo/"/>
+    <updated>2013-04-04T23:04:00+09:00</updated>
+    <id>http://ritalin.github.io/2013/04-04/type-provider-memo</id>
+    <content type="html"><![CDATA[<p>TypeProvider実装のための記憶保管のためにメモとして残す</p>
+
+<!-- more -->
+
+<ul>
+<li><p>FSharp.Data.dllを拾ってくる</p>
+
+<ul>
+<li>Nugetで取って来れる</li>
+<li>TypeProviderのための骨格抽象実装が用意されているので、ありがたくご相伴</li>
+</ul></li>
+<li><p>open Microsoft.FSharp.Core.CompilerServices</p>
+
+<ul>
+<li>TypeProviderAttibuteが定義されている</li>
+</ul></li>
+<li><p>open ProviderImplementation.ProvidedTypes</p>
+
+<ul>
+<li>TypeProviderForNamespacesクラス
+
+<ul>
+<li>TypeProviderの親クラスとして使用する</li>
+</ul></li>
+<li>ProvidedTypeDefinitionクラス
+
+<ul>
+<li>TypeProvider内部で使用する型を定義するためのクラス</li>
+<li>Typeクラスから派生</li>
+</ul></li>
+</ul></li>
+<li><p>TypeProviderメタクラスのdo束縛にて</p>
+
+<ul>
+<li>Providerの型定義
+
+<ul>
+<li>ProvidedTypeDefinitionをインスタンス化</li>
+<li>ProvidedTypeDefinition#AddXmlDoc呼ぶ
+
+<ul>
+<li>ヘルプメッセージ追加のため</li>
+<li>たぶん必須ではないとは思う</li>
+</ul></li>
+<li>ProvidedTypeDefinition#DefineStaticParametersを呼ぶ
+
+<ul>
+<li>TypeProviderの引数定義</li>
+<li>第一引数はList<ProvidedStaticParameter></li>
+<li>第二引数は引数型をインスタンス化するための高階関数
+
+<ul>
+<li>string -&gt; obj[] -&gt; ProvidedTypeDefinition</li>
+</ul></li>
+<li>必須</li>
+</ul></li>
+</ul></li>
+<li>TypeProviderメタクラスのAddNamespaceメソッド呼ぶ
+
+<ul>
+<li>これでF# コンパイラに登録される？</li>
+</ul></li>
+</ul></li>
+</ul>
+]]></content>
+  </entry>
+  
+</feed>

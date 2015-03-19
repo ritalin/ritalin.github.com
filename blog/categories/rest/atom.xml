@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: rest | Since 1975]]></title>
-  <link href="http://ritalin.github.com/blog/categories/rest/atom.xml" rel="self"/>
-  <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-12T00:29:46+09:00</updated>
-  <id>http://ritalin.github.com/</id>
+  <link href="http://ritalin.github.io/blog/categories/rest/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
     
@@ -14,10 +14,572 @@
 
   
   <entry>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(9)]]></title>
+    <link href="http://ritalin.github.io/2015/03-19/restful-web-api-memo-09/"/>
+    <updated>2015-03-19T23:00:00+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-19/restful-web-api-memo-09</id>
+    <content type="html"><![CDATA[<h2>Chapter 9. The Design Procedure</h2>
+
+<ul>
+<li>API設計とは、プロトコルセマンティクスとアプリケーションセマンティクスを設計すること</li>
+</ul>
+
+<!-- more -->
+
+<h3>最も単純な手順</h3>
+
+<ol>
+<li>表現として使用するmedia-typeを選択する
+
+<ul>
+<li>プロトコルセマンティクスとアプリケーションセマンティクスを選択することでもある</li>
+<li>application/json
+
+<ul>
+<li>今日、幅広く使われている形式</li>
+<li>fiat standardとなるので再利用出来ない</li>
+</ul></li>
+</ul></li>
+<li>Profileを用意する</li>
+</ol>
+
+<h3>詳細な手順</h3>
+
+<ol>
+<li>クライアントがAPIを通して、get/putする情報の素片をリストアップする
+
+<ul>
+<li>情報の素片は階層構造をもったsemantic descriptor (リソースの表現) となる
+
+<ul>
+<li>この時点では、用語のブレは気にしない(first-name, first_name)</li>
+</ul></li>
+<li>語彙は、データベーススキーマやオブジェクトモデルからはもってこないこと
+
+<ul>
+<li>クライアントコードがサーバーサイドに依存してしまうため</li>
+</ul></li>
+<li>media-type在りきでデータ構造を決定しないこと
+
+<ul>
+<li>6. まで我慢する</li>
+</ul></li>
+<li>IANA登録済みのlink relationと重複させないこと
+
+<ul>
+<li>ページネーション
+
+<ul>
+<li>first, next, current</li>
+<li>next-archive, prev-archive (RFC5005)</li>
+</ul></li>
+<li>メッセージスレッド
+
+<ul>
+<li>replies (RFC4685)</li>
+</ul></li>
+<li>リソース状態の履歴管理(RFC5829)
+
+<ul>
+<li>latest-version</li>
+<li>successor-version</li>
+<li>predecessor-version</li>
+<li>working-copy</li>
+<li>working-copy-of</li>
+</ul></li>
+<li>リソース状態の編集
+
+<ul>
+<li>edit</li>
+<li>edit-media</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>APIの状態遷移図を描く
+
+<ul>
+<li>一つの状態に一つの表現を割り当てる</li>
+<li>一つの状態遷移が一つの矢印となる</li>
+<li>httpメソッドはまだ割り当てない</li>
+<li>冪等性と安全性は考えておくべき</li>
+<li>link relationが発見されるかもしれない
+
+<ul>
+<li>構造化された内と外との間のリンク</li>
+<li>用語がアプリケーション状態の変化をもたらすのであれば、その用語はリレーション</li>
+<li>拡張リンクリレーション
+
+<ul>
+<li>http://example.com/maze#exit</li>
+<li>profile取り込むことなく使用可能</li>
+</ul></li>
+</ul></li>
+<li>階層構造が変化するかもしれない</li>
+<li>状態間は、グループ化されたdescriptor (ValueObject)が行き来する</li>
+<li>状態遷移におけるトップレベル表現を設ける
+
+<ul>
+<li>ほかの状態へは、ハイパーメディアコントロールを通して</li>
+</ul></li>
+</ul></li>
+<li>semantic descriptorとlink relationが満足するまで、1, 2を繰り返す
+
+<ol>
+<li>用語のブレは解消しておくこと</li>
+</ol></li>
+<li>用語が既知のprofileに存在するのなら、それに置き換える
+
+<ul>
+<li>IANAに登録されたリレーション</li>
+<li>schema.orgに登録された用語</li>
+<li>alps.ioに登録された用語</li>
+<li>ドメイン特化フォーマットで使用される用語、などなど</li>
+<li>既知の語彙は間違った理解を減らせる</li>
+<li>profileの再利用は、書くべきドキュメント量を減らせる</li>
+<li>profileの再利用は、ライブラリの再利用を促せる</li>
+<li>たいていはprofileを使用せず、media-typeに結びつけてしまっている
+
+<ul>
+<li>一つのAPIに対して複数のmedia-typeを独自定義せず、複数のprofileを利用する</li>
+</ul></li>
+<li>金融、法務関係のprofileは、未整備のため再利用は難しい</li>
+</ul></li>
+<li>用語と状態遷移図が満足するまで、1 - 3を繰り返す</li>
+<li>プロトコルセマンティクスとアプリケーションセマンティクスに適合するmedia-typeを選択する
+
+<ul>
+<li>運が良ければ、ドメイン特化フォーマットが見つかるかもしれない</li>
+<li>独自定義する場合、標準的な命名規則に従う
+
+<ul>
+<li>application/vnd.(org name).(base type)</li>
+<li>(例) application/vnd.hoge.maze+xml</li>
+</ul></li>
+<li>より汎用的な利用を考えているのならIANAにmedia-typeを登録する
+
+<ul>
+<li>RFC6838の4, 5節の手順に従う</li>
+<li>JSONベースならRFC4627を目を通すべし</li>
+<li>XMLベースならRFC3023に目を通すべし</li>
+</ul></li>
+<li>可能な限り、ハイパーメディアフォーマットを選択する</li>
+<li>コレクションパターン
+
+<ul>
+<li>Collection+JSON</li>
+<li>AtomPub</li>
+<li>OData</li>
+</ul></li>
+<li>有向グラフ構造
+
+<ul>
+<li>HTML</li>
+<li>HAL</li>
+<li>Siren</li>
+</ul></li>
+<li>読み取り専用API
+
+<ul>
+<li>HTML</li>
+<li>HAL</li>
+<li>JSON-LD</li>
+</ul></li>
+<li>安全でないメソッドを使用する場合
+
+<ul>
+<li>Hydra</li>
+<li>Collection+JSON</li>
+</ul></li>
+</ul></li>
+<li>未知の用語に対して、profileを用意する
+
+<ul>
+<li>machine-readable フォーマット
+
+<ul>
+<li>Alps<br></li>
+<li>JSON-LD</li>
+<li>XMDPベースのwebページ</li>
+</ul></li>
+<li>profileでlink relationを定義した場合、IANAのものよりも優先される
+
+<ul>
+<li>意図的にやるべきではない</li>
+</ul></li>
+</ul></li>
+<li>状態遷移図を満たすサーバー実装を書く</li>
+<li>トップのURLを公開する
+
+<ul>
+<li>状態遷移図のゲートウェイをトップURLとする</li>
+<li>Profileを配置する
+
+<ul>
+<li>自サイト</li>
+<li>alps.io</li>
+</ul></li>
+<li>APIの要約</li>
+<li>利用例</li>
+<li>サンプルコード</li>
+<li>認証手順</li>
+<li>Well known URIs Registry (RFC5785)
+
+<ul>
+<li>CoRE Link Formatの場合
+
+<ul>
+<li>/.well-knoen/coreに問い合わせ</li>
+<li>相対URLは、IANAレジストリに登録</li>
+<li>ほかリソースのハイパーメディアリンクの一覧を取得できる</li>
+</ul></li>
+<li>ホストメタデータの取得
+
+<ul>
+<li>/.well-known/host-meta.json </li>
+<li>または、/.well-known/host-meta</li>
+</ul></li>
+<li>well known URIは、media-typeに関連付けられる</li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h3>バージョニング</h3>
+
+<ul>
+<li>前提
+
+<ul>
+<li>第一にAPIのセマンティクスをhuman-readableドキュメントやハイパーメディアドキュメントの外に置くこと
+*　変更に強くなる</li>
+<li>既存のリソース定義を変更するのではなく、新しいリソースや状態遷移を追加するに留める</li>
+</ul></li>
+<li>URLに付与
+
+<ul>
+<li><li class="v1" href="v1" />のような感じ</li>
+<li>media-typeに付与
+
+<ul>
+<li>コンテントネゴシエーションとして指定
+
+<ul>
+<li>Accept: application/vnd.hoge?version=2
+
+<ul>
+<li>media-typeはAPIではないのでやめといた方がいい</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>profileを使う
+
+<ul>
+<li>破壊的変更はhuman-readableに記述</li>
+<li>非破壊変更はmachine-readableなハイパーメディアで記述</li>
+</ul></li>
+<li>リソーススキーマの変更
+
+<ul>
+<li>後方互換性を保ちたいなら、異なるURIを持つ新たなリソースを定義する</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>古いAPIの止め方</h3>
+
+<ol>
+<li>deplecatedをマークし、公式チャンネルでアナウンスする</li>
+<li>しばらくしたら、deplecatedマークしたバージョンはバグ修正しないことをアナウンスする</li>
+<li>更に幾つか待って、停止の期限をアナウンスする</li>
+<li>停止日が訪れたら、古いAPIのリクエストに対し、410(Gone)を返し、新しいAPIへのリンク先を案内する</li>
+</ol>
+
+<h3>既存のAPIをRESTfulにする場合</h3>
+
+<ul>
+<li><p>WSDL</p>
+
+<ul>
+<li>非RESTful API</li>
+<li>サーバー実装と自動生成されるクライアント実装が密結合となる</li>
+<li>サーバー実装の変更をクライアントサイドに反映出来ない</li>
+</ul></li>
+<li><p>既存のJSONベースAPIにハイパーメディアを追加する場合</p>
+
+<ul>
+<li>名前(application descriptor) を変更しない</li>
+<li>media-typeを変更しない</li>
+<li>安全でないリレーションを追加する場合、profileとしてHydraをもつJSON-LDがオススメ</li>
+</ul></li>
+<li><p>既存のXMLベースのAPIにハイパーメディアを追加する場合</p>
+
+<ul>
+<li>XFirn, XLinkをハイパーメディアコントロールとして使用する</li>
+</ul></li>
+<li><p>たとえわけの分からないレスポンスだったとしても</p>
+
+<ul>
+<li>media-typeやrelationがIANAに登録されている</li>
+<li>profileドキュメントへのリンクがあれば、なんとか解析はできる
+
+<ul>
+<li>profileはmachine-readableに加えて、human-readableな情報があると尚よし</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(8)]]></title>
+    <link href="http://ritalin.github.io/2015/03-11/restful-web-api-memo-08/"/>
+    <updated>2015-03-11T23:26:00+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-11/restful-web-api-memo-08</id>
+    <content type="html"><![CDATA[<h2>Chapter 8. Profiles</h2>
+
+<ul>
+<li>アプリケーション特化の拡張機能に対するドキュメント化</li>
+<li><p>アプリケーション特化の用語の定義、ドキュメント化</p></li>
+<li><p>現在、一般的用いられていることは、大量のhuman-readableなドキュメントを作成すること</p>
+
+<ul>
+<li>APIドキュメントについてはRESTful(自己記述性メッセージ)でない</li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>クライアントアプリはいかにしてドキュメントをさがすのか？</h3>
+
+<ul>
+<li><p>クライアントがリクエストやレスポンスの意味を推測すべきではない</p>
+
+<ul>
+<li>メッセージ自身が、詳細に説明すべき</li>
+</ul></li>
+<li><p>レスポンスはクライアントがなすべきことを全て含めるべき</p>
+
+<ul>
+<li>Content-type
+
+<ul>
+<li>リソースの解析方法を示す</li>
+</ul></li>
+<li>ハイパーメディアコントロール
+
+<ul>
+<li>次に発行すべきリクエストをレスポンスに含める</li>
+<li>プロトコルセマンティクスを明示する</li>
+</ul></li>
+<li>ドメイン特化フォーマットの場合
+
+<ul>
+<li>リソースに問題領域の状態遷移を含める</li>
+<li>アプリケーションセマンティクスを付与する</li>
+</ul></li>
+</ul></li>
+<li><p>多くの場合、プロトコルセマンティクスとアプケーションセマンティクスの両方をフォーマットから読み取ることはできない</p>
+
+<ul>
+<li>仕様Profileが欠損している</li>
+</ul></li>
+</ul>
+
+<h3>Profile</h3>
+
+<ul>
+<li><p>media-typeを元にリソースを解析しても得られない仕様(APIドキュメント)</p>
+
+<ul>
+<li>たいていHuman-readableな文書</li>
+<li>machine-readable profile
+
+<ul>
+<li>linkやdescripterで記述されたhuman-readableなドキュメント(Profile)を自動収集できる</li>
+</ul></li>
+</ul></li>
+<li><p>定義(RFC6906)</p>
+
+<ul>
+<li>リレーションを使用してProfileとリンク(rel=&quot;profile&quot;)
+
+<ul>
+<li>IANAにそのリレーションが登録されている
+
+<ul>
+<li>relをサポートするあらゆるハイパーメディアコントロールで利用可能
+
+<ul>
+<li>htmlのaタグ</li>
+<li>html, Collection+JSON, HALのlinkタグ</li>
+<li>RFC5988のLINKヘッダ</li>
+</ul></li>
+</ul></li>
+<li>Ontent-Typeパラメータに追記
+
+<ul>
+<li>application/collection+json;profile=&quot;(リンク先URL)&quot;</li>
+<li>すべてのmedia-typeで使用できるわけではない(RFC4288)
+
+<ul>
+<li>Collection+JSON</li>
+<li>JSON-LD</li>
+<li>HAL</li>
+<li>XHTML</li>
+</ul></li>
+<li>httpヘッダでprofileリンクを示したいなら、すべてで使えるLINKヘッダを使うべき</li>
+</ul></li>
+<li>Microdataのitemtype
+
+<ul>
+<li>Urlで、リンク先のprofileを指定する</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>プロトコルセマンティクスProfile</h3>
+
+<ul>
+<li>どのようなHTTPリクエスト発行されるのかについて</li>
+<li>フリーフォームな文体で記述</li>
+<li>ハイパーメディアコントロールを持たないmedia-type(JSON)に対して用意</li>
+<li>HALのようにプロトコルセマンティクスが削ぎ落とされている場合に用意</li>
+<li>ハイパーメディアコントロールであれば、リンクリレーションを用いて指定
+
+<ul>
+<li>ハイパーメディアコントロールから駆動される状態遷移を記述した文字列
+
+<ul>
+<li>GETでアプリケーション状態を遷移</li>
+<li>POST, PUT,DELETEでリソース状態を遷移</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>アプリケーションセマンティクスProfile</h3>
+
+<ul>
+<li><p>人が用語を理解するようにコンピュータにも理解させること</p></li>
+<li><p>利用するデータ構造、パラメータなどの説明文を用意</p></li>
+<li><p>用語をセマンティクス記述子に表記</p>
+
+<ul>
+<li>microformats
+
+<ul>
+<li>class属性</li>
+</ul></li>
+<li>Siren
+
+<ul>
+<li>classエンティティ</li>
+</ul></li>
+<li>生JSON
+
+<ul>
+<li>オブジェクトキー</li>
+</ul></li>
+<li>生XML
+
+<ul>
+<li>タグ名</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>XMDP</h3>
+
+<ul>
+<li>machine-readable profileの一種</li>
+<li>ほかのmicroformatを説明するためのmicroformat</li>
+<li>class属性に特別な意味があることを伝えられる
+
+<ul>
+<li>自動的に理解するわけではなく、そんなツールを書く必要がある</li>
+</ul></li>
+</ul>
+
+<h3>ALPS</h3>
+
+<ul>
+<li>XMDP同様、meta-microformst</li>
+<li>HTML専用</li>
+<li>プロパティ
+
+<ul>
+<li>descriptor
+
+<ul>
+<li>一つの用語に対して一つ作る</li>
+<li>type=&quot;semantic&quot;</li>
+<li>子要素のdocタグにhuman-readableな説明を書く</li>
+<li>docタグ以外はmachine-readable</li>
+<li><descripter href="#fn" />のようにすることで、ハイパーメディアコントロールにすることもできる</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>JSON-LD</h3>
+
+<ul>
+<li>元のJSONドキュメントに&quot;context&quot;と呼ばれるmachin-readableドキュメントを組み込む</li>
+<li>APIの変更なしに組み込むことが可能</li>
+<li>RDFからの派生</li>
+<li>アプリケーションセマンティクスを直接説明せず、ハイパーメディアリンクを添えるだけ
+
+<ul>
+<li>&quot;n&quot;: <url></li>
+<li>&quot;photo_link&quot;: { &quot;@id&quot;: <url>, &quot;@type&quot;: &quot;@id&quot; }</li>
+</ul></li>
+</ul>
+
+<h3>API自身にドキュメントを埋め込む</h3>
+
+<ul>
+<li><p>APIにhuman-readableドキュメントを埋め込めるフォーマットを用いる</p>
+
+<ul>
+<li>HTML
+
+<ul>
+<li>inputタグのvalue属性</li>
+</ul></li>
+<li>HAL
+
+<ul>
+<li>linkタグのtitle属性</li>
+</ul></li>
+<li>Siren
+
+<ul>
+<li>actionオブジェクトのtitleフィールド</li>
+</ul></li>
+</ul></li>
+<li><p>machine-readableとhuman-readableドキュメントの両方を用意することについて</p>
+
+<ul>
+<li>人との対話により動くクライアント、自動化クライアントの両対応のため</li>
+<li>両方のセマンティクスギャップをより縮める</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="/2015/03-19/restful-web-api-memo-09/">RESTful Web APIs 読書メモ(9)</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[RESTful Web APIs 読書メモ(7)]]></title>
-    <link href="http://ritalin.github.com/2015/03-09/restful-web-api-memo-07/"/>
+    <link href="http://ritalin.github.io/2015/03-09/restful-web-api-memo-07/"/>
     <updated>2015-03-09T21:08:00+09:00</updated>
-    <id>http://ritalin.github.com/2015/03-09/restful-web-api-memo-07</id>
+    <id>http://ritalin.github.io/2015/03-09/restful-web-api-memo-07</id>
     <content type="html"><![CDATA[<h2>Chapter 7. Pure hypermedia Design</h2>
 
 <ul>
@@ -347,9 +909,9 @@
   
   <entry>
     <title type="html"><![CDATA[RESTful Web APIs 読書メモ(6)]]></title>
-    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-06/"/>
+    <link href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-06/"/>
     <updated>2015-03-08T22:47:00+09:00</updated>
-    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-06</id>
+    <id>http://ritalin.github.io/2015/03-08/restful-web-api-memo-06</id>
     <content type="html"><![CDATA[<h2>Chapter 6. The Collection Pattern</h2>
 
 <ul>
@@ -612,7 +1174,7 @@
 <ul>
 <li>text or content</li>
 <li>post ot blogPost</li>
-<li>etc,...</li>
+<li>etc,&#8230;</li>
 </ul></li>
 </ul>
 
@@ -626,9 +1188,9 @@
   
   <entry>
     <title type="html"><![CDATA[ESTful Web APIs 読書メモ(5)]]></title>
-    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-05/"/>
+    <link href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-05/"/>
     <updated>2015-03-08T22:19:00+09:00</updated>
-    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-05</id>
+    <id>http://ritalin.github.io/2015/03-08/restful-web-api-memo-05</id>
     <content type="html"><![CDATA[<h2>Chapter.5 Domain-Specific Designs</h2>
 
 <ul>
@@ -732,354 +1294,6 @@
 <h2>つづき・・・</h2>
 
 <p><a href="/2015/03-08/restful-web-api-memo-06/">RESTful Web APIs 読書メモ(6)</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(4)]]></title>
-    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-04/"/>
-    <updated>2015-03-08T22:15:00+09:00</updated>
-    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-04</id>
-    <content type="html"><![CDATA[<h2>Hypermedia</h2>
-
-<!-- more -->
-
-<ul>
-<li><p>ハイパーメディア</p>
-
-<ul>
-<li>リソースを互いに結びつけ合わせること</li>
-<li>将来発行することになるリクエストをサーバーがクライアントに伝える方法</li>
-<li>あたかもメニューのようなもの</li>
-</ul></li>
-<li><p>ハイパーメディアとしてのHTML</p>
-
-<ul>
-<li>リンクを選択すること = リンク先のリソースに&quot;visit&quot;すること
-
-<ul>
-<li>表示されたリソースを新しいリソースで置き換えること</li>
-</ul></li>
-<li>aタグ
-
-<ul>
-<li>あるURLに対して、リンクを選択した場合のみ発行されるGETリクエストを発行するもの</li>
-<li>imgタグ
-
-<ul>
-<li>あるURLに対して、バックグラウンドで自動的にGETリクエストを発行するもの</li>
-</ul></li>
-<li>formタグ(method=POST)
-
-<ul>
-<li>あるURLに対して、submitした場合に、クライアントが生成したエンティティボディをもつPOSTリクエストを発行するもの</li>
-</ul></li>
-<li>formタグ(method=GET)
-
-<ul>
-<li>submitした場合に、クライアントが生成したクエリボディをもつURLにGETリクてを発行するもの</li>
-<li>human-readableなURLは作られない</li>
-<li>RFC6570, URI Templateを使うと、human-readableにできる</li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p>URIとURLの違い</p>
-
-<ul>
-<li>URL
-
-<ul>
-<li>リソースを見分けるための短い文字列</li>
-<li>URLはURIの一種</li>
-<li>RFC3986で標準化</li>
-<li>何らかの表現と関連づいてる</li>
-</ul></li>
-<li>URI
-
-<ul>
-<li>リソースを見分けるための短い文字列</li>
-<li>RFC3986で標準化</li>
-<li>表現をもつ保障はない</li>
-<li>URNもURIの一種</li>
-</ul></li>
-<li>URLなしでは、リソースを表現として得られない -&gt; REST制約を満たせない</li>
-<li>URNでリンクをつくってもハイパーメディア制約を満たせない</li>
-<li>URLであれば、REST制約を満たせる</li>
-</ul></li>
-<li><p>HTTPリクエストやレスポンスのLINKヘッダ(RFC5988)</p>
-
-<ul>
-<li>画像やただのplain textをハイパーメディアを付与する
-
-<ul>
-<li>画像であればスライドショー</li>
-<li>テキストであれば、本文の続き</li>
-</ul></li>
-</ul></li>
-<li><p>ハイパーメディアの仕事</p>
-
-<ul>
-<li>クライアントにHTTPリクエストの構築方法を伝達
-
-<ul>
-<li>aタグ: メソッド(暗黙的)とURL(明示的) を提示している</li>
-<li>formタグ: メソッド、URL、送信本文を提示
-
-<ul>
-<li>encType属性を付与することでContent-Typeヘッダを提示できる</li>
-</ul></li>
-<li>URI Template: URLを提示</li>
-</ul></li>
-<li>HTTPレスポンスについての約束事をとりつける
-
-<ul>
-<li>imgタグ:
-
-<ul>
-<li>aタグ同様GETリクエストとなることを提示</li>
-<li>サーバーがレスポンスとして画像を返すことを約束づけている</li>
-</ul></li>
-<li>AtomPubのlinkタグ
-
-<ul>
-<li>rel=&quot;edit&quot;の付与で、GETに加えPUT, DELETEのサポートを約束づけている</li>
-<li>AtomPub Member Entity表現がレスポンスとして返されることを約束づけている</li>
-</ul></li>
-</ul></li>
-<li>ワークフロー制御の提案
-
-<ul>
-<li>リソース間の関係を提示
-
-<ul>
-<li>aタグ
-
-<ul>
-<li>現在のページから指定されたURLのページに移動する</li>
-<li>out-bound リンク(アプリケーション状態を変化させる) </li>
-</ul></li>
-<li>imgタグ
-
-<ul>
-<li>embeddedリンク(アプリケーション状態を変化させない) </li>
-</ul></li>
-<li>scriptタグ
-
-<ul>
-<li>表現をダウンロードし、実行</li>
-</ul></li>
-<li>link rel=&quot;stylesheet&quot;
-
-<ul>
-<li>スタイルシートを適用する</li>
-</ul></li>
-<li>framesetタグ
-
-<ul>
-<li>別のhtmlドキュメントを埋め込む</li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li><p>ハイパーメディアの偽物にご用心</p>
-
-<ul>
-<li>JSONはハイパーメディアをサポートしていない。</li>
-<li>URLに見えても、仕様上、所詮ただの文字列</li>
-<li>web APIのレスポンスとして生JSONを使用することはREST制約を満たせない</li>
-<li>web APIのレスポンスにはハイパーメディアをサポートするmedia typeを使うべき</li>
-</ul></li>
-<li><p>imgタグとscriptタグもGETでリソース表現を取得する点でプロトコルセマンティクスや違いはない</p></li>
-<li><p>各々のタグから導かれるアプリケーションセマンティクスに従って処理を行う</p></li>
-</ul>
-
-<h3>Semantics Challenge</h3>
-
-<ul>
-<li>Webブラウザは、人との対話を通してリンク先を決定する</li>
-<li><p>いかにすれば、人の介在なしにこの振る舞いを実現できるのか？</p></li>
-<li><p>HTMLのimgタグも、scriptタグも、HTTPの観点では違いはない</p>
-
-<ul>
-<li>同一のプロトコルセマンティクスを持つ</li>
-<li>アプリケーションセマンティクスは異なるが・・・</li>
-</ul></li>
-<li><p>ドメイン特化アプリの場合、ハイパーメディアコントロールがセマンティクスギャップを埋める可能性を持つ</p>
-
-<ul>
-<li>画像収集アプリであれば、imgタグだけを踏み、scriptタグを無視する</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2>つづき・・・</h2>
-
-<p><a href="/2015/03-08/restful-web-api-memo-05/">RESTful Web APIs 読書メモ(5)</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(3)]]></title>
-    <link href="http://ritalin.github.com/2015/03-08/restful-web-api-memo-03/"/>
-    <updated>2015-03-08T22:11:00+09:00</updated>
-    <id>http://ritalin.github.com/2015/03-08/restful-web-api-memo-03</id>
-    <content type="html"><![CDATA[<h2>Chapter 3. Resources and Representations</h2>
-
-<!-- more -->
-
-<ul>
-<li>RESTは、プロトコルでもファイルフォーマットでもフレームワークでもない。</li>
-<li>RESTは設計制約のセット
-
-<ul>
-<li>ステートレス</li>
-<li>HATEOAS</li>
-<li>などなど</li>
-</ul></li>
-<li><p>HTTP, URI, HTMLを理解することは、REST制約を理解するための鍵となる</p>
-
-<ul>
-<li> HTTP, URI, HTMLの根底には、リソース、表現という概念がひそんでいる</li>
-<li>Clientにとって、Resourceがなにであるかは重要ではない。ClientはURLと結果の表現だけを見ているから</li>
-<li>表現とは、有益な形にリソースを加工したドキュメントであり、リソースの現在の状態をクライアントで読み取れるようにしたもの</li>
-</ul>
-
-<p>*GET
-* 表現の問い合わせ
-* POST, PUT, PATCH
-* 表現の提案</p></li>
-<li><p>リソースは一つ以上の表現をもつ</p>
-
-<ul>
-<li>言語(en, ja,...)</li>
-<li>フォーマット(JSON, XML,...)</li>
-<li>要約と全文</li>
-</ul></li>
-<li><p>クライアントからは、</p>
-
-<ul>
-<li>content negotiation</li>
-<li>一つのURLに複数のURI</li>
-</ul></li>
-</ul>
-
-<h3>プロトコルセマンティクス</h3>
-
-<ul>
-<li><p>リクエストメソッド</p>
-
-<ul>
-<li>GET
-
-<ul>
-<li>リソース表現を取得</li>
-<li> 安全でかつ冪等</li>
-<li>リソースの状態変更を期待する場面では使うべきでない</li>
-<li>よく使われるレスポンスコードは200(OK) or 301(Moved permanently)</li>
-<li>リソースがない場合、404(Not found)</li>
-<li>リソースが削除(DELETE)されていた場合、410(Gone)</li>
-</ul></li>
-<li>DELETE
-
-<ul>
-<li>リソースを破棄</li>
-<li>安全ではないが冪等</li>
-<li>よく使われるレスポンスコードは204(No content), 200(OK), 202(Accepted: 後で削除)</li>
-</ul></li>
-<li>POST(to append)
-
-<ul>
-<li>指定された表現でリソースを新規作成</li>
-<li>追記の場合のレスポンスコードは201(Created)</li>
-<li>201は作成されたリソースのURIを示すLocationヘッダをもつ</li>
-<li>作成はするがまだ完了していない場合、202(Accepted)が返される</li>
-<li>安全でもなく冪等でもない</li>
-</ul></li>
-<li>POST(overload)
-
-<ul>
-<li>PUT, DELETEの代わりに投げつける</li>
-</ul></li>
-<li>PUT
-
-<ul>
-<li>リソースを置き換える</li>
-<li>GETで取得し、修正してPUTで投げる</li>
-<li>リクエスト内容に不備があれば、サーバーは拒否する自由がある</li>
-<li>返されるステータスコードは、200(OK), 204(No content)</li>
-<li>冪等である</li>
-<li>既知のURLに新しいリソースを作成するためにも用いられる</li>
-<li>新規リソースを作成する場合でさえ冪等</li>
-</ul></li>
-<li>HEAD
-
-<ul>
-<li>リソースのヘッダレスポンスのみ返す</li>
-</ul></li>
-<li>OPTIONS
-
-<ul>
-<li>利用できるhttpメソッドの列挙</li>
-</ul></li>
-<li>CONNECT, TRACE
-
-<ul>
-<li>プロキシのためのもの</li>
-</ul></li>
-</ul></li>
-<li><p>RFC-5789</p>
-
-<ul>
-<li>PATCH
-
-<ul>
-<li>指定された表現に基づいてリソースの一部を修正する</li>
-<li>PUTとは異なり微調整が可能</li>
-<li>リクエストも変更対象の差分だけを送ることが可能</li>
-<li>変更後のリソースをクライアントに戻す場合、200(OK)を返す</li>
-<li>成功を伝えるだけであれば、304(No Content)を返す</li>
-</ul></li>
-</ul></li>
-<li><p>標準候補だった(RFC2068で入り、2616で破棄)</p>
-
-<ul>
-<li>LINK
-
-<ul>
-<li>別のリソースとリンクを張る</li>
-<li>安全ではないが冪等</li>
-<li>URLはLINKヘッダで指定</li>
-</ul></li>
-<li>UNLINK
-
-<ul>
-<li>別のリソースとのリンクを破棄する</li>
-<li> 安全ではないが冪等</li>
-<li>URLはLINKヘッダで指定</li>
-</ul></li>
-</ul></li>
-<li><p>WebDAV(RFC4918)</p>
-
-<ul>
-<li>COPY, MOVE, LOCKなど7つのメソッドを追加</li>
-</ul></li>
-<li><p>RESTful system</p>
-
-<ul>
-<li>独立したコンポーネント(サーバー、クライアント、キャッシュ、プロキシ)で構成されている</li>
-<li>HTTPのプロトコルセマンティクスの大半はHTTPメソッドとして定義されている</li>
-<li>APIをhtmlで記述する場合、メソッドはGET, POSTに制限される</li>
-<li>ファイルシステムGUIアプリなら、HTTP+WebDAVのメソッドが使われるだろう</li>
-<li>キャッシュやプロキシならPATCHメソッドの使用が考えられる</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2>つづき・・・</h2>
-
-<p><a href="/2015/03-08/restful-web-api-memo-04/">RESTful Web APIs 読書メモ(4)</a></p>
 ]]></content>
   </entry>
   

@@ -1,0 +1,466 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RESTful Web APIs 読書メモ(9) - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="RESTful Web APIs 読書メモ(9) Chapter 9. The Design Procedure API設計とは、プロトコルセマンティクスとアプリケーションセマンティクスを設計すること 最も単純な手順 表現として使用するmedia-typeを選択する &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="false" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">RESTful Web APIs 読書メモ(9)</h2>
+	<div class="entry-content"><h2>Chapter 9. The Design Procedure</h2>
+
+<ul>
+<li>API設計とは、プロトコルセマンティクスとアプリケーションセマンティクスを設計すること</li>
+</ul>
+
+<!-- more -->
+
+<h3>最も単純な手順</h3>
+
+<ol>
+<li>表現として使用するmedia-typeを選択する
+
+<ul>
+<li>プロトコルセマンティクスとアプリケーションセマンティクスを選択することでもある</li>
+<li>application/json
+
+<ul>
+<li>今日、幅広く使われている形式</li>
+<li>fiat standardとなるので再利用出来ない</li>
+</ul></li>
+</ul></li>
+<li>Profileを用意する</li>
+</ol>
+
+<h3>詳細な手順</h3>
+
+<ol>
+<li>クライアントがAPIを通して、get/putする情報の素片をリストアップする
+
+<ul>
+<li>情報の素片は階層構造をもったsemantic descriptor (リソースの表現) となる
+
+<ul>
+<li>この時点では、用語のブレは気にしない(first-name, first_name)</li>
+</ul></li>
+<li>語彙は、データベーススキーマやオブジェクトモデルからはもってこないこと
+
+<ul>
+<li>クライアントコードがサーバーサイドに依存してしまうため</li>
+</ul></li>
+<li>media-type在りきでデータ構造を決定しないこと
+
+<ul>
+<li>6. まで我慢する</li>
+</ul></li>
+<li>IANA登録済みのlink relationと重複させないこと
+
+<ul>
+<li>ページネーション
+
+<ul>
+<li>first, next, current</li>
+<li>next-archive, prev-archive (RFC5005)</li>
+</ul></li>
+<li>メッセージスレッド
+
+<ul>
+<li>replies (RFC4685)</li>
+</ul></li>
+<li>リソース状態の履歴管理(RFC5829)
+
+<ul>
+<li>latest-version</li>
+<li>successor-version</li>
+<li>predecessor-version</li>
+<li>working-copy</li>
+<li>working-copy-of</li>
+</ul></li>
+<li>リソース状態の編集
+
+<ul>
+<li>edit</li>
+<li>edit-media</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>APIの状態遷移図を描く
+
+<ul>
+<li>一つの状態に一つの表現を割り当てる</li>
+<li>一つの状態遷移が一つの矢印となる</li>
+<li>httpメソッドはまだ割り当てない</li>
+<li>冪等性と安全性は考えておくべき</li>
+<li>link relationが発見されるかもしれない
+
+<ul>
+<li>構造化された内と外との間のリンク</li>
+<li>用語がアプリケーション状態の変化をもたらすのであれば、その用語はリレーション</li>
+<li>拡張リンクリレーション
+
+<ul>
+<li>http://example.com/maze#exit</li>
+<li>profile取り込むことなく使用可能</li>
+</ul></li>
+</ul></li>
+<li>階層構造が変化するかもしれない</li>
+<li>状態間は、グループ化されたdescriptor (ValueObject)が行き来する</li>
+<li>状態遷移におけるトップレベル表現を設ける
+
+<ul>
+<li>ほかの状態へは、ハイパーメディアコントロールを通して</li>
+</ul></li>
+</ul></li>
+<li>semantic descriptorとlink relationが満足するまで、1, 2を繰り返す
+
+<ol>
+<li>用語のブレは解消しておくこと</li>
+</ol></li>
+<li>用語が既知のprofileに存在するのなら、それに置き換える
+
+<ul>
+<li>IANAに登録されたリレーション</li>
+<li>schema.orgに登録された用語</li>
+<li>alps.ioに登録された用語</li>
+<li>ドメイン特化フォーマットで使用される用語、などなど</li>
+<li>既知の語彙は間違った理解を減らせる</li>
+<li>profileの再利用は、書くべきドキュメント量を減らせる</li>
+<li>profileの再利用は、ライブラリの再利用を促せる</li>
+<li>たいていはprofileを使用せず、media-typeに結びつけてしまっている
+
+<ul>
+<li>一つのAPIに対して複数のmedia-typeを独自定義せず、複数のprofileを利用する</li>
+</ul></li>
+<li>金融、法務関係のprofileは、未整備のため再利用は難しい</li>
+</ul></li>
+<li>用語と状態遷移図が満足するまで、1 - 3を繰り返す</li>
+<li>プロトコルセマンティクスとアプリケーションセマンティクスに適合するmedia-typeを選択する
+
+<ul>
+<li>運が良ければ、ドメイン特化フォーマットが見つかるかもしれない</li>
+<li>独自定義する場合、標準的な命名規則に従う
+
+<ul>
+<li>application/vnd.(org name).(base type)</li>
+<li>(例) application/vnd.hoge.maze+xml</li>
+</ul></li>
+<li>より汎用的な利用を考えているのならIANAにmedia-typeを登録する
+
+<ul>
+<li>RFC6838の4, 5節の手順に従う</li>
+<li>JSONベースならRFC4627を目を通すべし</li>
+<li>XMLベースならRFC3023に目を通すべし</li>
+</ul></li>
+<li>可能な限り、ハイパーメディアフォーマットを選択する</li>
+<li>コレクションパターン
+
+<ul>
+<li>Collection+JSON</li>
+<li>AtomPub</li>
+<li>OData</li>
+</ul></li>
+<li>有向グラフ構造
+
+<ul>
+<li>HTML</li>
+<li>HAL</li>
+<li>Siren</li>
+</ul></li>
+<li>読み取り専用API
+
+<ul>
+<li>HTML</li>
+<li>HAL</li>
+<li>JSON-LD</li>
+</ul></li>
+<li>安全でないメソッドを使用する場合
+
+<ul>
+<li>Hydra</li>
+<li>Collection+JSON</li>
+</ul></li>
+</ul></li>
+<li>未知の用語に対して、profileを用意する
+
+<ul>
+<li>machine-readable フォーマット
+
+<ul>
+<li>Alps<br></li>
+<li>JSON-LD</li>
+<li>XMDPベースのwebページ</li>
+</ul></li>
+<li>profileでlink relationを定義した場合、IANAのものよりも優先される
+
+<ul>
+<li>意図的にやるべきではない</li>
+</ul></li>
+</ul></li>
+<li>状態遷移図を満たすサーバー実装を書く</li>
+<li>トップのURLを公開する
+
+<ul>
+<li>状態遷移図のゲートウェイをトップURLとする</li>
+<li>Profileを配置する
+
+<ul>
+<li>自サイト</li>
+<li>alps.io</li>
+</ul></li>
+<li>APIの要約</li>
+<li>利用例</li>
+<li>サンプルコード</li>
+<li>認証手順</li>
+<li>Well known URIs Registry (RFC5785)
+
+<ul>
+<li>CoRE Link Formatの場合
+
+<ul>
+<li>/.well-knoen/coreに問い合わせ</li>
+<li>相対URLは、IANAレジストリに登録</li>
+<li>ほかリソースのハイパーメディアリンクの一覧を取得できる</li>
+</ul></li>
+<li>ホストメタデータの取得
+
+<ul>
+<li>/.well-known/host-meta.json </li>
+<li>または、/.well-known/host-meta</li>
+</ul></li>
+<li>well known URIは、media-typeに関連付けられる</li>
+</ul></li>
+</ul></li>
+</ol>
+
+<h3>バージョニング</h3>
+
+<ul>
+<li>前提
+
+<ul>
+<li>第一にAPIのセマンティクスをhuman-readableドキュメントやハイパーメディアドキュメントの外に置くこと
+*　変更に強くなる</li>
+<li>既存のリソース定義を変更するのではなく、新しいリソースや状態遷移を追加するに留める</li>
+</ul></li>
+<li>URLに付与
+
+<ul>
+<li><li class="v1" href="v1" />のような感じ</li>
+<li>media-typeに付与
+
+<ul>
+<li>コンテントネゴシエーションとして指定
+
+<ul>
+<li>Accept: application/vnd.hoge?version=2
+
+<ul>
+<li>media-typeはAPIではないのでやめといた方がいい</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>profileを使う
+
+<ul>
+<li>破壊的変更はhuman-readableに記述</li>
+<li>非破壊変更はmachine-readableなハイパーメディアで記述</li>
+</ul></li>
+<li>リソーススキーマの変更
+
+<ul>
+<li>後方互換性を保ちたいなら、異なるURIを持つ新たなリソースを定義する</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>古いAPIの止め方</h3>
+
+<ol>
+<li>deplecatedをマークし、公式チャンネルでアナウンスする</li>
+<li>しばらくしたら、deplecatedマークしたバージョンはバグ修正しないことをアナウンスする</li>
+<li>更に幾つか待って、停止の期限をアナウンスする</li>
+<li>停止日が訪れたら、古いAPIのリクエストに対し、410(Gone)を返し、新しいAPIへのリンク先を案内する</li>
+</ol>
+
+<h3>既存のAPIをRESTfulにする場合</h3>
+
+<ul>
+<li><p>WSDL</p>
+
+<ul>
+<li>非RESTful API</li>
+<li>サーバー実装と自動生成されるクライアント実装が密結合となる</li>
+<li>サーバー実装の変更をクライアントサイドに反映出来ない</li>
+</ul></li>
+<li><p>既存のJSONベースAPIにハイパーメディアを追加する場合</p>
+
+<ul>
+<li>名前(application descriptor) を変更しない</li>
+<li>media-typeを変更しない</li>
+<li>安全でないリレーションを追加する場合、profileとしてHydraをもつJSON-LDがオススメ</li>
+</ul></li>
+<li><p>既存のXMLベースのAPIにハイパーメディアを追加する場合</p>
+
+<ul>
+<li>XFirn, XLinkをハイパーメディアコントロールとして使用する</li>
+</ul></li>
+<li><p>たとえわけの分からないレスポンスだったとしても</p>
+
+<ul>
+<li>media-typeやrelationがIANAに登録されている</li>
+<li>profileドキュメントへのリンクがあれば、なんとか解析はできる
+
+<ul>
+<li>profileはmachine-readableに加えて、human-readableな情報があると尚よし</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-19T23:00:00+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+<script async="true" src="/javascripts/twitter.js"></script>
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+</body>
+</html>

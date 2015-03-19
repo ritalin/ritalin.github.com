@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: tdd | Since 1975]]></title>
-  <link href="http://ritalin.github.com/blog/categories/tdd/atom.xml" rel="self"/>
-  <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-12T00:29:46+09:00</updated>
-  <id>http://ritalin.github.com/</id>
+  <link href="http://ritalin.github.io/blog/categories/tdd/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Rhino.Mocks tips]]></title>
-    <link href="http://ritalin.github.com/2012/12-20/rhino-mocks-tips/"/>
+    <link href="http://ritalin.github.io/2012/12-20/rhino-mocks-tips/"/>
     <updated>2012-12-20T21:27:00+09:00</updated>
-    <id>http://ritalin.github.com/2012/12-20/rhino-mocks-tips</id>
+    <id>http://ritalin.github.io/2012/12-20/rhino-mocks-tips</id>
     <content type="html"><![CDATA[<p>いくつか引っかかったので、忘れないうちにメモとして残しとく。</p>
 
 <!-- more -->
@@ -45,14 +45,14 @@
   
   <entry>
     <title type="html"><![CDATA[Rhino.Mocksをちょっとだけ幸せにするお助けクラス]]></title>
-    <link href="http://ritalin.github.com/2012/12-08/tdd-advent-2012/"/>
+    <link href="http://ritalin.github.io/2012/12-08/tdd-advent-2012/"/>
     <updated>2012-12-08T00:00:00+09:00</updated>
-    <id>http://ritalin.github.com/2012/12-08/tdd-advent-2012</id>
+    <id>http://ritalin.github.io/2012/12-08/tdd-advent-2012</id>
     <content type="html"><![CDATA[<p>これは<a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a>参加記事です。</p>
 
 <p>前日（7日目）は、高野将さんの「<a href="http://takanosho.wordpress.com/2012/12/07/tdd-advent-calendar-2012/">TDDにIDEを活用しよう (VS2012+CodeRush Xpress)</a>」でした。</p>
 
-<p>さて、私の方はというと...ATNDの方にコメントで</p>
+<p>さて、私の方はというと&#8230;ATNDの方にコメントで</p>
 
 <blockquote>
 <p>windows8から搭載された、名前を出すことがはばかれる例のヤツをNUnitでテストする時の注意点とか（仮）</p>
@@ -62,7 +62,7 @@
 
 <p>最大の敵は、なんといってもasync / await機構が対応していなかったためテストが書きづらく、そのための支援クラスをいくつか書いたので、それをさらそうと思っていました。</p>
 
-<p>思っていました....。</p>
+<p>思っていました&#8230;.。</p>
 
 <p>そんな折、</p>
 
@@ -72,12 +72,12 @@
 
 <p>とのことで、もはや書く意味なくなりました。</p>
 
-<p>なくなりました....。</p>
+<p>なくなりました&#8230;.。</p>
 
 <p>なので別ネタに切り替えます。
 で、最近コツコツ調べてる、<a href="http://www.hibernatingrhinos.com/oss/rhino-mocks">Rhino.Mocks</a>用のお助けクラスを書いたので、それを披露しようかと思います。</p>
 
-<h2>前ふりから...</h2>
+<h2>前ふりから&#8230;</h2>
 
 <p>Rhino.Mocksのお作法では、</p>
 
@@ -101,7 +101,7 @@
 より下層のロジックをMock化しようとすると、複数のMockを作成して、各々に対して<code>VerifyAll()</code>を呼ぶというチョーメンドクサイ記述が必要です。</p>
 
 <p>うっかり書き忘れるようものなら、目も当てられません。
-まとめてVerify出来ればいいのに....。</p>
+まとめてVerify出来ればいいのに&#8230;.。</p>
 
 <p>実は、静的メソッド<code>MockRepository.GenerateMock()</code>とは別に、</p>
 
@@ -114,7 +114,7 @@
 <p>というように、１つのレポジトリから複数のMockを生成することが出来ます。
 最後に、MockRepositoryのVerifyAll()を呼んでやれば、まとめて通過検証ができると。</p>
 
-<p>やってみました....。</p>
+<p>やってみました&#8230;.。</p>
 
 <p>残念、最初のA、つまりArrangeを行ってくれません。
 従って、Mockを通過しないので、各MockのVerifyAll()がことごとく失敗します。
@@ -131,7 +131,7 @@ using Rhino.Mocks;
 namespace Samples {
     internal static class RhinoMocksCreationExtensions {
         /// &lt;summary&gt;Generates a stub without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;'s constructor&lt;/param&gt;
+        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
         /// &lt;typeparam name=&quot;T&quot;&gt;The &lt;see cref=&quot;Type&quot;/&gt; of stub to create.&lt;/typeparam&gt;
         /// &lt;returns&gt;The stub&lt;/returns&gt;
         /// &lt;seealso cref=&quot;Stub{T}&quot;/&gt;
@@ -141,7 +141,7 @@ namespace Samples {
 
         /// &lt;summary&gt;Generates a stub without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
         /// &lt;param name=&quot;type&quot;&gt;The &lt;see cref=&quot;Type&quot;/&gt; of stub.&lt;/param&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for the &lt;paramref name=&quot;type&quot;/&gt;'s constructor.&lt;/param&gt;
+        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for the &lt;paramref name=&quot;type&quot;/&gt;&#39;s constructor.&lt;/param&gt;
         /// &lt;returns&gt;The stub&lt;/returns&gt;
         /// &lt;seealso cref=&quot;Stub&quot;/&gt;
         public static object GenerateStubHelper(this MockRepository repository, Type type, params object[] argumentsForConstructor) {
@@ -150,7 +150,7 @@ namespace Samples {
 
         /// &lt;summary&gt;Generate a mock object without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
         /// &lt;typeparam name=&quot;T&quot;&gt;type &lt;see cref=&quot;Type&quot;/&gt; of mock object to create.&lt;/typeparam&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;'s constructor&lt;/param&gt;
+        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
         /// &lt;returns&gt;the mock object&lt;/returns&gt;
         /// &lt;seealso cref=&quot;DynamicMock{T}&quot;/&gt;
         public static T GenerateMockHelper&lt;T&gt;(this MockRepository repository, params object[] argumentsForConstructor) where T : class {
@@ -160,7 +160,7 @@ namespace Samples {
         /// &lt;summary&gt;Generate a multi-mock object without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
         /// &lt;typeparam name=&quot;T&quot;&gt;The &lt;c&gt;typeof&lt;/c&gt; object to generate a mock for.&lt;/typeparam&gt;
         /// &lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;A second interface to generate a multi-mock for.&lt;/typeparam&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;'s constructor&lt;/param&gt;
+        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
         /// &lt;returns&gt;the multi-mock object&lt;/returns&gt;
         /// &lt;seealso cref=&quot;DynamicMultiMock(System.Type,System.Type[],object[])&quot;/&gt;
         public static T GenerateMockHelper&lt;T, TMultiMockInterface1&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
@@ -173,7 +173,7 @@ namespace Samples {
         /// &lt;typeparam name=&quot;T&quot;&gt;The &lt;c&gt;typeof&lt;/c&gt; object to generate a mock for.&lt;/typeparam&gt;
         /// &lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;An interface to generate a multi-mock for.&lt;/typeparam&gt;
         /// &lt;typeparam name=&quot;TMultiMockInterface2&quot;&gt;A second interface to generate a multi-mock for.&lt;/typeparam&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;'s constructor&lt;/param&gt;
+        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
         /// &lt;returns&gt;the multi-mock object&lt;/returns&gt;
         /// &lt;seealso cref=&quot;DynamicMultiMock(Type,Type[],object[])&quot;/&gt;
         public static T GenerateMockHelper&lt;T, TMultiMockInterface1, TMultiMockInterface2&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
@@ -186,7 +186,7 @@ namespace Samples {
         /// &lt;summary&gt;Creates a multi-mock without without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
         /// &lt;param name=&quot;type&quot;&gt;The type of mock to create, this can be a class&lt;/param&gt;
         /// &lt;param name=&quot;extraTypes&quot;&gt;Any extra interfaces to add to the multi-mock, these can only be interfaces.&lt;/param&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;paramref name=&quot;type&quot;/&gt;'s constructor&lt;/param&gt;
+        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;paramref name=&quot;type&quot;/&gt;&#39;s constructor&lt;/param&gt;
         /// &lt;returns&gt;the multi-mock object&lt;/returns&gt;
         /// &lt;seealso cref=&quot;DynamicMultiMock(System.Type,System.Type[],object[])&quot;/&gt;
         public static object GenerateMockHelper(this MockRepository repository, Type type, Type[] extraTypes, params object[] argumentsForConstructor) {
@@ -194,7 +194,7 @@ namespace Samples {
         }
 
         ///&lt;summary&gt;Creates a strict mock without without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;'s constructor&lt;/param&gt;
+        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
         ///&lt;typeparam name=&quot;T&quot;&gt;The type of mock object to create.&lt;/typeparam&gt;
         ///&lt;returns&gt;The mock object with strict replay semantics&lt;/returns&gt;
         /// &lt;seealso cref=&quot;StrictMock{T}&quot;/&gt;
@@ -203,7 +203,7 @@ namespace Samples {
         }
 
         ///&lt;summary&gt;Creates a strict multi-mock without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;'s constructor&lt;/param&gt;
+        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
         ///&lt;typeparam name=&quot;T&quot;&gt;The type of mock object to create, this can be a class.&lt;/typeparam&gt;
         ///&lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;An interface to generate a multi-mock for, this must be an interface!&lt;/typeparam&gt;
         ///&lt;returns&gt;The multi-mock object with strict replay semantics&lt;/returns&gt;
@@ -216,7 +216,7 @@ namespace Samples {
         }
 
         ///&lt;summary&gt;Creates a strict multi-mock without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;'s constructor&lt;/param&gt;
+        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
         ///&lt;typeparam name=&quot;T&quot;&gt;The type of mock object to create, this can be a class.&lt;/typeparam&gt;
         ///&lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;An interface to generate a multi-mock for, this must be an interface!&lt;/typeparam&gt;
         ///&lt;typeparam name=&quot;TMultiMockInterface2&quot;&gt;A second interface to generate a multi-mock for, this must be an interface!&lt;/typeparam&gt;
@@ -232,7 +232,7 @@ namespace Samples {
         ///&lt;summary&gt;Creates a strict multi-mock without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
         ///&lt;param name=&quot;type&quot;&gt;The type of mock object to create, this can be a class&lt;/param&gt;
         ///&lt;param name=&quot;extraTypes&quot;&gt;Any extra interfaces to generate a multi-mock for, these must be interaces!&lt;/param&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments for the &lt;paramref name=&quot;type&quot;/&gt;'s constructor&lt;/param&gt;
+        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments for the &lt;paramref name=&quot;type&quot;/&gt;&#39;s constructor&lt;/param&gt;
         ///&lt;returns&gt;The strict multi-mock object&lt;/returns&gt;
         /// &lt;seealso cref=&quot;StrictMultiMock(System.Type,System.Type[],object[])&quot;/&gt;
         public static object GenerateStrictMockHelper(this MockRepository repository, Type type, Type[] extraTypes, params object[] argumentsForConstructor) {

@@ -7,16 +7,8 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="はじめに 引き続き、公式サイトのチュートリアルを写経していきます。
-ちなみに完全な和訳を目指しているわけではないです。あしからず。 サービスの作成 サービスの実装は、cornice_tutorial/views.py に記述するようです。
-中身を確認してみると・・・ 1
-2
-3
-4
-5
-6
-7
-8 &hellip;">
+	<meta name="description" content="Cornice Tutorial (2) はじめに 引き続き、公式サイトのチュートリアルを写経していきます。
+ちなみに完全な和訳を目指しているわけではないです。あしからず。 サービスの作成 サービスの実装は、cornice_tutorial/views.py に記述するようです。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -25,16 +17,16 @@
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script async="false" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	
 </head>
+
 
 <body>
 	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
 <nav id="main-nav"><ul class="main">
 	<li><a href="/">Blog</a></li>
 	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/slides">Slides</a></li>
 </ul>
 </nav>
 <nav id="mobile-nav">
@@ -43,7 +35,6 @@
 		<div class="container"><ul class="main">
 	<li><a href="/">Blog</a></li>
 	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/slides">Slides</a></li>
 </ul>
 </div>
 	</div>
@@ -52,7 +43,7 @@
 		<div class="container">
 			<form action="http://google.com/search" method="get">
 				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:ritalin.github.com">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
 			</form>
 		</div>
 	</div>
@@ -62,7 +53,10 @@
 		
 		
 		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
 		
+		
+    
 		
 		
 		
@@ -70,10 +64,11 @@
 		
 		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
 		
+    
 	</div>
 	<form class="search" action="http://google.com/search" method="get">
 		<input class="alignright" type="text" name="q" results="0">
-		<input type="hidden" name="q" value="site:ritalin.github.com">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
 	</form>
 </nav>
 
@@ -235,7 +230,7 @@
   
 
 
-<time datetime="2013-06-12T00:28:00+09:00" pubdate data-updated="true">Jun 12<span>th</span>, 2013</time></div>
+<time datetime="2013-06-12T00:28:00+09:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 
@@ -244,18 +239,31 @@
 
 </div>
 	
-</div></article>
+</div>
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</article>
 
 	<div class="share">
 	<div class="addthis_toolbox addthis_default_style ">
-	
-	
-	<a class="addthis_button_tweet"></a>
-	
-	
-	<a class="addthis_counter addthis_pill_style"></a>
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
 	</div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+	
 </div>
 
 
@@ -264,6 +272,7 @@
 
     ktz_alias
 
+<script async="true" src="/javascripts/twitter.js"></script>
 </footer>
 	<script src="/javascripts/slash.js"></script>
 <script src="/javascripts/jquery.fancybox.pack.js"></script>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: design-pattern | Since 1975]]></title>
-  <link href="http://ritalin.github.com/blog/categories/design-pattern/atom.xml" rel="self"/>
-  <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-12T00:29:46+09:00</updated>
-  <id>http://ritalin.github.com/</id>
+  <link href="http://ritalin.github.io/blog/categories/design-pattern/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Factoryの具象クラスをインスタンスするのは誰？]]></title>
-    <link href="http://ritalin.github.com/2013/01-10/factory-method/"/>
+    <link href="http://ritalin.github.io/2013/01-10/factory-method/"/>
     <updated>2013-01-10T22:04:00+09:00</updated>
-    <id>http://ritalin.github.com/2013/01-10/factory-method</id>
+    <id>http://ritalin.github.io/2013/01-10/factory-method</id>
     <content type="html"><![CDATA[<h2>Simple Factory</h2>
 
 <p>というのが、デザインパターンとしてあるのですね。今日Twitter上のTLに流れてきて、気になってググってみたら、<a href="http://d.hatena.ne.jp/asakichy/20090414/1239718537">Strategic Choice</a>さんのブログに行き着きました。</p>

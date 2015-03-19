@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: c# | Since 1975]]></title>
+  <link href="http://ritalin.github.io/blog/categories/c-number/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
+  <author>
+    <name><![CDATA[ktz_alias]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Rhino.Mocks tips]]></title>
+    <link href="http://ritalin.github.io/2012/12-20/rhino-mocks-tips/"/>
+    <updated>2012-12-20T21:27:00+09:00</updated>
+    <id>http://ritalin.github.io/2012/12-20/rhino-mocks-tips</id>
+    <content type="html"><![CDATA[<p>いくつか引っかかったので、忘れないうちにメモとして残しとく。</p>
+
+<!-- more -->
+
+<h2>プロパティをモック</h2>
+
+<p>具象クラスのモックを作る場合、対象のメソッドやプロパティをvirtualにする必要がある。
+モック目的のためだけにvirtualにするのは気が重い。</p>
+
+<p>この場合、インターフェースを切り出し、インターフェースからモック作れば心配無用。
+モックから戻り値を取得するためにReturnやDoも必要。</p>
+
+<h2>NUnitで使う際の注意点</h2>
+
+<ul>
+<li>連続実行したとき、2つ目以降のテストケースが失敗する</li>
+</ul>
+
+<p>Rhino.Mocksに限らないが、フィールドの初期化子でインスタンス化した場合に発生。
+必ずSetUp属性、FixtureSetpu属性、または各テストコード内で初期化すること。</p>
+
+<p>GOOS本(p.26)にもちゃんと書かれてる。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Advent Calendar 2012 Winter (C#)]]></title>
+    <link href="http://ritalin.github.io/2012/12-02/csharp-advent-2012/"/>
+    <updated>2012-12-02T00:00:00+09:00</updated>
+    <id>http://ritalin.github.io/2012/12-02/csharp-advent-2012</id>
+    <content type="html"><![CDATA[<p>これは<a href="http://atnd.org/events/33905">C# Advent Calender 2012</a>参加記事です。</p>
+
+<p>今年の2月〜10月の間、<a href="http://msdn.microsoft.com/ja-jp/windows/apps/">Windows8の名前を発してはいけないアプリ</a>を開発していて、その間にいくつか小道具を作っては<a href="https://gist.github.com">gist</a>に放り込んだので、使えるもの使えないものひっくるめて、大掃除がてら、いくつか紹介いたします。</p>
+
+<h3><a href="https://gist.github.com/2418469">gist: 2418469</a> A helper class to extract property-names of ViewModel for MVVM.</h3>
+
+<p><div><script src='https://gist.github.com/2418469.js?file=PropertyCategoryMapper.cs'></script>
+<noscript><pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+namespace Samples {
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    public class PropertyCategoryAttribute : System.Attribute {
+        public PropertyCategoryAttribute(Type inTagType) {
+            this.Tag = inTagType;
+        }
+
+        public Type Tag { get; internal set; }
+    }
+
+    public class PropertyCategoryMapper {
+        public static PropertyCategoryMapper Create&lt;TViewModel&gt;() {
+            return new PropertyCategoryMapper(typeof(TViewModel));
+        }
+
+        public static PropertyCategoryMapper Create(Type inType) {
+            return new PropertyCategoryMapper(inType);
+        }
+
+        private Dictionary&lt;Type, string[]&gt; mTagMap;
+
+        private PropertyCategoryMapper(Type inType) {
+            mTagMap = (
+                inType.GetTypeInfo().DeclaredProperties
+                .Where(p =&gt; p.CanRead)
+                .SelectMany(p =&gt; {
+                    return p.GetCustomAttributes&lt;PropertyCategoryAttribute&gt;(true).Select(attr =&gt; {
+                        return new KeyValuePair&lt;Type, string&gt;(attr.Tag, p.Name);
+                    });
+                })
+                .GroupBy(pair =&gt; pair.Key, pair =&gt; pair.Value)
+                .ToDictionary(pair =&gt; pair.Key, pair =&gt; pair.ToArray())
+            );
+        }
+
+        public string[] ToProprtyNames(Type inTag) {
+            return ToProprtyNamesCore(inTag);
+        }
+
+        public string[] ToProprtyNames&lt;TCategoryTag&gt;() {
+            return ToProprtyNamesCore(typeof(TCategoryTag));
+        }
+
+        private string[] ToProprtyNamesCore(Type inTag) {
+            string[] props;
+
+            if (mTagMap.TryGetValue(inTag, out props)) {
+                return props;
+            }
+            else {
+                return new string[0];
+            }
+        }
+    }
+}
+</code></pre></noscript></div>
+</p>
+
+<p>WPFでMVVM的なことをやってて、いつも気になるのが <code>INotifyPropertyChanged.PropertyChanged</code> イベントを介して通知を行う際の引数。</p>
+
+<p>あの文字列で渡すってのが、もう気に入らないです（個人的感想です）。
+カターンゼンじゃないし&#8230;（個人的感想です）。
+C# 5.0からは、<code>CallerInfoAttribute</code>が追加されて、幾分楽にはなってるっぽいですが、read-onlyなプロパティにも値をセットしなきゃならんとかチョーメンドイわけです（個人的感想です）。</p>
+
+<p>文字列は自由に表現が出来る分、記述間違いにかどうかは実行時でないと分からない問題を持っていますので、できるだけコンパイル時に蹴ってもらえるよう、専用の型を与えたいと思っていました。
+そこで、上のようなコード書いてみました。</p>
+
+<p>使い方は以下のように。。。
+<div><script src='https://gist.github.com/2418469.js?file=PropertyCategoryTestViewModel.cs'></script>
+<noscript><pre><code>    namespace TestTag {
+        public interface Unknown {}
+        public interface Numeric {}
+        public interface Strings {}
+        public interface Dates {}
+        public interface Custom1 {}
+        public interface Custom2 {}
+    }
+
+    internal class PropertyCategoryTestViewModel : INotifyPropertyChanged {
+        private PropertyCategoryMapper mMapper;
+
+        private DateTime mCreatedAt = DateTime.Now;
+        private DateTime mModifiedAt = DateTime.Now;
+
+        public PropertyCategoryTestViewModel() {
+           mMapper = PropertyCategoryMapper.Create(this.GetType());
+        }
+
+        public event PropertyChanged;
+
+        protected void OnPropertyChanged(string[] inNames) {
+            if (this.PropertyChanged != null) {
+                foreach (var name in inNames) {
+                    this.PropertyChanged(name);
+                }
+            }
+        }
+
+        public void DoHoge() {
+            // Do something ...
+
+            this.OnPropertyChanged(mMapper.ToProprtyNames&lt;TestTag.Numeric&gt;());
+        }
+
+        [PropertyCategory(typeof(TestTag.Numeric))]
+        public int Value1 { get; set; }
+
+        [PropertyCategory(typeof(TestTag.Numeric))]
+        [PropertyCategory(typeof(TestTag.Custom1))]
+        public int Value2 { get; set; }
+
+        [PropertyCategory(typeof(TestTag.Numeric))]
+        [PropertyCategory(typeof(TestTag.Custom2))]
+        public double Num1 { get; set; }
+
+        [PropertyCategory(typeof(TestTag.Strings))]
+        [PropertyCategory(typeof(TestTag.Custom2))]
+        public string Text1 { get; set; }
+
+        [PropertyCategory(typeof(TestTag.Dates))]
+        [PropertyCategory(typeof(TestTag.Custom1))]
+        [PropertyCategory(typeof(TestTag.Custom2))]
+        public DateTime CreatedAt {
+            get {
+                return mCreatedAt;
+            }
+        }
+
+        [PropertyCategory(typeof(TestTag.Dates))]
+        public DateTime ModifiedAt { 
+            get {
+                return mModifiedAt;
+            }
+        }
+    }
+}</code></pre></noscript></div>
+</p>
+
+<p>プロパティに<code>PropertyCategoryAttribute(Type)</code>を付与します。
+コンストラクタで、<code>PropertyCategoryMapper</code>をインスタンス化します。
+View Modelの各処理の通知個所で、<code>ToProprtyNames&lt;SomeType&gt;()</code>を呼ぶことで、すべての対象のプロパティ名が取得できます。
+複数の<code>PropertyCategory</code>属性を付けておけば、タグごとに通知するプロパティを切り替えることが出来るようになります。</p>
+
+<p>参考までに、このgistには、テストコードも付けてます。</p>
+
+<p>本当は<code>PropertyCategory</code>属性の引数に列挙値(enum)を渡したかったのですが、<code>Attribute</code>の仕様で定数、Typeまたはそれらの配列しか認められていなかったため、代わりにinterfaceを使用しました。</p>
+
+<p>それと１回だけとはいえ、リフレクションに頼ってしまったのも辛いところです。しかし、世界中の誰かがきっと、ろずりーんでコンパイル時に生成するコードを書いてくれると信じています。私は、にわかなのでムリです。</p>
+
+<p>以下、疲れたので簡単に。。。</p>
+
+<h3><a href="https://gist.github.com/3521721">3521721</a> Any filter extension</h3>
+
+<p><div><script src='https://gist.github.com/3521721.js?file=EnumerableAnyExtensions.cs'></script>
+<noscript><pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Sample {
+    public static class EnumerableAnyExtensions {
+        public static IEnumerable&lt;TSource&gt; WhereAny&lt;TSource&gt;(this IEnumerable&lt;TSource&gt; inSelf, params Func&lt;TSource, bool&gt;[] inFilters) {
+            return inSelf.Where(
+                source =&gt; inFilters.Any(fn =&gt; fn(source))
+            );
+        }
+
+        public static int CountAny&lt;TSource&gt;(this IEnumerable&lt;TSource&gt; inSelf, params Func&lt;TSource, bool&gt;[] inFilters) {
+            return inSelf.Count(
+                source =&gt; inFilters.Any(fn =&gt; fn(source))
+            );
+        }
+    }
+}
+</code></pre></noscript></div>
+</p>
+
+<p>何となく思いついた、<code>Enumerable.Where</code>でOr (||) を指定するのと同じものです。
+Orでもいいんだけど、どこで改行したらいいか分からなくなってイヤーンだし、個々の述語関数使い回したかったし、という理由で作っちゃいました。ホントただの俺得です。</p>
+
+<p>つい最近気づきましたが、<code>Enumerable.Where</code>って、要素とインデックスが渡されるオーバーロードがあったんですね。
+なので作ってはないんですの。</p>
+
+<p>もう一つ、俺得クラスとして、コレクションの<code>full outer join</code>書いたけど、gistにあげ忘れてたから省略。てへへ。</p>
+
+<h3><a href="https://gist.github.com/3046512">3046512</a> Maybeモナドの写経</h3>
+
+<p><div><script src='https://gist.github.com/3046512.js?file=Maybe.cs'></script>
+<noscript><pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Common.Test {
+    public class Maybe&lt;TValue&gt; {
+        public static readonly Maybe&lt;TValue&gt; Nothing = new Maybe&lt;TValue&gt;();
+
+        public Maybe(TValue inValue) {
+            this.Value = inValue;
+        }
+
+        private Maybe() { }
+
+        public TValue Value { get; private set; }
+    }
+
+    public static class Maybe {
+        public static Maybe&lt;TValue&gt; ToMaybe&lt;TValue&gt;(this TValue inValue) {
+            return new Maybe&lt;TValue&gt;(inValue);
+        }
+
+        public static Maybe&lt;TValue&gt; ToMaybe&lt;TValue&gt;(Func&lt;TValue&gt; inFunc) {
+            return inFunc().ToMaybe();
+        }
+
+        public static async Task&lt;Maybe&lt;TValue&gt;&gt; ToMaybe&lt;TValue&gt;(Func&lt;Task&lt;TValue&gt;&gt; inFunc) {
+            var value = await inFunc();
+
+            return value.ToMaybe();
+        }
+    }
+
+    public static class MaybeExtensons {
+        public static Maybe&lt;TValue&gt; NothingUnless&lt;TValue&gt;(this Maybe&lt;TValue&gt; inValue, Func&lt;TValue, bool&gt; inAcceptedFunc) {
+            return inAcceptedFunc(inValue.Value) ? inValue : Maybe&lt;TValue&gt;.Nothing;
+        }
+
+        public static Maybe&lt;TValue&gt; NothingIfNull&lt;TValue&gt;(this Maybe&lt;TValue&gt; inValue) {
+            return inValue.NothingUnless((v) =&gt; v != null);
+        }
+
+        public static Maybe&lt;TResult&gt; Select&lt;TSource, TResult&gt;(this Maybe&lt;TSource&gt; inSource, Func&lt;TSource, TResult&gt; inResultSelectorFunc) {
+            return SelectCore(inSource, s =&gt; inResultSelectorFunc(s));
+        }
+
+        public static Maybe&lt;TResult&gt; SelectMany&lt;TSource, TResult&gt;(
+            this Maybe&lt;TSource&gt; inSource,
+            Func&lt;TSource, Maybe&lt;TResult&gt;&gt; inSelectorFunc) 
+        {
+            return SelectMany(inSource, inSelectorFunc, (s, t) =&gt; t);
+        }
+
+        public static Maybe&lt;TResult&gt; SelectMany&lt;TSource, TTemporary, TResult&gt;(
+            this Maybe&lt;TSource&gt; inSource, 
+            Func&lt;TSource, Maybe&lt;TTemporary&gt;&gt; inSelectorFunc, 
+            Func&lt;TSource, TTemporary, TResult&gt; inResultSelector) 
+        {
+            return Maybe&lt;TSource&gt;.Nothing != inSource ? Select(inSource, s =&gt; inSelectorFunc(s).Select(t =&gt; inResultSelector(s, t))).Value : Maybe&lt;TResult&gt;.Nothing;
+        }
+
+        private static Maybe&lt;TResult&gt; SelectCore&lt;TSource, TResult&gt;(Maybe&lt;TSource&gt; inSource, Func&lt;TSource, TResult&gt; inSelectorFunc) {
+            if (Maybe&lt;TSource&gt;.Nothing == inSource) {
+                return Maybe&lt;TResult&gt;.Nothing;
+            }
+            else {
+                return inSelectorFunc(inSource.Value).ToMaybe();
+            }
+        }
+    }
+
+    public static class MaybeAsyncExtensons {
+        public static async Task&lt;Maybe&lt;TValue&gt;&gt; NothingUnlessAsync&lt;TValue&gt;(this Maybe&lt;TValue&gt; inValue, Func&lt;TValue, Task&lt;bool&gt;&gt; inAcceptedFunc) {
+            return await inAcceptedFunc(inValue.Value) ? inValue : Maybe&lt;TValue&gt;.Nothing;
+        }
+
+        public static async Task&lt;Maybe&lt;TValue&gt;&gt; NothingUnlessAsync&lt;TValue&gt;(this Task&lt;Maybe&lt;TValue&gt;&gt; inValue, Func&lt;TValue, Task&lt;bool&gt;&gt; inAcceptedFunc) {
+            return await NothingUnlessAsync(await inValue, inAcceptedFunc);
+        }
+
+        public static async Task&lt;Maybe&lt;TValue&gt;&gt; NothingUnlessAsync&lt;TValue&gt;(this Task&lt;Maybe&lt;TValue&gt;&gt; inValue, Func&lt;TValue, bool&gt; inAcceptedFunc) {
+            return MaybeExtensons.NothingUnless(await inValue, inAcceptedFunc);
+        }
+
+        public static async Task&lt;Maybe&lt;TValue&gt;&gt; NothingIfNullAsync&lt;TValue&gt;(this Task&lt;Maybe&lt;TValue&gt;&gt; inValue) {
+            return MaybeExtensons.NothingUnless(await inValue, (v) =&gt; v != null);
+        }
+
+        public static async Task&lt;Maybe&lt;TResult&gt;&gt; Select&lt;TSource, TResult&gt;(this Maybe&lt;TSource&gt; inSource, Func&lt;TSource, Task&lt;TResult&gt;&gt; inResultSelectorFunc) {
+            var result = MaybeExtensons.Select(inSource, s =&gt; inResultSelectorFunc(s));
+
+            return Maybe&lt;Task&lt;TResult&gt;&gt;.Nothing != result ? (await result.Value).ToMaybe() : Maybe&lt;TResult&gt;.Nothing;
+        }
+
+        public static async Task&lt;Maybe&lt;TResult&gt;&gt; Select&lt;TSource, TResult&gt;(this Task&lt;Maybe&lt;TSource&gt;&gt; inSource, Func&lt;TSource, Task&lt;TResult&gt;&gt; inResultSelectorFunc) {
+            return await Select(await inSource, inResultSelectorFunc);
+        }
+
+        public static async Task&lt;Maybe&lt;TResult&gt;&gt; Select&lt;TSource, TResult&gt;(this Task&lt;Maybe&lt;TSource&gt;&gt; inSource, Func&lt;TSource, TResult&gt; inResultSelectorFunc) {
+            return MaybeExtensons.Select(await inSource, s =&gt; inResultSelectorFunc(s));
+        }
+
+        public static async Task&lt;Maybe&lt;TResult&gt;&gt; SelectMany&lt;TSource, TResult&gt;(this Task&lt;Maybe&lt;TSource&gt;&gt; inSource, Func&lt;TSource, Task&lt;Maybe&lt;TResult&gt;&gt;&gt; inSelectorFunc) {
+            return await SelectManyCore(
+                await inSource, 
+                (s) =&gt; inSelectorFunc(s).ToMaybe(),
+                (s, t) =&gt; t
+            );
+        }
+
+        public static async Task&lt;Maybe&lt;TResult&gt;&gt; SelectMany&lt;TSource, TTemporary, TResult&gt;(
+            this Task&lt;Maybe&lt;TSource&gt;&gt; inSource, 
+            Func&lt;TSource, Task&lt;Maybe&lt;TTemporary&gt;&gt;&gt; inSelectorFunc, 
+            Func&lt;TSource, TTemporary, TResult&gt; inResultSelector) 
+        {
+            return await SelectManyCore(
+                await inSource, 
+                (s) =&gt; inSelectorFunc(s).ToMaybe(),
+                inResultSelector
+            );
+        }
+
+        public static async Task&lt;Maybe&lt;TResult&gt;&gt; SelectMany&lt;TSource, TResult&gt;(this Maybe&lt;TSource&gt; inSource, Func&lt;TSource, Task&lt;Maybe&lt;TResult&gt;&gt;&gt; inSelectorFunc) {
+            return await SelectManyCore(
+                inSource, 
+                (s) =&gt; inSelectorFunc(s).ToMaybe(),
+                (s, t) =&gt; t
+            );
+        }
+
+        private static async Task&lt;Maybe&lt;TResult&gt;&gt; SelectManyCore&lt;TSource, TTemporary, TResult&gt;(
+           Maybe&lt;TSource&gt; inSource, 
+            Func&lt;TSource, Maybe&lt;Task&lt;Maybe&lt;TTemporary&gt;&gt;&gt;&gt; inSelectorFunc, 
+            Func&lt;TSource, TTemporary, TResult&gt; inResultSelector) 
+        {
+            var result = MaybeExtensons.SelectMany(
+                inSource, 
+                inSelectorFunc,
+                async (s, t) =&gt; inResultSelector(s, (await t).Value)
+            );
+
+            return Maybe&lt;Task&lt;TResult&gt;&gt;.Nothing != result ? (await (result.Value)).ToMaybe() : Maybe&lt;TResult&gt;.Nothing;
+        }
+    }
+}
+</code></pre></noscript></div>
+</p>
+
+<p>見ての通り、<a href="http://matarillo.com/general/monads.php">matarillo.com / モナドの驚異</a>の写経です。
+ただ、ちょっとだけ手を入れて、c# 5.0のasync / awaitにも対応させてみました。</p>
+
+<p>モナドとかよく分からないですので、写経元見てもらった方がいいと思います。</p>
+
+<p>以上、淡々と並べてみました。</p>
+]]></content>
+  </entry>
+  
+</feed>

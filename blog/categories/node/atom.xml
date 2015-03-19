@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: node | Since 1975]]></title>
-  <link href="http://ritalin.github.com/blog/categories/node/atom.xml" rel="self"/>
-  <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-12T00:29:46+09:00</updated>
-  <id>http://ritalin.github.com/</id>
+  <link href="http://ritalin.github.io/blog/categories/node/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[MochaでJavascript以外を指定してテストしたい]]></title>
-    <link href="http://ritalin.github.com/2013/03-22/mocha-testing-apart-from-js/"/>
+    <link href="http://ritalin.github.io/2013/03-22/mocha-testing-apart-from-js/"/>
     <updated>2013-03-22T20:01:00+09:00</updated>
-    <id>http://ritalin.github.com/2013/03-22/mocha-testing-apart-from-js</id>
+    <id>http://ritalin.github.io/2013/03-22/mocha-testing-apart-from-js</id>
     <content type="html"><![CDATA[<p>Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
 が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。</p>
 
@@ -55,13 +55,10 @@ Node.jsのマニュアルで <strong>require</strong> を調べると、</p>
 require.extensionsは、拡張子をキーに、指定されたファイルをJavascriptに変換する関数が登録された辞書です。</p>
 
 <p>この関数の型は、</p>
-
-<p><code>
-function (module, filename) {
+<div class="highlight"><pre><code class="language-text" data-lang="text">function (module, filename) {
     ...
 }
-</code></p>
-
+</code></pre></div>
 <p>となっており、ここで、</p>
 
 <ul>
@@ -74,7 +71,7 @@ function (module, filename) {
 <p>仕様と言えるような、大それたものはなく、Javascriptに変換する関数を実装し、それを単に上述の<strong>require.extensions</strong> に追加するだけです。</p>
 
 <p>この関数の実装において、一つ重要な点があります。
-それは、Javascriptのコードに変換後、module._compile(<変換されたコード>)という非公開の関数を呼ぶということです。</p>
+それは、Javascriptのコードに変換後、module._compile(&lt;変換されたコード&gt;)という非公開の関数を呼ぶということです。</p>
 
 <p>この <strong>module._compile</strong> が呼ばれることで、ロードが完了する仕組みとなっているようです。</p>
 

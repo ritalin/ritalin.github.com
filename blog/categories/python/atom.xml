@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: python | Since 1975]]></title>
-  <link href="http://ritalin.github.com/blog/categories/python/atom.xml" rel="self"/>
-  <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-12T00:29:46+09:00</updated>
-  <id>http://ritalin.github.com/</id>
+  <link href="http://ritalin.github.io/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Cornice Tutorial (3)]]></title>
-    <link href="http://ritalin.github.com/2013/07-04/cornice-tutorial-03/"/>
+    <link href="http://ritalin.github.io/2013/07-04/cornice-tutorial-03/"/>
     <updated>2013-07-04T01:00:00+09:00</updated>
-    <id>http://ritalin.github.com/2013/07-04/cornice-tutorial-03</id>
+    <id>http://ritalin.github.io/2013/07-04/cornice-tutorial-03</id>
     <content type="html"><![CDATA[<h2>はじめに</h2>
 
 <p>公式サイトの<a href="http://cornice.readthedocs.org/en/latest/tutorial.html">チュートリアル</a>の写経、第三回。
@@ -57,11 +57,11 @@
 <blockquote>
 <p>(サービス定義)</p>
 
-<p>service = Service(..., validators=<関数>, ...)</p>
+<p>service = Service(&#8230;, validators=&lt;関数&gt;, &#8230;)</p>
 
 <p>（メソッドアノテーション）</p>
 
-<p>@service.Get(..., validators=<関数>, ...)</p>
+<p>@service.Get(&#8230;, validators=&lt;関数&gt;, &#8230;)</p>
 </blockquote>
 
 <p>Validator関数のインターフェースは、Requestオブジェクトを受け取り、何も返さない手続きです。</p>
@@ -83,11 +83,11 @@ Requestオブジェクトを介して受け取れる値については<a href="h
 <blockquote>
 <p>(サービス定義)</p>
 
-<p>service = Service(..., error_handler=<関数>, ...)</p>
+<p>service = Service(&#8230;, error_handler=&lt;関数&gt;, &#8230;)</p>
 
 <p>（メソッドアノテーション）</p>
 
-<p>@service.Get(..., error_handler=<関数>, ...)</p>
+<p>@service.Get(&#8230;, error_handler=&lt;関数&gt;, &#8230;)</p>
 </blockquote>
 
 <p>エラーハンドラ関数のインターフェースは、エラー内容を引数に取り、<a href="http://pylons-webframework.readthedocs.org/en/v0.9.7/thirdparty/webob.html#module-webob.exc">webob.exc.HTTPError</a>の派生クラスを返す関数です。</p>
@@ -109,11 +109,11 @@ Requestオブジェクトを介して受け取れる値については<a href="h
 <blockquote>
 <p>(サービス定義)</p>
 
-<p>service = Service(..., filters=<関数>, ...)</p>
+<p>service = Service(&#8230;, filters=&lt;関数&gt;, &#8230;)</p>
 
 <p>（メソッドアノテーション）</p>
 
-<p>@service.Get(..., filters=<関数>, ...)</p>
+<p>@service.Get(&#8230;, filters=&lt;関数&gt;, &#8230;)</p>
 </blockquote>
 
 <p>Filterのインターフェースは、レスポンスデータを受け取り、加工されたレスポンスを返す関数です。</p>
@@ -148,40 +148,30 @@ Requestオブジェクトを介して受け取れる値については<a href="h
 <p>をディクショナリに保持させます。</p>
 
 <p>まず、この入力値に対するValidatorを用意します。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">import os
+import binascii
 
-<p>```
-import os
-import binascii</p>
+def validate_unique(request):
+    name = request.params.get(&#39;user&#39;, &#39;&#39;)
 
-<p>def validate_unique(request):
-    name = request.params.get(&#39;user&#39;, &#39;&#39;)</p>
-
-<pre><code>if name == &#39;&#39;:
-    request.errors.add(&#39;url&#39;, &#39;name&#39;, &#39;user is not passed ...&#39;)
-if name in _USERS:
-    request.errors.add(&#39;url&#39;, &#39;name&#39;, &#39;This user exists !&#39;)
-else:
-    user = { &#39;name&#39;:name, &#39;token&#39;: binascii.b2a_hex(os.urandom(20)) }
-    request.validated[&#39;user&#39;] = user
-</code></pre>
-
-<p>```</p>
-
+    if name == &#39;&#39;:
+        request.errors.add(&#39;url&#39;, &#39;name&#39;, &#39;user is not passed ...&#39;)
+    if name in _USERS:
+        request.errors.add(&#39;url&#39;, &#39;name&#39;, &#39;This user exists !&#39;)
+    else:
+        user = { &#39;name&#39;:name, &#39;token&#39;: binascii.b2a_hex(os.urandom(20)) }
+        request.validated[&#39;user&#39;] = user
+</code></pre></div>
 <p>このValidatorを指定したユーザー登録処理を実装します。</p>
-
-<p>```
-@users.post(validators=validate<em>unique)
-def create</em>user(request):
+<div class="highlight"><pre><code class="language-text" data-lang="text">@users.post(validators=validate_unique)
+def create_user(request):
     &quot;&quot;&quot;Add a new user&quot;&quot;&quot;
-    user = request.validated[&#39;user&#39;]</p>
+    user = request.validated[&#39;user&#39;]
 
-<pre><code>_Users[user[&#39;name&#39;]] = user[&#39;token&#39;]
+    _Users[user[&#39;name&#39;]] = user[&#39;token&#39;]
 
-return { &#39;token&#39;: &#39;%s-%s&#39; % (user[&#39;name&#39;], user[&#39;token&#39;]) }
-</code></pre>
-
-<p>```</p>
-
+    return { &#39;token&#39;: &#39;%s-%s&#39; % (user[&#39;name&#39;], user[&#39;token&#39;]) }
+</code></pre></div>
 <p><code>pserve cornice_tutorial.ini</code> でサービスを起動。</p>
 
 <blockquote>
@@ -210,7 +200,7 @@ return { &#39;token&#39;: &#39;%s-%s&#39; % (user[&#39;name&#39;], user[&#39;tok
 <p>の場合、</p>
 
 <blockquote>
-<p>{&quot;errors&quot;: [{&quot;description&quot;: &quot;user is not passed ...&quot;, &quot;name&quot;: &quot;name&quot;, &quot;location&quot;: &quot;url&quot;}], &quot;status&quot;: &quot;error&quot;}</p>
+<p>{&quot;errors&quot;: [{&quot;description&quot;: &quot;user is not passed &#8230;&quot;, &quot;name&quot;: &quot;name&quot;, &quot;location&quot;: &quot;url&quot;}], &quot;status&quot;: &quot;error&quot;}</p>
 </blockquote>
 
 <p>が返され、Validatorが作用しているのが分かります。</p>
@@ -250,9 +240,9 @@ return { &#39;token&#39;: &#39;%s-%s&#39; % (user[&#39;name&#39;], user[&#39;tok
   
   <entry>
     <title type="html"><![CDATA[Cornice Tutorial (2)]]></title>
-    <link href="http://ritalin.github.com/2013/06-12/cornice-tutorial-02/"/>
+    <link href="http://ritalin.github.io/2013/06-12/cornice-tutorial-02/"/>
     <updated>2013-06-12T00:28:00+09:00</updated>
-    <id>http://ritalin.github.com/2013/06-12/cornice-tutorial-02</id>
+    <id>http://ritalin.github.io/2013/06-12/cornice-tutorial-02</id>
     <content type="html"><![CDATA[<h2>はじめに</h2>
 
 <p>引き続き、公式サイトの<a href="http://cornice.readthedocs.org/en/latest/tutorial.html">チュートリアル</a>を写経していきます。
@@ -264,20 +254,19 @@ return { &#39;token&#39;: &#39;%s-%s&#39; % (user[&#39;name&#39;], user[&#39;tok
 
 <p>サービスの実装は、<code>cornice_tutorial/views.py</code> に記述するようです。
 中身を確認してみると・・・</p>
-
-<p>```
-&quot;&quot;&quot; Cornice services.
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;&quot;&quot; Cornice services.
 &quot;&quot;&quot;
-from cornice import Service</p>
+from cornice import Service
 
-<p>hello = Service(name=&#39;hello&#39;, path=&#39;/&#39;, description=&quot;Simplest app&quot;)</p>
 
-<p>@hello.get()
+hello = Service(name=&#39;hello&#39;, path=&#39;/&#39;, description=&quot;Simplest app&quot;)
+
+
+@hello.get()
 def get_info(request):
     &quot;&quot;&quot;Returns Hello in JSON.&quot;&quot;&quot;
     return {&#39;Hello&#39;: &#39;World&#39;}
-```</p>
-
+</code></pre></div>
 <ul>
 <li>6行目がサービスの定義</li>
 <li>9 - 12行目がサービス（レスポンス）の実装</li>
@@ -328,18 +317,15 @@ def get_info(request):
 
 <p>では、チュートリアルに戻って、ユーザー一覧を実装してみる。
 <code>cornice_tutorial/views.py</code> のサービス定義とレスポンス実装を削除し、代わりに以下のように記述。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">users = Service(name=&#39;users&#39;, path=&#39;/users&#39;, description=&quot;ユーザー管理サービス（一覧・追加・削除）&quot;)
 
-<p>```
-users = Service(name=&#39;users&#39;, path=&#39;/users&#39;, description=&quot;ユーザー管理サービス（一覧・追加・削除）&quot;)</p>
+_USERS = {}
 
-<p>_USERS = {}</p>
-
-<p>@users.get()
+@users.get()
 def list_users(request):
     &quot;&quot;&quot;登録されたすべてのユーザーを列挙 &quot;&quot;&quot;
     return { &#39;users&#39;: _USERS }
-```</p>
-
+</code></pre></div>
 <p><code>pserve cornice_tutorial.ini</code> でサービスを起動し、</p>
 
 <blockquote>
@@ -354,7 +340,7 @@ def list_users(request):
 
 <p>と出力されれば、とりあえずOKということで。</p>
 
-<h3><a href="/2013/07-04/cornice-tutorial-03/">Cornice Tutorial (3)</a>へつづく...</h3>
+<h3><a href="/2013/07-04/cornice-tutorial-03/">Cornice Tutorial (3)</a>へつづく&#8230;</h3>
 
 <h3>おまけ</h3>
 
@@ -376,9 +362,9 @@ def list_users(request):
   
   <entry>
     <title type="html"><![CDATA[Cornice Tutorial (1)]]></title>
-    <link href="http://ritalin.github.com/2013/06-04/cornice-tutorial-01/"/>
+    <link href="http://ritalin.github.io/2013/06-04/cornice-tutorial-01/"/>
     <updated>2013-06-04T23:12:00+09:00</updated>
-    <id>http://ritalin.github.com/2013/06-04/cornice-tutorial-01</id>
+    <id>http://ritalin.github.io/2013/06-04/cornice-tutorial-01</id>
     <content type="html"><![CDATA[<h2>あらまし</h2>
 
 <p>RESTサーバーを実装するための良いフレームワークはないかなと探していたところ、<a href="http://cornice.readthedocs.org/en/latest/index.html">Cornice</a>というpythonで実装されたフレームワークに出会いました。
@@ -431,11 +417,11 @@ python ./setup.py install</p>
 <blockquote>
 <p>Available scaffolds:</p>
 
-<p>...</p>
+<p>&#8230;</p>
 
 <p>cornice:  A Cornice application</p>
 
-<p>...</p>
+<p>&#8230;</p>
 </blockquote>
 
 <h3>プロジェクト作成</h3>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Modeling | Since 1975]]></title>
-  <link href="http://ritalin.github.com/blog/categories/modeling/atom.xml" rel="self"/>
-  <link href="http://ritalin.github.com/"/>
-  <updated>2015-03-12T00:29:46+09:00</updated>
-  <id>http://ritalin.github.com/</id>
+  <title><![CDATA[Category: modeling | Since 1975]]></title>
+  <link href="http://ritalin.github.io/blog/categories/modeling/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-03-20T01:20:28+09:00</updated>
+  <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[DCI (Data - Context - Interaction)のパイプライン化]]></title>
-    <link href="http://ritalin.github.com/2012/12-27/pipelined-dci/"/>
+    <link href="http://ritalin.github.io/2012/12-27/pipelined-dci/"/>
     <updated>2012-12-27T21:56:00+09:00</updated>
-    <id>http://ritalin.github.com/2012/12-27/pipelined-dci</id>
+    <id>http://ritalin.github.io/2012/12-27/pipelined-dci</id>
     <content type="html"><![CDATA[<p>なんだか最近、DCIの話題が花盛りですね。</p>
 
 <p>さて、<a href="https://groups.google.com/forum/?fromgroups=#!topic/object-composition/u-aVj_FexM4">Google Group: object-composition</a>にて、DCIとMVCの関係について、面白い考察を行っている人がいます。</p>

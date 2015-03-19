@@ -7,8 +7,8 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
-が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。 &hellip;">
+	<meta name="description" content="MochaでJavascript以外を指定してテストしたい Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
+が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -17,16 +17,16 @@
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script async="false" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	
 </head>
+
 
 <body>
 	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
 <nav id="main-nav"><ul class="main">
 	<li><a href="/">Blog</a></li>
 	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/slides">Slides</a></li>
 </ul>
 </nav>
 <nav id="mobile-nav">
@@ -35,7 +35,6 @@
 		<div class="container"><ul class="main">
 	<li><a href="/">Blog</a></li>
 	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="/slides">Slides</a></li>
 </ul>
 </div>
 	</div>
@@ -44,7 +43,7 @@
 		<div class="container">
 			<form action="http://google.com/search" method="get">
 				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:ritalin.github.com">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
 			</form>
 		</div>
 	</div>
@@ -54,7 +53,10 @@
 		
 		
 		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
 		
+		
+    
 		
 		
 		
@@ -62,10 +64,11 @@
 		
 		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
 		
+    
 	</div>
 	<form class="search" action="http://google.com/search" method="get">
 		<input class="alignright" type="text" name="q" results="0">
-		<input type="hidden" name="q" value="site:ritalin.github.com">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
 	</form>
 </nav>
 
@@ -132,7 +135,7 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 <p>仕様と言えるような、大それたものはなく、Javascriptに変換する関数を実装し、それを単に上述の<strong>require.extensions</strong> に追加するだけです。</p>
 
 <p>この関数の実装において、一つ重要な点があります。
-それは、Javascriptのコードに変換後、module._compile(<変換されたコード>)という非公開の関数を呼ぶということです。</p>
+それは、Javascriptのコードに変換後、module._compile(&lt;変換されたコード&gt;)という非公開の関数を呼ぶということです。</p>
 
 <p>この <strong>module._compile</strong> が呼ばれることで、ロードが完了する仕組みとなっているようです。</p>
 
@@ -170,7 +173,7 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
   
 
 
-<time datetime="2013-03-22T20:01:00+09:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2013</time></div>
+<time datetime="2013-03-22T20:01:00+09:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 
@@ -179,18 +182,31 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 
 </div>
 	
-</div></article>
+</div>
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+</article>
 
 	<div class="share">
 	<div class="addthis_toolbox addthis_default_style ">
-	
-	
-	<a class="addthis_button_tweet"></a>
-	
-	
-	<a class="addthis_counter addthis_pill_style"></a>
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
 	</div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+	
 </div>
 
 
@@ -199,6 +215,7 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 
     ktz_alias
 
+<script async="true" src="/javascripts/twitter.js"></script>
 </footer>
 	<script src="/javascripts/slash.js"></script>
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
