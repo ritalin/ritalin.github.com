@@ -1,0 +1,905 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RESTful Web APIs 読書メモ(10) - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Chapter 10. The HyperMedia Zoo (Part. 1) ハイパーメディアフォーマットカタログ ドメイン特化フォーマット 純粋ハイパーメディアフォーマット ドメイン特化フォーマット 特別なドメインの問題を表現するためにデザインされたフォーマット &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">RESTful Web APIs 読書メモ(10)</h2>
+	<div class="entry-content"><h2>Chapter 10. The HyperMedia Zoo (Part. 1)</h2>
+
+<ul>
+<li>ハイパーメディアフォーマットカタログ
+
+<ul>
+<li>ドメイン特化フォーマット </li>
+<li>純粋ハイパーメディアフォーマット</li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>ドメイン特化フォーマット</h3>
+
+<ul>
+<li>特別なドメインの問題を表現するためにデザインされたフォーマット</li>
+<li>特化されたアプリケーションセマンティクスが定義されている</li>
+</ul>
+
+<h4>Maze+XML</h4>
+
+<ul>
+<li>media-type: application/maze+xml</li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドを使ったリンクによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>迷路ゲーム</li>
+</ul></li>
+<li>5章参照</li>
+<li>カスタムリレーションを定義することで拡張可能</li>
+<li>XFornを使って、安全でないプロトコルを扱うこともできる</li>
+</ul>
+
+<h4>Open Search</h4>
+
+<ul>
+<li>mediatype
+
+<ul>
+<li>application/opensearchdescription+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによる検索</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>検索クエリ</li>
+</ul></li>
+<li>6章参照</li>
+<li>検索フォームを表現する標準フォーマット</li>
+<li><em>search</em> リンクリレーションを定義</li>
+<li>検索結果の表現は定義されていない</li>
+</ul>
+
+<h4>Problem Detail Documents</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/api-problem+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>エラー報告</li>
+</ul></li>
+<li>HTTPステータスコードに、JSONとして構造化したhuman-readableなテキストを加える
+
+<ul>
+<li>title (必須) </li>
+<li>describedBy (必須) 
+
+<ul>
+<li>human-readableな説明へのリンク</li>
+</ul></li>
+<li>supportId (オプション) 
+
+<ul>
+<li>問題の詳細な例へのリンク</li>
+</ul></li>
+</ul></li>
+<li>エンドユーザー向けの例外報告ではなく、管理者向けの内部URL</li>
+</ul>
+
+<h4>SVG</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>image/svg+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>XLinkと同じ</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ベクター画像</li>
+</ul></li>
+<li>別の画像リソースをリンクとして含めることができる
+
+<ul>
+<li>aタグを使用</li>
+<li>ハイパーメディアコントロールではない</li>
+<li>XLinkの <em>role</em> プロパティとしての立ち位置</li>
+</ul></li>
+<li>XFormを埋め込むことで、プロトコルセマンティクスを追加できる</li>
+<li>html5のsvgタグで、インラインに埋め込むことができる</li>
+</ul>
+
+<h4>VoiceXML</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/voicexml+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+<li>GET(安全)やPOST(安全でない)メソッドによる任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>会話</li>
+</ul></li>
+<li>電話間における、会話の通信フォーマット</li>
+</ul>
+
+<h4>GeoJSON</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによる座標系のトランスクルージョン</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>地理的な特徴、及びそのコレクション</li>
+</ul></li>
+<li>地理的な特徴を表現するフォーマット</li>
+<li>ユーザビリティに悪影響をもたらす欠陥フォーマット</li>
+<li>ハイパーメディアコントロールをもたない
+
+<ul>
+<li>URLに見えるただの文字列の塊</li>
+</ul></li>
+<li>素のJSONと区別する術はない
+
+<ul>
+<li>解決策は、profileを提供すること</li>
+<li>そんなもん公式に提供されてないけどモナ！</li>
+<li>
+# コレクションパターンフォーマット</li>
+</ul></li>
+<li>itemリソース
+
+<ul>
+<li>GET, PUT, DELETメソッドに応答する</li>
+<li>構造化された表現にフォーカス</li>
+</ul></li>
+<li>collectionリソース
+
+<ul>
+<li>GET, POST(append)メソッドに応答する</li>
+<li>itemリソースへのリンクにフォーカス</li>
+</ul></li>
+</ul>
+
+<h4>Collection+JSON</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/collection+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>コレクションパターン(GET/POST/PUT/DELETE)</li>
+<li>GETメソッドによる検索</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>コレクションパターン(collection, item) </li>
+</ul></li>
+<li>6章参照</li>
+<li>JSONによるAtomPub代替フォーマット</li>
+</ul>
+
+<h4>Atom Publishing Protocol</h4>
+
+<ul>
+<li>media-type
+*application/atom+xml
+
+<ul>
+<li>application/atomsvc+xml</li>
+<li>application/atomcat+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>コレクションパターン(GET/POST/PUT/DELETE)</li>
+<li>検索拡張(GET)</li>
+<li>フォームナビゲーション拡張(GET)</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>コレクションパターン(feed/entry)
+
+<ul>
+<li>feed
+
+<ul>
+<li>Blog投稿のセマンティクス
+
+<ul>
+<li>autor, title, category,&#8230;</li>
+</ul></li>
+</ul></li>
+<li>entry
+
+<ul>
+<li>バイナリエントリ
+
+<ul>
+<li>画像等</li>
+</ul></li>
+<li>メタデータをもつAtomエントリ</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>RFC5023, RFC4287</li>
+<li>6章参照</li>
+<li>RESTful APIの先駆け</li>
+<li>Google API(GData)の基盤として用いられている</li>
+</ul>
+
+<h4>OData</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/json; odata=fullmetadata</li>
+<li>application/json; odata=minimalmetadata</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>修正コレクションパターン(GET/POST/PUT/DELETE/PATCH)</li>
+<li>GETメソッドによるフィルタ、並び替え</li>
+<li>GET(安全)、POST(安全でない)による任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>コレクションパターン(feed/entry)</li>
+</ul></li>
+<li>AtomPubベース</li>
+<li>JSONオブジェクトのプロパティはsemantic descriptorとして機能する</li>
+<li><em>odata.</em> で始まるプロパティは、ハイパーメディアコントロール、またはメタデータ
+
+<ul>
+<li>odata.id
+
+<ul>
+<li>エントリリソースの一意的なID
+
+<ul>
+<li>たいていURI</li>
+</ul></li>
+</ul></li>
+<li>hoge@odata.type
+
+<ul>
+<li>プロパティの型を示すメタデータ</li>
+</ul></li>
+<li>odata.editLink
+
+<ul>
+<li>atomPubにおけるeditリレーションと同じ</li>
+</ul></li>
+<li>hoge@odata.navigationLinkUrl
+
+<ul>
+<li>ほかのリソースへのハイパーメディアリンク</li>
+</ul></li>
+</ul></li>
+<li>コレクションの暗黙的なフィルタと並び替えをサポート
+
+<ul>
+<li>フォームから明示的に指示するものではない</li>
+<li>Urlで宣言的なルールを指示する
+
+<ul>
+<li>posts$filter=substringof(&#39;hoge&#39;,Content)</li>
+<li>複合条件の場合、<em>+and+</em> で連結する</li>
+</ul></li>
+</ul></li>
+<li>状態遷移
+
+<ul>
+<li>function
+
+<ul>
+<li>GET(安全)な状態遷移
+
+<ul>
+<li>暗黙的なフィルタを使用できない複雑なクエリに対して使用される</li>
+<li>クライアントは、odata.metadataに示されるスキーマ記述言語(SDL)へのリンクをたどり、構築するクエリを学ぶ必要がある</li>
+</ul></li>
+</ul></li>
+<li>action
+
+<ul>
+<li>POST(安全でない)状態遷移</li>
+</ul></li>
+</ul></li>
+<li>メタデータの外だし
+
+<ul>
+<li>odata.metadataでSDLへのリンクだけを書き記す
+
+<ul>
+<li>構造がシンプルになる</li>
+<li>APIの修正と同時にSDLのメンテも必要
+
+<ul>
+<li>インピーダンスミスマッチを起こしやすい</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h1>純粋ハイパーメディアフォーマット</h1>
+
+<ul>
+<li>自身がアプリケーションセマンティクスを持たない汎用フォーマット</li>
+<li>プロトコルセマンティクスのみ持つ</li>
+</ul>
+
+<h4>HTML</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/xhtml+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+<li>GET(安全)、POST(安全でない)メソッドによる任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ドキュメントに埋め込まれたhuman-readable表現</li>
+</ul></li>
+<li>7章参照</li>
+<li>microdataやmicroformatsを直接埋め込むことができる</li>
+<li>scriptタグで実行コードを埋め込むことができる</li>
+<li>webブラウザで表示できるので、デバッグが容易</li>
+</ul>
+
+<h4>HAL</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/hal+json</li>
+<li>application/hal+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>リンクによる任意の状態遷移</li>
+<li>httpメソッドを明示的に指定できない</li>
+<li>human-readableなドキュメントに明記するのみ</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>7章参照</li>
+</ul>
+
+<h4>Siren</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/vnd.siren+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+<li>GET(安全)、POST/PUT/DELETE(安全でない)メソッドによる <em>action</em> をとおした任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>あって無いようなもの</li>
+</ul></li>
+<li>htmlのdivタグをjsonで書き下したentityを記述する
+
+<ul>
+<li>entity要素
+
+<ul>
+<li>classやpropertyのリストを持てる</li>
+<li>htmlのaタグをのようなlinksのリストを持てる</li>
+<li>htmlのformタグのようなactionsのリストを持てる</li>
+<li>子entryを持てる</li>
+</ul></li>
+</ul></li>
+<li>状態遷移図はHALとHTMLの中間</li>
+</ul>
+
+<h4>Link Header</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(httpヘッダとして使う) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>RFC5988で定義</li>
+<li>4章参照</li>
+<li>画像やpure JSONにハイパーメディアコントロールを付与する</li>
+<li>relパラメータに任意のリンクリレーションを与える</li>
+<li>Link Headerを使うと、pure JSONにprofileを結びつけることができる</li>
+</ul>
+
+<h4>Lication, Content-Location Header</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(httpヘッダとして使う) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>httpレスポンスコードに依存</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>1〜3章、付録B参照</li>
+<li>RFC2616</li>
+<li>Content-Location
+
+<ul>
+<li>現在のリソースの正規の位置を示す
+
+<ul>
+<li>IANAで定義されたcanonicalリレーションと同等</li>
+</ul></li>
+</ul></li>
+<li>Location
+
+<ul>
+<li>201(Created)
+
+<ul>
+<li>作成されたリソースへのリンクを示す</li>
+</ul></li>
+<li>301(Moved Prrmanently)
+
+<ul>
+<li>リダイレクト先を示す</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h4>URL List</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>text/url-list</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>RFC2483で定義</li>
+<li>urlの一覧を取得</li>
+<li>リンクリレーションをもたないため、ハイパーメディアコントロールになり得ない</li>
+</ul>
+
+<h4>JSON Home Document</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/json-home</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>あって無いようなもの</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>より洗練されたurl list</li>
+<li>JSONオブジェクトのキーとしてリンクリレーション、値にUrlを指定
+
+<ul>
+<li>ハイパーメディアコントロールたり得る</li>
+</ul></li>
+<li>URL Templateが使用可能
+
+<ul>
+<li>テンプレートスロットはhref-varsで指定されるprofileを参照する</li>
+</ul></li>
+<li><em>hints</em> を与えることで、メソッドを明示できる
+
+<ul>
+<li>&quot;hints&quot;: { &quot;allow&quot;: [ &quot;POST&quot; ] }</li>
+<li>リンクのアプリケーションセマンティクスは指定できない</li>
+</ul></li>
+<li>profileと組み合わせることで、human-readableなAPIをmachine-readableなものに変貌させることができる</li>
+</ul>
+
+<h4>Link-Template Header</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(httpヘッダとして使う) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>RFC6570で定義(時間切れで棄却) </li>
+<li>機能的にはLink Headerと同様</li>
+<li>リンク先としてURL Templateが使用可能</li>
+<li>var-baseパラメータを使って、スロット変数のためのprofileを指定する</li>
+</ul>
+
+<h4>WADL</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/vnd.sun.wadl+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>完全な汎用フォーマット</li>
+<li>あらゆるweb APIのプロトコルを模倣できる</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>拡張のための最小限だけ</li>
+</ul></li>
+<li>requestタグで任意のhttpメソッドを指定する</li>
+<li>entity-bodyを含む、あらゆるhttpヘッダを指定できる</li>
+<li>メタデータはXML Schemaを用いる</li>
+<li>docタグにprofileを埋め込むことができる</li>
+<li>いくつかのHAX-RSの実装がAPIとして、WADLを吐き出す
+
+<ul>
+<li>SOAP同様、インピーダンスミスマッチを生む要因となる</li>
+</ul></li>
+</ul>
+
+<h4>XLink</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(任意のxmlに埋め込む形で使用) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+<li>GETメソッドによるトランスクルージョン
+
+<ul>
+<li>リソースの埋め込みのようなもの</li>
+</ul></li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>素のxmlにハイパーメディアリンクを埋め込む拡張</li>
+<li>XLink自身、タグは定義されていない</li>
+<li>xmlに付与する属性のみ定義
+
+<ul>
+<li>xlink:arcrole
+
+<ul>
+<li>URIを使ってリンクリレーションを表現する</li>
+</ul></li>
+<li>xlink:show
+
+<ul>
+<li>ナビゲーション方法を変更する
+
+<ul>
+<li>replace
+
+<ul>
+<li>htmlのaタグのように内容を置換する</li>
+</ul></li>
+<li>embed
+
+<ul>
+<li>htmlのimgタグのように内容を埋め込む</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h4>XForms</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(任意のxmlに埋め込む形で使用) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GET(安全)、POST/PUT/DELETE(安全でない)メソッドによる、任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>素のxmlにハイパーメディアフォームを埋め込む拡張</li>
+<li>XLinkとは異なり、自信のタグを定義している
+
+<ul>
+<li>xforms:model
+
+<ul>
+<li>htmlにおけるformタグと同機能</li>
+</ul></li>
+<li>xforms:submission
+
+<ul>
+<li>xforms:modelの子要素</li>
+<li>htmlにおけるformタグのaction属性とmethod属性を担う</li>
+</ul></li>
+<li>xforms:instance
+
+<ul>
+<li>xforms:submissionの子要素</li>
+<li>GETメソッドのクエリ文字列やPOSTメソッドのentity-bodyの構築方法を例示する</li>
+</ul></li>
+<li>xforms:input
+
+<ul>
+<li>htmlにおけるinputタグと同機能</li>
+</ul></li>
+<li>xforms:submit
+
+<ul>
+<li>htmlにおけるinput type=&quot;submit&quot;と同機能</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>後編へつづく</h2>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-22T09:43:39+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ritalin.github.io/2015/03-22/restful-web-api-memo-10/" data-via="ktz_alias" data-counturl="http://ritalin.github.io/2015/03-22/restful-web-api-memo-10/" >Tweet</a>
+  		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+</body>
+</html>

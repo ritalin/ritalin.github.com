@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.io/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-03-20T02:13:08+09:00</updated>
+  <updated>2015-03-22T09:54:55+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,765 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(10)]]></title>
+    <link href="http://ritalin.github.io/2015/03-22/restful-web-api-memo-10/"/>
+    <updated>2015-03-22T09:43:39+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-22/restful-web-api-memo-10</id>
+    <content type="html"><![CDATA[<h2>Chapter 10. The HyperMedia Zoo (Part. 1)</h2>
+
+<ul>
+<li>ハイパーメディアフォーマットカタログ
+
+<ul>
+<li>ドメイン特化フォーマット </li>
+<li>純粋ハイパーメディアフォーマット</li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>ドメイン特化フォーマット</h3>
+
+<ul>
+<li>特別なドメインの問題を表現するためにデザインされたフォーマット</li>
+<li>特化されたアプリケーションセマンティクスが定義されている</li>
+</ul>
+
+<h4>Maze+XML</h4>
+
+<ul>
+<li>media-type: application/maze+xml</li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドを使ったリンクによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>迷路ゲーム</li>
+</ul></li>
+<li>5章参照</li>
+<li>カスタムリレーションを定義することで拡張可能</li>
+<li>XFornを使って、安全でないプロトコルを扱うこともできる</li>
+</ul>
+
+<h4>Open Search</h4>
+
+<ul>
+<li>mediatype
+
+<ul>
+<li>application/opensearchdescription+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによる検索</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>検索クエリ</li>
+</ul></li>
+<li>6章参照</li>
+<li>検索フォームを表現する標準フォーマット</li>
+<li><em>search</em> リンクリレーションを定義</li>
+<li>検索結果の表現は定義されていない</li>
+</ul>
+
+<h4>Problem Detail Documents</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/api-problem+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>エラー報告</li>
+</ul></li>
+<li>HTTPステータスコードに、JSONとして構造化したhuman-readableなテキストを加える
+
+<ul>
+<li>title (必須) </li>
+<li>describedBy (必須) 
+
+<ul>
+<li>human-readableな説明へのリンク</li>
+</ul></li>
+<li>supportId (オプション) 
+
+<ul>
+<li>問題の詳細な例へのリンク</li>
+</ul></li>
+</ul></li>
+<li>エンドユーザー向けの例外報告ではなく、管理者向けの内部URL</li>
+</ul>
+
+<h4>SVG</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>image/svg+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>XLinkと同じ</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ベクター画像</li>
+</ul></li>
+<li>別の画像リソースをリンクとして含めることができる
+
+<ul>
+<li>aタグを使用</li>
+<li>ハイパーメディアコントロールではない</li>
+<li>XLinkの <em>role</em> プロパティとしての立ち位置</li>
+</ul></li>
+<li>XFormを埋め込むことで、プロトコルセマンティクスを追加できる</li>
+<li>html5のsvgタグで、インラインに埋め込むことができる</li>
+</ul>
+
+<h4>VoiceXML</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/voicexml+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+<li>GET(安全)やPOST(安全でない)メソッドによる任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>会話</li>
+</ul></li>
+<li>電話間における、会話の通信フォーマット</li>
+</ul>
+
+<h4>GeoJSON</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによる座標系のトランスクルージョン</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>地理的な特徴、及びそのコレクション</li>
+</ul></li>
+<li>地理的な特徴を表現するフォーマット</li>
+<li>ユーザビリティに悪影響をもたらす欠陥フォーマット</li>
+<li>ハイパーメディアコントロールをもたない
+
+<ul>
+<li>URLに見えるただの文字列の塊</li>
+</ul></li>
+<li>素のJSONと区別する術はない
+
+<ul>
+<li>解決策は、profileを提供すること</li>
+<li>そんなもん公式に提供されてないけどモナ！</li>
+<li>
+# コレクションパターンフォーマット</li>
+</ul></li>
+<li>itemリソース
+
+<ul>
+<li>GET, PUT, DELETメソッドに応答する</li>
+<li>構造化された表現にフォーカス</li>
+</ul></li>
+<li>collectionリソース
+
+<ul>
+<li>GET, POST(append)メソッドに応答する</li>
+<li>itemリソースへのリンクにフォーカス</li>
+</ul></li>
+</ul>
+
+<h4>Collection+JSON</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/collection+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>コレクションパターン(GET/POST/PUT/DELETE)</li>
+<li>GETメソッドによる検索</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>コレクションパターン(collection, item) </li>
+</ul></li>
+<li>6章参照</li>
+<li>JSONによるAtomPub代替フォーマット</li>
+</ul>
+
+<h4>Atom Publishing Protocol</h4>
+
+<ul>
+<li>media-type
+*application/atom+xml
+
+<ul>
+<li>application/atomsvc+xml</li>
+<li>application/atomcat+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>コレクションパターン(GET/POST/PUT/DELETE)</li>
+<li>検索拡張(GET)</li>
+<li>フォームナビゲーション拡張(GET)</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>コレクションパターン(feed/entry)
+
+<ul>
+<li>feed
+
+<ul>
+<li>Blog投稿のセマンティクス
+
+<ul>
+<li>autor, title, category,&#8230;</li>
+</ul></li>
+</ul></li>
+<li>entry
+
+<ul>
+<li>バイナリエントリ
+
+<ul>
+<li>画像等</li>
+</ul></li>
+<li>メタデータをもつAtomエントリ</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>RFC5023, RFC4287</li>
+<li>6章参照</li>
+<li>RESTful APIの先駆け</li>
+<li>Google API(GData)の基盤として用いられている</li>
+</ul>
+
+<h4>OData</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/json; odata=fullmetadata</li>
+<li>application/json; odata=minimalmetadata</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>修正コレクションパターン(GET/POST/PUT/DELETE/PATCH)</li>
+<li>GETメソッドによるフィルタ、並び替え</li>
+<li>GET(安全)、POST(安全でない)による任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>コレクションパターン(feed/entry)</li>
+</ul></li>
+<li>AtomPubベース</li>
+<li>JSONオブジェクトのプロパティはsemantic descriptorとして機能する</li>
+<li><em>odata.</em> で始まるプロパティは、ハイパーメディアコントロール、またはメタデータ
+
+<ul>
+<li>odata.id
+
+<ul>
+<li>エントリリソースの一意的なID
+
+<ul>
+<li>たいていURI</li>
+</ul></li>
+</ul></li>
+<li>hoge@odata.type
+
+<ul>
+<li>プロパティの型を示すメタデータ</li>
+</ul></li>
+<li>odata.editLink
+
+<ul>
+<li>atomPubにおけるeditリレーションと同じ</li>
+</ul></li>
+<li>hoge@odata.navigationLinkUrl
+
+<ul>
+<li>ほかのリソースへのハイパーメディアリンク</li>
+</ul></li>
+</ul></li>
+<li>コレクションの暗黙的なフィルタと並び替えをサポート
+
+<ul>
+<li>フォームから明示的に指示するものではない</li>
+<li>Urlで宣言的なルールを指示する
+
+<ul>
+<li>posts$filter=substringof(&#39;hoge&#39;,Content)</li>
+<li>複合条件の場合、<em>+and+</em> で連結する</li>
+</ul></li>
+</ul></li>
+<li>状態遷移
+
+<ul>
+<li>function
+
+<ul>
+<li>GET(安全)な状態遷移
+
+<ul>
+<li>暗黙的なフィルタを使用できない複雑なクエリに対して使用される</li>
+<li>クライアントは、odata.metadataに示されるスキーマ記述言語(SDL)へのリンクをたどり、構築するクエリを学ぶ必要がある</li>
+</ul></li>
+</ul></li>
+<li>action
+
+<ul>
+<li>POST(安全でない)状態遷移</li>
+</ul></li>
+</ul></li>
+<li>メタデータの外だし
+
+<ul>
+<li>odata.metadataでSDLへのリンクだけを書き記す
+
+<ul>
+<li>構造がシンプルになる</li>
+<li>APIの修正と同時にSDLのメンテも必要
+
+<ul>
+<li>インピーダンスミスマッチを起こしやすい</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h1>純粋ハイパーメディアフォーマット</h1>
+
+<ul>
+<li>自身がアプリケーションセマンティクスを持たない汎用フォーマット</li>
+<li>プロトコルセマンティクスのみ持つ</li>
+</ul>
+
+<h4>HTML</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/xhtml+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+<li>GET(安全)、POST(安全でない)メソッドによる任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ドキュメントに埋め込まれたhuman-readable表現</li>
+</ul></li>
+<li>7章参照</li>
+<li>microdataやmicroformatsを直接埋め込むことができる</li>
+<li>scriptタグで実行コードを埋め込むことができる</li>
+<li>webブラウザで表示できるので、デバッグが容易</li>
+</ul>
+
+<h4>HAL</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/hal+json</li>
+<li>application/hal+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>リンクによる任意の状態遷移</li>
+<li>httpメソッドを明示的に指定できない</li>
+<li>human-readableなドキュメントに明記するのみ</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>7章参照</li>
+</ul>
+
+<h4>Siren</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/vnd.siren+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+<li>GET(安全)、POST/PUT/DELETE(安全でない)メソッドによる <em>action</em> をとおした任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>あって無いようなもの</li>
+</ul></li>
+<li>htmlのdivタグをjsonで書き下したentityを記述する
+
+<ul>
+<li>entity要素
+
+<ul>
+<li>classやpropertyのリストを持てる</li>
+<li>htmlのaタグをのようなlinksのリストを持てる</li>
+<li>htmlのformタグのようなactionsのリストを持てる</li>
+<li>子entryを持てる</li>
+</ul></li>
+</ul></li>
+<li>状態遷移図はHALとHTMLの中間</li>
+</ul>
+
+<h4>Link Header</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(httpヘッダとして使う) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>RFC5988で定義</li>
+<li>4章参照</li>
+<li>画像やpure JSONにハイパーメディアコントロールを付与する</li>
+<li>relパラメータに任意のリンクリレーションを与える</li>
+<li>Link Headerを使うと、pure JSONにprofileを結びつけることができる</li>
+</ul>
+
+<h4>Lication, Content-Location Header</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(httpヘッダとして使う) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>httpレスポンスコードに依存</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>1〜3章、付録B参照</li>
+<li>RFC2616</li>
+<li>Content-Location
+
+<ul>
+<li>現在のリソースの正規の位置を示す
+
+<ul>
+<li>IANAで定義されたcanonicalリレーションと同等</li>
+</ul></li>
+</ul></li>
+<li>Location
+
+<ul>
+<li>201(Created)
+
+<ul>
+<li>作成されたリソースへのリンクを示す</li>
+</ul></li>
+<li>301(Moved Prrmanently)
+
+<ul>
+<li>リダイレクト先を示す</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h4>URL List</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>text/url-list</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>RFC2483で定義</li>
+<li>urlの一覧を取得</li>
+<li>リンクリレーションをもたないため、ハイパーメディアコントロールになり得ない</li>
+</ul>
+
+<h4>JSON Home Document</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/json-home</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>あって無いようなもの</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>より洗練されたurl list</li>
+<li>JSONオブジェクトのキーとしてリンクリレーション、値にUrlを指定
+
+<ul>
+<li>ハイパーメディアコントロールたり得る</li>
+</ul></li>
+<li>URL Templateが使用可能
+
+<ul>
+<li>テンプレートスロットはhref-varsで指定されるprofileを参照する</li>
+</ul></li>
+<li><em>hints</em> を与えることで、メソッドを明示できる
+
+<ul>
+<li>&quot;hints&quot;: { &quot;allow&quot;: [ &quot;POST&quot; ] }</li>
+<li>リンクのアプリケーションセマンティクスは指定できない</li>
+</ul></li>
+<li>profileと組み合わせることで、human-readableなAPIをmachine-readableなものに変貌させることができる</li>
+</ul>
+
+<h4>Link-Template Header</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(httpヘッダとして使う) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>RFC6570で定義(時間切れで棄却) </li>
+<li>機能的にはLink Headerと同様</li>
+<li>リンク先としてURL Templateが使用可能</li>
+<li>var-baseパラメータを使って、スロット変数のためのprofileを指定する</li>
+</ul>
+
+<h4>WADL</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/vnd.sun.wadl+xml</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>完全な汎用フォーマット</li>
+<li>あらゆるweb APIのプロトコルを模倣できる</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>拡張のための最小限だけ</li>
+</ul></li>
+<li>requestタグで任意のhttpメソッドを指定する</li>
+<li>entity-bodyを含む、あらゆるhttpヘッダを指定できる</li>
+<li>メタデータはXML Schemaを用いる</li>
+<li>docタグにprofileを埋め込むことができる</li>
+<li>いくつかのHAX-RSの実装がAPIとして、WADLを吐き出す
+
+<ul>
+<li>SOAP同様、インピーダンスミスマッチを生む要因となる</li>
+</ul></li>
+</ul>
+
+<h4>XLink</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(任意のxmlに埋め込む形で使用) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETメソッドによるナビゲーション</li>
+<li>GETメソッドによるトランスクルージョン
+
+<ul>
+<li>リソースの埋め込みのようなもの</li>
+</ul></li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>素のxmlにハイパーメディアリンクを埋め込む拡張</li>
+<li>XLink自身、タグは定義されていない</li>
+<li>xmlに付与する属性のみ定義
+
+<ul>
+<li>xlink:arcrole
+
+<ul>
+<li>URIを使ってリンクリレーションを表現する</li>
+</ul></li>
+<li>xlink:show
+
+<ul>
+<li>ナビゲーション方法を変更する
+
+<ul>
+<li>replace
+
+<ul>
+<li>htmlのaタグのように内容を置換する</li>
+</ul></li>
+<li>embed
+
+<ul>
+<li>htmlのimgタグのように内容を埋め込む</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h4>XForms</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>なし(任意のxmlに埋め込む形で使用) </li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GET(安全)、POST/PUT/DELETE(安全でない)メソッドによる、任意の状態遷移</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>素のxmlにハイパーメディアフォームを埋め込む拡張</li>
+<li>XLinkとは異なり、自信のタグを定義している
+
+<ul>
+<li>xforms:model
+
+<ul>
+<li>htmlにおけるformタグと同機能</li>
+</ul></li>
+<li>xforms:submission
+
+<ul>
+<li>xforms:modelの子要素</li>
+<li>htmlにおけるformタグのaction属性とmethod属性を担う</li>
+</ul></li>
+<li>xforms:instance
+
+<ul>
+<li>xforms:submissionの子要素</li>
+<li>GETメソッドのクエリ文字列やPOSTメソッドのentity-bodyの構築方法を例示する</li>
+</ul></li>
+<li>xforms:input
+
+<ul>
+<li>htmlにおけるinputタグと同機能</li>
+</ul></li>
+<li>xforms:submit
+
+<ul>
+<li>htmlにおけるinput type=&quot;submit&quot;と同機能</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>後編へつづく</h2>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RESTful Web APIs 読書メモ(9)]]></title>
@@ -330,6 +1089,8 @@
 <hr>
 
 <h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.io/2015/03-22/restful-web-api-memo-10/">RESTful Web APIs 読書メモ(10)</a></p>
 ]]></content>
   </entry>
   
@@ -2840,230 +3601,6 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 <p><strong>変態</strong> というよりは、どう見ても、真っクロに限りなく近いクロです。どうもあ（ry</p>
 
 <p>明日(18日目)は<a href="http://maruta.be/linegod/1">nyaarto</a>さんです。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[gist.github.com埋め込みテスト]]></title>
-    <link href="http://ritalin.github.io/2012/12-12/embed-gist/"/>
-    <updated>2012-12-12T21:14:00+09:00</updated>
-    <id>http://ritalin.github.io/2012/12-12/embed-gist</id>
-    <content type="html"><![CDATA[<p><a href="gist.github.com">gist</a>のリニューアルで、埋め込んだコードが崩れだしたので確認。</p>
-
-<!-- more -->
-
-<div><script src='https://gist.github.com/4147464.js?file=RhinoMocksCreationExtensions.cs'></script>
-<noscript><pre><code>using System;
-using Rhino.Mocks;
-
-namespace Samples {
-    internal static class RhinoMocksCreationExtensions {
-        /// &lt;summary&gt;Generates a stub without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        /// &lt;typeparam name=&quot;T&quot;&gt;The &lt;see cref=&quot;Type&quot;/&gt; of stub to create.&lt;/typeparam&gt;
-        /// &lt;returns&gt;The stub&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;Stub{T}&quot;/&gt;
-        public static T GenerateStubHelper&lt;T&gt;(this MockRepository repository, params object[] argumentsForConstructor) where T : class {
-            return CreateMockInReplay(repository, repo =&gt; (T)repo.Stub(typeof(T), argumentsForConstructor));
-        }
-
-        /// &lt;summary&gt;Generates a stub without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        /// &lt;param name=&quot;type&quot;&gt;The &lt;see cref=&quot;Type&quot;/&gt; of stub.&lt;/param&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for the &lt;paramref name=&quot;type&quot;/&gt;&#39;s constructor.&lt;/param&gt;
-        /// &lt;returns&gt;The stub&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;Stub&quot;/&gt;
-        public static object GenerateStubHelper(this MockRepository repository, Type type, params object[] argumentsForConstructor) {
-            return CreateMockInReplay(repository, repo =&gt; repo.Stub(type, argumentsForConstructor));
-        }
-
-        /// &lt;summary&gt;Generate a mock object without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        /// &lt;typeparam name=&quot;T&quot;&gt;type &lt;see cref=&quot;Type&quot;/&gt; of mock object to create.&lt;/typeparam&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        /// &lt;returns&gt;the mock object&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;DynamicMock{T}&quot;/&gt;
-        public static T GenerateMockHelper&lt;T&gt;(this MockRepository repository, params object[] argumentsForConstructor) where T : class {
-            return CreateMockInReplay(repository, r =&gt; r.DynamicMock&lt;T&gt;(argumentsForConstructor));
-        }
-
-        /// &lt;summary&gt;Generate a multi-mock object without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        /// &lt;typeparam name=&quot;T&quot;&gt;The &lt;c&gt;typeof&lt;/c&gt; object to generate a mock for.&lt;/typeparam&gt;
-        /// &lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;A second interface to generate a multi-mock for.&lt;/typeparam&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        /// &lt;returns&gt;the multi-mock object&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;DynamicMultiMock(System.Type,System.Type[],object[])&quot;/&gt;
-        public static T GenerateMockHelper&lt;T, TMultiMockInterface1&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return (T)RhinoMocksCreationExtensions.GenerateMockHelper(
-                repository,
-                typeof(T), new Type[] { typeof(TMultiMockInterface1) }, argumentsForConstructor);
-        }
-
-        /// &lt;summary&gt;Generate a multi-mock object without without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        /// &lt;typeparam name=&quot;T&quot;&gt;The &lt;c&gt;typeof&lt;/c&gt; object to generate a mock for.&lt;/typeparam&gt;
-        /// &lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;An interface to generate a multi-mock for.&lt;/typeparam&gt;
-        /// &lt;typeparam name=&quot;TMultiMockInterface2&quot;&gt;A second interface to generate a multi-mock for.&lt;/typeparam&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        /// &lt;returns&gt;the multi-mock object&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;DynamicMultiMock(Type,Type[],object[])&quot;/&gt;
-        public static T GenerateMockHelper&lt;T, TMultiMockInterface1, TMultiMockInterface2&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return (T)RhinoMocksCreationExtensions.GenerateMockHelper(
-                repository,
-                typeof(T), new Type[] { typeof(TMultiMockInterface1), typeof(TMultiMockInterface2) }, argumentsForConstructor
-            );
-        }
-
-        /// &lt;summary&gt;Creates a multi-mock without without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        /// &lt;param name=&quot;type&quot;&gt;The type of mock to create, this can be a class&lt;/param&gt;
-        /// &lt;param name=&quot;extraTypes&quot;&gt;Any extra interfaces to add to the multi-mock, these can only be interfaces.&lt;/param&gt;
-        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;paramref name=&quot;type&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        /// &lt;returns&gt;the multi-mock object&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;DynamicMultiMock(System.Type,System.Type[],object[])&quot;/&gt;
-        public static object GenerateMockHelper(this MockRepository repository, Type type, Type[] extraTypes, params object[] argumentsForConstructor) {
-            return CreateMockInReplay(repository, r =&gt; r.DynamicMultiMock(type, extraTypes, argumentsForConstructor));
-        }
-
-        ///&lt;summary&gt;Creates a strict mock without without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        ///&lt;typeparam name=&quot;T&quot;&gt;The type of mock object to create.&lt;/typeparam&gt;
-        ///&lt;returns&gt;The mock object with strict replay semantics&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;StrictMock{T}&quot;/&gt;
-        public static T GenerateStrictMockHelper&lt;T&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return CreateMockInReplay(repository, r =&gt; r.StrictMock&lt;T&gt;(argumentsForConstructor));
-        }
-
-        ///&lt;summary&gt;Creates a strict multi-mock without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        ///&lt;typeparam name=&quot;T&quot;&gt;The type of mock object to create, this can be a class.&lt;/typeparam&gt;
-        ///&lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;An interface to generate a multi-mock for, this must be an interface!&lt;/typeparam&gt;
-        ///&lt;returns&gt;The multi-mock object with strict replay semantics&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;StrictMultiMock(System.Type,System.Type[],object[])&quot;/&gt;
-        public static T GenerateStrictMockHelper&lt;T, TMultiMockInterface1&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return (T)RhinoMocksCreationExtensions.GenerateStrictMockHelper(
-                repository,
-                typeof(T), new Type[] { typeof(TMultiMockInterface1) }, argumentsForConstructor
-            );
-        }
-
-        ///&lt;summary&gt;Creates a strict multi-mock without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments required for the &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        ///&lt;typeparam name=&quot;T&quot;&gt;The type of mock object to create, this can be a class.&lt;/typeparam&gt;
-        ///&lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;An interface to generate a multi-mock for, this must be an interface!&lt;/typeparam&gt;
-        ///&lt;typeparam name=&quot;TMultiMockInterface2&quot;&gt;A second interface to generate a multi-mock for, this must be an interface!&lt;/typeparam&gt;
-        ///&lt;returns&gt;The multi-mock object with strict replay semantics&lt;/returns&gt;
-        ///&lt;seealso cref=&quot;StrictMultiMock(System.Type,System.Type[],object[])&quot;/&gt;
-        public static T GenerateStrictMockHelper&lt;T, TMultiMockInterface1, TMultiMockInterface2&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return (T)RhinoMocksCreationExtensions.GenerateStrictMockHelper(
-                repository,
-                typeof(T), new Type[] { typeof(TMultiMockInterface1), typeof(TMultiMockInterface2) }, argumentsForConstructor
-            );
-        }
-
-        ///&lt;summary&gt;Creates a strict multi-mock without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
-        ///&lt;param name=&quot;type&quot;&gt;The type of mock object to create, this can be a class&lt;/param&gt;
-        ///&lt;param name=&quot;extraTypes&quot;&gt;Any extra interfaces to generate a multi-mock for, these must be interaces!&lt;/param&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;Any arguments for the &lt;paramref name=&quot;type&quot;/&gt;&#39;s constructor&lt;/param&gt;
-        ///&lt;returns&gt;The strict multi-mock object&lt;/returns&gt;
-        /// &lt;seealso cref=&quot;StrictMultiMock(System.Type,System.Type[],object[])&quot;/&gt;
-        public static object GenerateStrictMockHelper(this MockRepository repository, Type type, Type[] extraTypes, params object[] argumentsForConstructor) {
-            if (extraTypes == null) extraTypes = new Type[0];
-            if (argumentsForConstructor == null) argumentsForConstructor = new object[0];
-
-            return CreateMockInReplay(repository, r =&gt; r.StrictMultiMock(type, extraTypes, argumentsForConstructor));
-        }
-
-        ///&lt;summary&gt;
-        ///&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;&lt;/param&gt;
-        ///&lt;typeparam name=&quot;T&quot;&gt;&lt;/typeparam&gt;
-        ///&lt;returns&gt;&lt;/returns&gt;
-        public static T GeneratePartialMockHelper&lt;T&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return (T)RhinoMocksCreationExtensions.GeneratePartialMockHelper(
-                repository,
-                typeof(T), new Type[0], argumentsForConstructor
-            );
-        }
-
-        ///&lt;summary&gt;
-        ///&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;&lt;/param&gt;
-        ///&lt;typeparam name=&quot;T&quot;&gt;&lt;/typeparam&gt;
-        ///&lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;&lt;/typeparam&gt;
-        ///&lt;returns&gt;&lt;/returns&gt;
-        public static T GeneratePartialMockHelper&lt;T, TMultiMockInterface1&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return (T)RhinoMocksCreationExtensions.GeneratePartialMockHelper(
-                repository,
-                typeof(T), new Type[] { typeof(TMultiMockInterface1) }, argumentsForConstructor
-            );
-        }
-
-        ///&lt;summary&gt;
-        ///&lt;/summary&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;&lt;/param&gt;
-        ///&lt;typeparam name=&quot;T&quot;&gt;&lt;/typeparam&gt;
-        ///&lt;typeparam name=&quot;TMultiMockInterface1&quot;&gt;&lt;/typeparam&gt;
-        ///&lt;typeparam name=&quot;TMultiMockInterface2&quot;&gt;&lt;/typeparam&gt;
-        ///&lt;returns&gt;&lt;/returns&gt;
-        public static T GeneratePartialMockHelper&lt;T, TMultiMockInterface1, TMultiMockInterface2&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return (T)RhinoMocksCreationExtensions.GeneratePartialMockHelper(
-                repository,
-                typeof(T), new Type[] { typeof(TMultiMockInterface1), typeof(TMultiMockInterface2) }, argumentsForConstructor
-            );
-        }
-
-        ///&lt;summary&gt;
-        ///&lt;/summary&gt;
-        ///&lt;param name=&quot;type&quot;&gt;&lt;/param&gt;
-        ///&lt;param name=&quot;extraTypes&quot;&gt;&lt;/param&gt;
-        ///&lt;param name=&quot;argumentsForConstructor&quot;&gt;&lt;/param&gt;
-        ///&lt;returns&gt;&lt;/returns&gt;
-        public static object GeneratePartialMockHelper(this MockRepository repository, Type type, Type[] extraTypes, params object[] argumentsForConstructor) {
-            return CreateMockInReplay(repository, r =&gt; r.PartialMultiMock(type, extraTypes, argumentsForConstructor));
-        }
-
-        /// &lt;summary&gt;
-        /// Generate a mock object with dynamic replay semantics and remoting without needing the mock repository
-        /// &lt;/summary&gt;
-        public static T GenerateDynamicMockWithRemotingHelper&lt;T&gt;(this MockRepository repository, params object[] argumentsForConstructor) {
-            return CreateMockInReplay(repository, r =&gt; r.DynamicMockWithRemoting&lt;T&gt;(argumentsForConstructor));
-        }
-
-        /// &lt;summary&gt;
-        /// Generate a mock object with strict replay semantics and remoting without needing the mock repository
-        /// &lt;/summary&gt;
-        public static T GenerateStrictMockWithRemotingHelper&lt;T&gt;(this MockRepository repository, params object[] argumentsForConstructor) where T : class {
-            return CreateMockInReplay(repository, r =&gt; r.StrictMockWithRemoting&lt;T&gt;(argumentsForConstructor));
-        }
-
-        private static T CreateMockInReplay&lt;T&gt;(MockRepository repository, Func&lt;MockRepository, T&gt; createMock) {
-            var mockObject = createMock(repository);
-            repository.Replay(mockObject);
-
-            return mockObject;
-        }
-    }
-}
-</code></pre></noscript></div>
-
-<p>相変わらず、行番号はずれたままだけど、コードはそれっぽく表示されるようにはなった。</p>
-
-<p>Octopressでの変更点は、sass/parts/_article.scssの以下の行を削除した</p>
-
-<ul>
-<li>line 24 ( line-height: 2 )</li>
-<li>line 25 ( text-align: justify ) </li>
-<li>line 98 - 100 ( td{text-align: center;} )</li>
-</ul>
-
-<p>一桁の行番号が、横並びになるのは、github.comが発行するgistのjavascriptに書かれたhtmlの不備っぽい。
-具体的には、</p>
-
-<ul>
-<li>td class=&quot;line_numbers&quot;を</li>
-<li>td class=&quot;line_numbers gist-line-numbers&quot;</li>
-</ul>
-
-<p>にしたら、治ったように見えた（がんばって報告した）。</p>
-
-<p>やれやれだぜ。</p>
 ]]></content>
   </entry>
   
