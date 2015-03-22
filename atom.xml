@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.io/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-03-22T09:54:55+09:00</updated>
+  <updated>2015-03-22T10:03:01+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,211 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[rRESTful Web APIs 読書メモ(11)]]></title>
+    <link href="http://ritalin.github.io/2015/03-22/restful-web-api-memo-11/"/>
+    <updated>2015-03-22T09:57:00+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-22/restful-web-api-memo-11</id>
+    <content type="html"><![CDATA[<h2>Chapter 10. The Hypermedia Zoo (Part. 2)</h2>
+
+<ul>
+<li>アプリケーションセマンティクスカタログ</li>
+</ul>
+
+<!-- more -->
+
+<h3>IANA Registry (Link Relation)</h3>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>分け隔てなくすべて</li>
+</ul></li>
+<li>セマンティクス
+
+<ul>
+<li>一般的なナビゲーション</li>
+</ul></li>
+<li>あらゆる表現に対して使用できる</li>
+<li>各リンクリレーションには、human-readableなドキュメントと、定義元へのリンクが与えられている</li>
+</ul>
+
+<h3>Microformats Wiki</h3>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>HTML</li>
+</ul></li>
+<li><p>セマンティクス</p>
+
+<ul>
+<li>オンラインで検索を行うことに関するもの</li>
+</ul></li>
+<li><p>hCalendar</p>
+
+<ul>
+<li>時間にまつわるイベントを記録</li>
+<li>iCalendarベース (RFC2445)</li>
+</ul></li>
+<li><p>hCard</p>
+
+<ul>
+<li>人と組織について記述</li>
+<li>vCardベース (RFC2426)</li>
+<li>7章参照</li>
+</ul></li>
+<li><p>XFN</p>
+
+<ul>
+<li>人との関係を記述するリンクリレーションのセット</li>
+</ul></li>
+<li><p>XOXO</p>
+
+<ul>
+<li>ドキュメントの要点を記述</li>
+<li>新たなアプリケーションセマンティクスは定義していない</li>
+<li>htmlの範囲内でやりくりしている</li>
+</ul></li>
+<li><p>adr</p>
+
+<ul>
+<li>hCardのサブセット</li>
+<li>住所のみを取り扱う</li>
+</ul></li>
+<li><p>geo</p>
+
+<ul>
+<li>hCardのサブセット</li>
+<li>WGS84基準による緯度と経度</li>
+</ul></li>
+<li><p>hAtom</p>
+
+<ul>
+<li>ブログ投稿</li>
+<li>Atomフィードベース(RFC4287)</li>
+</ul></li>
+<li><p>hListing</p>
+
+<ul>
+<li>雇用や広告に関するサービスを一覧</li>
+<li>hCard, hCalendar, hReviewを組み合わせたもの</li>
+</ul></li>
+<li><p>hMedia</p>
+
+<ul>
+<li>がぞう、ビデオ、オーディオについての基本的なメタデータ</li>
+</ul></li>
+<li><p>hNews</p>
+
+<ul>
+<li>hAtomの拡張</li>
+<li>ニュース記事を追加する</li>
+</ul></li>
+<li><p>hProduct</p>
+
+<ul>
+<li>製品リスト</li>
+</ul></li>
+<li><p>hRecipe</p>
+
+<ul>
+<li>レシピ</li>
+</ul></li>
+<li><p>hResume</p>
+
+<ul>
+<li>Resume/CVs ???</li>
+</ul></li>
+<li><p>hReview</p>
+
+<ul>
+<li>レーティング付きレビュー</li>
+</ul></li>
+<li><p>html5由来のリンクリレーション</p>
+
+<ul>
+<li>author, nogollow, tag, license</li>
+</ul></li>
+</ul>
+
+<h3>Micro Formats Wiki (Link Relation)</h3>
+
+<ul>
+<li>IANA未登録のものも含む</li>
+</ul>
+
+<h3>Schema.org</h3>
+
+<ul>
+<li>microdataの総本山</li>
+<li>microformats wikiと類似したアプリケーションセマンティクスが多く登録されている</li>
+<li>主に利用者視点</li>
+</ul>
+
+<h3>Dublin Core</h3>
+
+<ul>
+<li>(うまく纏めれなかった・・・)</li>
+</ul>
+
+<h3>Activity Streams</h3>
+
+<ul>
+<li>Activityと呼ばれるオンライン活動(ビデオをみる、ブログを投稿する) を表現する標準
+
+<ul>
+<li>Activity
+
+<ul>
+<li>オンラインを通して対話することに関するアプリケーションセマンティクス
+
+<ul>
+<li>Article, Event, Group, Person,&#8230;</li>
+</ul></li>
+</ul></li>
+<li>Atomフィードとして表現する</li>
+<li>JSON版もある
+
+<ul>
+<li>ハイパーメディアコントロールではない</li>
+</ul></li>
+</ul></li>
+<li>Actor, Verb, Objectで構成される
+
+<ul>
+<li>Actor
+
+<ul>
+<li>たいてい利用者</li>
+</ul></li>
+<li>Verb
+
+<ul>
+<li>Actorが何か行うこと</li>
+<li>不安定な状態遷移名
+
+<ul>
+<li>join, follow, cancel</li>
+</ul></li>
+</ul></li>
+<li>Object
+
+<ul>
+<li>ActorがなにかVerbする対象</li>
+</ul></li>
+</ul></li>
+<li>schema.orgのmicrodataに多くの重複が見受けられる</li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RESTful Web APIs 読書メモ(10)]]></title>
@@ -769,6 +974,8 @@
 <hr>
 
 <h2>後編へつづく</h2>
+
+<p><a href="http://ritalin.github.io/2015/03-22/restful-web-api-memo-11/">RESTful Web APIs 読書メモ(11)</a></p>
 ]]></content>
   </entry>
   
@@ -3459,148 +3666,6 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 必ずSetUp属性、FixtureSetpu属性、または各テストコード内で初期化すること。</p>
 
 <p>GOOS本(p.26)にもちゃんと書かれてる。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[（みんなには内緒だよ）]]></title>
-    <link href="http://ritalin.github.io/2012/12-17/hentai-advent-2012/"/>
-    <updated>2012-12-17T01:00:00+09:00</updated>
-    <id>http://ritalin.github.io/2012/12-17/hentai-advent-2012</id>
-    <content type="html"><![CDATA[<p>これは『<a href="http://atnd.org/events/33835">HENTAI Advent Calendar 2012 - 変態アドベントカレンダー</a>』の記事です。</p>
-
-<p><img src="http://atnd.org/event_images/0004/9574/__________2012-11-03_23.31.02_original.png" alt="Picture banner"></p>
-
-<p>前日（16日目）はs_kozake さんの「<a href="http://ameblo.jp/kozake/entry-11428146545.html">変態ルーレット2.0</a>」でした。</p>
-
-<p>VirtualBoxではサポートされていない、Moac OS X Mountain LionをHackintosh (Hackロム)等に頼ること無くインストールできたので、こっそり後悔します。</p>
-
-<p>実際にやったのはひと月前なので、その時の記憶をもとにお送りいたします（再度インストールするのがメンドイから）</p>
-
-<!-- more -->
-
-<h2>前提</h2>
-
-<ul>
-<li>VirtualBoxは、その時点で最新のバージョンをインストールしておく
-
-<ul>
-<li>入れた当時は、v4.2.x</li>
-</ul></li>
-</ul>
-
-<h2>手順</h2>
-
-<h3>インストーラをダウンロードする</h3>
-
-<h4>1. App StoreからMountain Lionを購入（ちゃんと購入しましょう）。</h4>
-
-<p><img src="../../../images/items/20121217/step1.png" alt="Picture Step1"></p>
-
-<h4>2. 自動的にインストーラが起動したら、メニューから「OS X インストールを終了」を選び、即終了させる</h4>
-
-<p><img src="../../../images/items/20121217/step2.png" alt="Picture Step2"></p>
-
-<h3>ディスクイメージ抽出</h3>
-
-<h4>3. アプリケーションフォルダにインストーラがいるはずなので探し出す</h4>
-
-<ul>
-<li>コンテキストメニューの「パッケージの内容を表示」を選び中に入る。</li>
-<li>Contents/SharedSupport/InstallESD.dmg があることを確認する。</li>
-</ul>
-
-<h4>4. ディスクユーティリティを起動する</h4>
-
-<p><img src="../../../images/items/20121217/step4.png" alt="Picture Step4-1"></p>
-
-<ul>
-<li>(1)の欄にInstallESD.dmgをD&amp;D</li>
-<li><p>(1)の欄にInstallESD.dmgを選択し、(2)「変換」を押す。</p></li>
-<li><p>変換先のフォーマットをDVD / CDマスターにし、どっか適当なところに保存する。</p></li>
-</ul>
-
-<p><img src="../../../images/items/20121217/step4-2.png" alt="Picture Step4-2"></p>
-
-<ul>
-<li>変換待つ・・・</li>
-</ul>
-
-<h3>インストール作業</h3>
-
-<h4>5. VirtualBoxの仮想マシンを追加</h4>
-
-<p>{<img src="../../../images/items/20121217/step5.png" alt="Picture Step5"></p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">タイプ：Mac OS X
-バージョン：Mac OS X (64 bit)
-</code></pre></div>
-<ul>
-<li>以降は通常通りすすめて作成する</li>
-<li>作成したVMの設定を開き、ストレージのCD /DVDに4.で作成したディスクイメージを指定する。</li>
-</ul>
-
-<p>{<img src="../../../images/items/20121217/step5-2.png" alt="Picture Step5-2"></p>
-
-<h4>6. VMを実行する</h4>
-
-<p>（ごめんね、画像無くて）</p>
-
-<ul>
-<li>再セットアップが開始する（結構時間かかる）</li>
-<li><p>VM内のディスクユーティリティを起動し、パーティションをフォーマットする（不要かもしれない）</p>
-
-<ul>
-<li>Mac OS 拡張（ジャーナリング）、GUIDパーティションテーブルを選ぶこと</li>
-</ul></li>
-<li><p>ディスクユーティリティ終了→インストールアプリ起動</p></li>
-<li><p>設問に従ってポチポチ</p></li>
-<li><p>インストール始まる。</p></li>
-</ul>
-
-<p>最後までいくと自動的に再起動する。</p>
-
-<p>完了かと思いきや、インストールがおこなわれてる。</p>
-
-<p>２ループ目は不明だったので、静観してたけど、３ループ目も同じように進もうとしたため、VMを強制停止する（ウインドウ閉じればアラートでる）</p>
-
-<p>たぶんリカバリインストールが始まってたぽい気がする。</p>
-
-<h4>7. VMの設定を開きCD / DVDをアンマウントする</h4>
-
-<h4>8. 再度、VMを実行する</h4>
-
-<p>インストールプロセスの続きが実行された。</p>
-
-<p>言語とかネットワーク設定とか聞いてきたような気がするけど、必須入力以外はすべてスキップしたような（もう覚えてない）</p>
-
-<p>VirtualBoxの関係上なのか、英語版にされる。</p>
-
-<p><img src="../../../images/items/20121217/evidence.png" alt="Picture evidence"></p>
-
-<h2>そのた、雑多なこと</h2>
-
-<ul>
-<li>こんな起動の裏側が見れるよ。</li>
-</ul>
-
-<p><img src="../../../images/items/20121217/omake.png" alt="Picture omake"></p>
-
-<ul>
-<li><p>当方、Sanday BridgeのMacBookAir 13&#39;&#39;松特盛りですが、起動に５分ぐらいかかります。気長に待ちましょう。</p></li>
-<li><p>２本指スクロール</p></li>
-</ul>
-
-<p>はじめ効かないかと思ったけどSnow Leopard基準なので、Mountain Lionと逆なだけでした。</p>
-
-<ul>
-<li>放置しておくと、結構な頻度でフリーズ状態になります。しょうがないね。</li>
-</ul>
-
-<h2>まとめ</h2>
-
-<p><strong>変態</strong> というよりは、どう見ても、真っクロに限りなく近いクロです。どうもあ（ry</p>
-
-<p>明日(18日目)は<a href="http://maruta.be/linegod/1">nyaarto</a>さんです。</p>
 ]]></content>
   </entry>
   

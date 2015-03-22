@@ -4,7 +4,7 @@
   <title><![CDATA[Category: rest | Since 1975]]></title>
   <link href="http://ritalin.github.io/blog/categories/rest/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-03-22T09:54:55+09:00</updated>
+  <updated>2015-03-22T10:03:01+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,211 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[rRESTful Web APIs 読書メモ(11)]]></title>
+    <link href="http://ritalin.github.io/2015/03-22/restful-web-api-memo-11/"/>
+    <updated>2015-03-22T09:57:00+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-22/restful-web-api-memo-11</id>
+    <content type="html"><![CDATA[<h2>Chapter 10. The Hypermedia Zoo (Part. 2)</h2>
+
+<ul>
+<li>アプリケーションセマンティクスカタログ</li>
+</ul>
+
+<!-- more -->
+
+<h3>IANA Registry (Link Relation)</h3>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>分け隔てなくすべて</li>
+</ul></li>
+<li>セマンティクス
+
+<ul>
+<li>一般的なナビゲーション</li>
+</ul></li>
+<li>あらゆる表現に対して使用できる</li>
+<li>各リンクリレーションには、human-readableなドキュメントと、定義元へのリンクが与えられている</li>
+</ul>
+
+<h3>Microformats Wiki</h3>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>HTML</li>
+</ul></li>
+<li><p>セマンティクス</p>
+
+<ul>
+<li>オンラインで検索を行うことに関するもの</li>
+</ul></li>
+<li><p>hCalendar</p>
+
+<ul>
+<li>時間にまつわるイベントを記録</li>
+<li>iCalendarベース (RFC2445)</li>
+</ul></li>
+<li><p>hCard</p>
+
+<ul>
+<li>人と組織について記述</li>
+<li>vCardベース (RFC2426)</li>
+<li>7章参照</li>
+</ul></li>
+<li><p>XFN</p>
+
+<ul>
+<li>人との関係を記述するリンクリレーションのセット</li>
+</ul></li>
+<li><p>XOXO</p>
+
+<ul>
+<li>ドキュメントの要点を記述</li>
+<li>新たなアプリケーションセマンティクスは定義していない</li>
+<li>htmlの範囲内でやりくりしている</li>
+</ul></li>
+<li><p>adr</p>
+
+<ul>
+<li>hCardのサブセット</li>
+<li>住所のみを取り扱う</li>
+</ul></li>
+<li><p>geo</p>
+
+<ul>
+<li>hCardのサブセット</li>
+<li>WGS84基準による緯度と経度</li>
+</ul></li>
+<li><p>hAtom</p>
+
+<ul>
+<li>ブログ投稿</li>
+<li>Atomフィードベース(RFC4287)</li>
+</ul></li>
+<li><p>hListing</p>
+
+<ul>
+<li>雇用や広告に関するサービスを一覧</li>
+<li>hCard, hCalendar, hReviewを組み合わせたもの</li>
+</ul></li>
+<li><p>hMedia</p>
+
+<ul>
+<li>がぞう、ビデオ、オーディオについての基本的なメタデータ</li>
+</ul></li>
+<li><p>hNews</p>
+
+<ul>
+<li>hAtomの拡張</li>
+<li>ニュース記事を追加する</li>
+</ul></li>
+<li><p>hProduct</p>
+
+<ul>
+<li>製品リスト</li>
+</ul></li>
+<li><p>hRecipe</p>
+
+<ul>
+<li>レシピ</li>
+</ul></li>
+<li><p>hResume</p>
+
+<ul>
+<li>Resume/CVs ???</li>
+</ul></li>
+<li><p>hReview</p>
+
+<ul>
+<li>レーティング付きレビュー</li>
+</ul></li>
+<li><p>html5由来のリンクリレーション</p>
+
+<ul>
+<li>author, nogollow, tag, license</li>
+</ul></li>
+</ul>
+
+<h3>Micro Formats Wiki (Link Relation)</h3>
+
+<ul>
+<li>IANA未登録のものも含む</li>
+</ul>
+
+<h3>Schema.org</h3>
+
+<ul>
+<li>microdataの総本山</li>
+<li>microformats wikiと類似したアプリケーションセマンティクスが多く登録されている</li>
+<li>主に利用者視点</li>
+</ul>
+
+<h3>Dublin Core</h3>
+
+<ul>
+<li>(うまく纏めれなかった・・・)</li>
+</ul>
+
+<h3>Activity Streams</h3>
+
+<ul>
+<li>Activityと呼ばれるオンライン活動(ビデオをみる、ブログを投稿する) を表現する標準
+
+<ul>
+<li>Activity
+
+<ul>
+<li>オンラインを通して対話することに関するアプリケーションセマンティクス
+
+<ul>
+<li>Article, Event, Group, Person,&#8230;</li>
+</ul></li>
+</ul></li>
+<li>Atomフィードとして表現する</li>
+<li>JSON版もある
+
+<ul>
+<li>ハイパーメディアコントロールではない</li>
+</ul></li>
+</ul></li>
+<li>Actor, Verb, Objectで構成される
+
+<ul>
+<li>Actor
+
+<ul>
+<li>たいてい利用者</li>
+</ul></li>
+<li>Verb
+
+<ul>
+<li>Actorが何か行うこと</li>
+<li>不安定な状態遷移名
+
+<ul>
+<li>join, follow, cancel</li>
+</ul></li>
+</ul></li>
+<li>Object
+
+<ul>
+<li>ActorがなにかVerbする対象</li>
+</ul></li>
+</ul></li>
+<li>schema.orgのmicrodataに多くの重複が見受けられる</li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RESTful Web APIs 読書メモ(10)]]></title>
@@ -769,6 +974,8 @@
 <hr>
 
 <h2>後編へつづく</h2>
+
+<p><a href="/2015/03-22/restful-web-api-memo-11/">RESTful Web APIs 読書メモ(11)</a></p>
 ]]></content>
   </entry>
   
@@ -1665,285 +1872,6 @@
 <h2>つづき・・・</h2>
 
 <p><a href="/2015/03-11/restful-web-api-memo-08/">RESTful Web APIs 読書メモ(8)</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(6)]]></title>
-    <link href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-06/"/>
-    <updated>2015-03-08T22:47:00+09:00</updated>
-    <id>http://ritalin.github.io/2015/03-08/restful-web-api-memo-06</id>
-    <content type="html"><![CDATA[<h2>Chapter 6. The Collection Pattern</h2>
-
-<ul>
-<li>コレクションもまたリソース
-
-<ul>
-<li>  コレクションに含まれるリソースは&quot;item&quot;や&quot;entry&quot;、&quot;member&quot;と呼ばれる</li>
-</ul></li>
-<li>  Pagenation
-
-<ul>
-<li>  大量のコレクションメンバーを持つ場合、全てを一度に返すことは通常しない</li>
-<li>  最初の一部だけをコレクションとして返し、残りはrel=&quot;next&quot;を付与したリンクだけを提供する
-
-<ul>
-<li>  nextはIANAで登録されている</li>
-<li>  ほかにprev, first, lastもIANAで定義されている</li>
-</ul></li>
-<li>  Collection+JSONはリレーションを明示的にサポートしてはいない
-
-<ul>
-<li>  必要ならリレーションを組み込めばいい</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<!-- more -->
-
-<h3>Collection+JSON</h3>
-
-<ul>
-<li>問題領域とは独立した汎用フォーマット</li>
-<li>手軽にREST制約を組み込める</li>
-<li>httpを介して取得するリソースのためのプロトコルセマンティクス</li>
-<li>プロパティ
-
-<ul>
-<li>href
-
-<ul>
-<li>コレクション自身へのリンク</li>
-</ul></li>
-<li>items
-
-<ul>
-<li>コレクションの要素</li>
-<li>アプリケーション特化データの集合
-
-<ul>
-<li>href
-
-<ul>
-<li>要素へのリンク</li>
-<li>GETリクエストで単独のリソースとして取得できる</li>
-<li>PUTやDELETEで変更、削除</li>
-</ul></li>
-<li>links
-
-<ul>
-<li>要素に関連するほかのリソースへのリンク</li>
-<li>例えば、本リソースに対する著者、出版社等</li>
-<li>render=&quot;link&quot;
-
-<ul>
-<li></li>
-</ul></li>
-<li>render=&quot;image&quot;
-
-<ul>
-<li></li>
-</ul></li>
-</ul></li>
-<li>data
-
-<ul>
-<li>要素を構成する内容</li>
-<li>アプリケーションセマンティクスの要</li>
-<li>&quot;name&quot;と&quot;value&quot;から成るJSONオブジェクトの集合</li>
-<li>各ペアには備考として&quot;prompt&quot;をもたせられる</li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li>links
-
-<ul>
-<li>コレクションに関連するほかの要素</li>
-</ul></li>
-<li>queries
-
-<ul>
-<li>コレクションを検索するためのテンプレート</li>
-</ul></li>
-<li>templates
-
-<ul>
-<li>コレクションに新しい要素を加えるためのテンプレート</li>
-</ul></li>
-<li>error
-
-<ul>
-<li>エラーメッセージ</li>
-</ul></li>
-</ul></li>
-</ul>
-
-<h3>AtomPub</h3>
-
-<ul>
-<li>Atomフォーマット
-
-<ul>
-<li>RSSに代わり、ニュースを同報する仕組みとしてRFC4287で標準化</li>
-<li>ニュース記事を一つ以上のカテゴリに分類できる</li>
-</ul></li>
-<li>AtomPubはニュースを編集 / 発行(CRUD)などを行うためのAtomフォーマットを使ったワークフロー(RFC5023)</li>
-<li>media-typeはapplication/atom+xml</li>
-<li>新しいエントリーはURIにPOSTすることで行う</li>
-<li>リンクにrel=&quot;edit&quot;を付与することで編集可能なエントリーであることを示す(PUTサポート) </li>
-<li>Collection+JSONと同じコンセプトをもつ
-
-<ul>
-<li>コレクション要素は&quot;item&quot; -&gt; &quot;feed&quot;</li>
-<li>Collection+JSONは汎用フォーマットなので、itemに特別なアプリケーションセマンティクスわ定義していない</li>
-<li>AtomPubはニュース配信プロトコルなので、エントリーはニュース記事</li>
-</ul></li>
-<li>コレクションパターンのプラグイン基盤としても用いられる
-
-<ul>
-<li>Atom Threading Extension
-
-<ul>
-<li>RFC4685</li>
-<li>メールスレッド表現</li>
-<li>rel=&quot;replies&quot;</li>
-</ul></li>
-<li>Atom deleted entry element
-
-<ul>
-<li>RFC6721</li>
-<li>エントリーを削除するのではなく墓石を置削除扱いとする</li>
-</ul></li>
-<li>Feed Paging and Archiving
-
-<ul>
-<li>RFC5005</li>
-<li>アーカイブフィードコンセプトを定義</li>
-<li>複数のリソースをまたがるきょだなフィードをPagingする方法</li>
-<li>rel属性として、next-archive, prev-archive, currentを使う</li>
-</ul></li>
-<li>OpenSearch
-
-<ul>
-<li>xmlベースの検索プロトコル標準</li>
-<li>rel=&quot;search&quot;</li>
-<li>Collection+JSONにおけるqueriesプロパティど同等のもの</li>
-</ul></li>
-<li>PubSubHubbub
-
-<ul>
-<li>Atomフィードが更新されたときに通知を行うためのプロトコル</li>
-<li>rel=&quot;hub&quot;</li>
-</ul></li>
-<li>これらのリレーションは全てIANAに登録されている
-
-<ul>
-<li>何の説明もなく使用できる</li>
-</ul></li>
-</ul></li>
-<li>プロパティ
-
-<ul>
-<li>feed
-
-<ul>
-<li>ID
-
-<ul>
-<li>一意的にニュースを識別するためのもの</li>
-</ul></li>
-<li>title
-
-<ul>
-<li>見出し</li>
-</ul></li>
-<li>subtitle</li>
-<li>author</li>
-<li>date, time
-
-<ul>
-<li>発行日時 / 最終更新日時</li>
-</ul></li>
-</ul></li>
-</ul></li>
-<li>アプリケーションセマンティクスのためにプロパティを拡張することが認められている
-
-<ul>
-<li>Googleでは、マップ上のシンボル、カレンダー、スプレッドシートのセル、ビデオ用に付加的な表現を拡張している(GData)</li>
-</ul></li>
-</ul>
-
-<h3>OData</h3>
-
-<ul>
-<li>AtomPubベース</li>
-<li>MSが協力しているのでVisual studioから使いやすい</li>
-</ul>
-
-<h3>Hydra</h3>
-
-<ul>
-<li>あまり表舞台では見かけない</li>
-</ul>
-
-<h3>Semantics Challenge</h3>
-
-<ul>
-<li><p>ドメイン特化なフォーマットの場合(MAZE+xml)</p>
-
-<ul>
-<li>カスタムタイプ、リンクリレーションがセマンティクスギャップを埋める
-
-<ul>
-<li>カスタム定義したハイパーメディアタイプ</li>
-<li>問題空間のために定義されたリンクリレーション</li>
-</ul></li>
-</ul></li>
-<li><p>コレクションパターンは2種類のリソースタイプに大別される</p>
-
-<ul>
-<li>item-type
-
-<ul>
-<li>GET, PUT, DELETE</li>
-<li>内容+ item自身へのリンクをもつ</li>
-</ul></li>
-<li>collection-type
-
-<ul>
-<li>GET, POST(as append)</li>
-<li>item-typeリソースをメンバーとしてもつ</li>
-</ul></li>
-</ul></li>
-<li><p>collection-typeはリンクリレーションによるナビゲーションでアプリケーションセマンティクスを定義する</p>
-
-<ul>
-<li>first, next, search</li>
-</ul></li>
-<li><p>item-type</p>
-
-<ul>
-<li>一般的に定義されたアプリケーションセマンティクスはない</li>
-<li>Collection+JSON
-
-<ul>
-<li>item-typeリソースの意味は、prompt要素にhuman-readableな説明として記述される</li>
-</ul></li>
-</ul></li>
-<li><p>同じドメインでも、APIが異なれば、アプリケーションセマンティクスは異なる</p>
-
-<ul>
-<li>text or content</li>
-<li>post ot blogPost</li>
-<li>etc,&#8230;</li>
-</ul></li>
-</ul>
-
-<hr>
-
-<h2>つづき・・・</h2>
-
-<p><a href="/2015/03-09/restful-web-api-memo-07/">RESTful Web APIs 読書メモ(7)</a></p>
 ]]></content>
   </entry>
   
