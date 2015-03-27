@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.io/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-03-22T16:09:27+09:00</updated>
+  <updated>2015-03-27T23:57:16+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,372 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(12)]]></title>
+    <link href="http://ritalin.github.io/2015/03-27/restful-web-api-memo-12/"/>
+    <updated>2015-03-27T22:12:55+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-27/restful-web-api-memo-12</id>
+    <content type="html"><![CDATA[<h2>Chapter 12. Resource Description and Linked Data</h2>
+
+<ul>
+<li>ハイパーメディアフォーマット
+
+<ul>
+<li>表現戦略と記述戦略の両方を有する</li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<ul>
+<li>表現戦略(Presentation Strategy)
+
+<ul>
+<li>リソースのURLにGETリクエストを送り、リソースの表現を受け取ること</li>
+</ul></li>
+<li>記述戦略(Description Strategy)
+
+<ul>
+<li>リソースAがリソースBのURLを知っていること</li>
+<li>利点
+
+<ul>
+<li>リソースBのなにかを調べるために使用できる</li>
+<li>非ハイパーメディアフォーマットにアプリケーションセマンティクスを提供する
+
+<ul>
+<li>JSON-LD,&#8230;</li>
+</ul></li>
+<li>表現を持たないリソースを扱える
+
+<ul>
+<li>ISBN,&#8230;</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>RDF(Resource Description Framework)</h3>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/rdf+xml</li>
+<li>text/turtle</li>
+<li>&#8230;..</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>なし</li>
+<li>アプリケーションセマンティクスのためのフレームワークという立ち位置
+*URIにアプリケーションセマンティクスの意味づけ</li>
+</ul></li>
+<li>純粋な記述戦略
+
+<ul>
+<li>すべてのREST制約を満たせていない</li>
+</ul></li>
+<li>プロパティ
+
+<ul>
+<li>rdf:Description/@about
+
+<ul>
+<li>リソースのURIを指定</li>
+<li>URLをURIとして扱う</li>
+</ul></li>
+<li>rdf:type
+
+<ul>
+<li>リソースタイプ</li>
+<li>リソースはリソースタイプURIで分類できる
+
+<ul>
+<li>ジャンル、種別、&#8230;</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>RDF Schema</h3>
+
+<ul>
+<li>リソースタイプについてのプロファイル</li>
+<li>低レイヤーのアプリケーションセマンティクス
+
+<ul>
+<li>human-readable
+
+<ul>
+<li>rdfs:label</li>
+<li>rdfs:comment</li>
+</ul></li>
+<li>machine-readable
+
+<ul>
+<li>rdfs:subclassOf
+
+<ul>
+<li>ベースとなるコンセプト</li>
+</ul></li>
+<li>rdfs:domain
+
+<ul>
+<li>リレーションの親</li>
+<li>入力引数</li>
+</ul></li>
+<li>rdfs:range
+
+<ul>
+<li>リレーションのリンク先</li>
+<li>戻り値</li>
+<li>このリソースタイプにrfds:domsin突っ込むと、rdfs:rangeとして得られる<br></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>Linked Data</h3>
+
+<ul>
+<li>RDFはRESTfulになれない
+
+<ul>
+<li>URLの代わりにURIを使用するため</li>
+<li>URIはただの識別子
+
+<ul>
+<li>そこからリソース表現が取得できることは保証していない</li>
+</ul></li>
+<li>machine-readableなアプリケーションセマンティクスを記述するのであればALPSを上回る強力さ</li>
+</ul></li>
+<li>Linked Data = RDF + 表現戦略</li>
+<li>Link Data原則
+
+<ol>
+<li>URIはリソースの名前
+
+<ul>
+<li>= addressability原則</li>
+</ul></li>
+<li>URIにリクエストを投げれる
+
+<ul>
+<li>URIとして、urnは使用しない</li>
+</ul></li>
+<li>URIからリソース表現が取得できる</li>
+<li>ほかのURIへのリンクを含める
+
+<ul>
+<li>= connectednessの原則</li>
+<li>そのURIのリソース表現が取得可能とする</li>
+</ul></li>
+</ol></li>
+</ul>
+
+<h3>Linked Dataフォーマット</h3>
+
+<h4>JSON-LD</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/ld+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETによるナビゲーション</li>
+</ul></li>
+<li><p>アプリケーションセマンティクス</p>
+
+<ul>
+<li>自己記述式</li>
+</ul></li>
+<li><p>Linked Data APIを書くなら、断然RDFよりJSON-LDオススメ</p></li>
+<li><p>利用方法</p>
+
+<ul>
+<li>別リソースとしてLINKヘッダでJSON-LDを指定</li>
+<li>直接リソースのメタデータとして埋め込む</li>
+</ul></li>
+</ul>
+
+<h4>Hydra</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/ld+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>JSON-LD + 任意のHTTPメソッド</li>
+<li>supprtedOperationでJSONオブジェクトとして指定</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>コレクションパターンを使って自己記述</li>
+</ul></li>
+</ul>
+
+<h4>XRD/JRD</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/xrd+xml</li>
+<li>application/jrd+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETによるナビゲーション</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>なし</li>
+</ul></li>
+<li>RFC6415(XRD)</li>
+<li>propertyタグ、linkタグでアプリケーションセマンティクスを記述
+
+<ul>
+<li>URIを指定するため、存在するかどうかは保証されない</li>
+</ul></li>
+</ul>
+
+<h4>Web Host Metadata Document</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/xrd+xml</li>
+<li>application/jrd+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETによるナビゲーション</li>
+<li>GETによる限定的なルックアップ
+
+<ul>
+<li>linkタグのtemplate属性にURI Templateとして埋め込む</li>
+<li>urnであったとしてもリソース表現を取得できる</li>
+</ul></li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>なし</li>
+</ul></li>
+<li>RFC6415</li>
+<li>JSON Hone Document 的存在</li>
+</ul>
+
+<h4>Web Finger</h4>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/jrd+json</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>JRDと同等</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ユーザーアカウント</li>
+</ul></li>
+</ul>
+
+<h3>Ontrogyカタログ</h3>
+
+<h4>Schema.org RDF</h4>
+
+<ul>
+<li>サイト
+
+<ul>
+<li>schema.rdfs.org/</li>
+</ul></li>
+<li>語彙
+
+<ul>
+<li>schema.org core schemaにRDFaとして列挙</li>
+</ul></li>
+<li>セマンティクス
+
+<ul>
+<li>オンライン検索したい事象の種類</li>
+</ul></li>
+</ul>
+
+<h4>FOAF</h4>
+
+<ul>
+<li>サイト
+
+<ul>
+<li>xmlns.com/foaf/spec/</li>
+</ul></li>
+<li>語彙
+
+<ul>
+<li>サイトよりindex.rdfをダウンロード</li>
+</ul></li>
+<li><p>セマンティクス</p>
+
+<ul>
+<li>人、組織に関すること</li>
+</ul></li>
+<li><p>非公式の産業標準</p></li>
+<li><p>最も有名なRDF Schemaレポジトリ</p></li>
+</ul>
+
+<h4>vocab.org</h4>
+
+<ul>
+<li>サイト
+
+<ul>
+<li>vocab.org/</li>
+</ul></li>
+<li>語彙
+
+<ul>
+<li>いろいろ</li>
+</ul></li>
+<li>セマンティクス
+
+<ul>
+<li>ほんまいろいろ</li>
+</ul></li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RESTful Web APIs 読書メモ(11)]]></title>
@@ -215,6 +581,8 @@
 <hr>
 
 <h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.io/2015/03-27/restful-web-api-memo-12/">RESTful Web APIs 読書メモ(12)</a></p>
 ]]></content>
   </entry>
   
@@ -3636,36 +4004,6 @@ require.extensionsは、拡張子をキーに、指定されたファイルをJa
 <p>また、２フェーズのパイプラインを例示しましたが、２フェーズ以上でも同様にパイプをつないでいくだけになります。</p>
 
 <p>うーん、なんてモナディック。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Rhino.Mocks tips]]></title>
-    <link href="http://ritalin.github.io/2012/12-20/rhino-mocks-tips/"/>
-    <updated>2012-12-20T21:27:00+09:00</updated>
-    <id>http://ritalin.github.io/2012/12-20/rhino-mocks-tips</id>
-    <content type="html"><![CDATA[<p>いくつか引っかかったので、忘れないうちにメモとして残しとく。</p>
-
-<!-- more -->
-
-<h2>プロパティをモック</h2>
-
-<p>具象クラスのモックを作る場合、対象のメソッドやプロパティをvirtualにする必要がある。
-モック目的のためだけにvirtualにするのは気が重い。</p>
-
-<p>この場合、インターフェースを切り出し、インターフェースからモック作れば心配無用。
-モックから戻り値を取得するためにReturnやDoも必要。</p>
-
-<h2>NUnitで使う際の注意点</h2>
-
-<ul>
-<li>連続実行したとき、2つ目以降のテストケースが失敗する</li>
-</ul>
-
-<p>Rhino.Mocksに限らないが、フィールドの初期化子でインスタンス化した場合に発生。
-必ずSetUp属性、FixtureSetpu属性、または各テストコード内で初期化すること。</p>
-
-<p>GOOS本(p.26)にもちゃんと書かれてる。</p>
 ]]></content>
   </entry>
   
