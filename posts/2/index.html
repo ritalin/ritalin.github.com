@@ -7,7 +7,7 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content=" Chapter 2. A Simple API 続きを読む・・・ rest ">
+	<meta name="description" content="Chapter 6. The Collection Pattern コレクションもまたリソース コレクションに含まれるリソースは&quot;item&quot;や&quot;entry&quot;、&quot;member&quot;と呼ばれる Pagenation &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +76,216 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/03-08/restful-web-api-memo-06/">
+		
+			RESTful Web APIs 読書メモ(6)</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Chapter 6. The Collection Pattern</h2>
+
+<ul>
+<li>コレクションもまたリソース
+
+<ul>
+<li>  コレクションに含まれるリソースは&quot;item&quot;や&quot;entry&quot;、&quot;member&quot;と呼ばれる</li>
+</ul></li>
+<li>  Pagenation
+
+<ul>
+<li>  大量のコレクションメンバーを持つ場合、全てを一度に返すことは通常しない</li>
+<li>  最初の一部だけをコレクションとして返し、残りはrel=&quot;next&quot;を付与したリンクだけを提供する
+
+<ul>
+<li>  nextはIANAで登録されている</li>
+<li>  ほかにprev, first, lastもIANAで定義されている</li>
+</ul></li>
+<li>  Collection+JSONはリレーションを明示的にサポートしてはいない
+
+<ul>
+<li>  必要ならリレーションを組み込めばいい</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+		
+		<a href="/2015/03-08/restful-web-api-memo-06/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T22:47:00+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/03-08/restful-web-api-memo-05/">
+		
+			ESTful Web APIs 読書メモ(5)</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Chapter.5 Domain-Specific Designs</h2>
+
+<ul>
+<li> ドメイン特化設計
+
+<ul>
+<li>ドメイン特化のmedia-typeではなく、一般的なmedia-typeにアプリケーションセマンティクスを加える方が良い
+
+<ul>
+<li>Aplication/vnd.xxx.Maze+XML</li>
+</ul></li>
+<li>API設計する際に平均的な開発者が最初に選択する</li>
+<li>RFC5988
+
+<ul>
+<li>リンク間の関係を定義</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+		
+		<a href="/2015/03-08/restful-web-api-memo-05/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T22:19:00+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/03-08/restful-web-api-memo-04/">
+		
+			RESTful Web APIs 読書メモ(4)</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Chapter.4 Hypermedia</h2>
+
+
+		
+		<a href="/2015/03-08/restful-web-api-memo-04/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T22:15:00+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/03-08/restful-web-api-memo-03/">
+		
+			RESTful Web APIs 読書メモ(3)</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Chapter 3. Resources and Representations</h2>
+
+
+		
+		<a href="/2015/03-08/restful-web-api-memo-03/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-08T22:11:00+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -347,190 +557,6 @@ Mahoutを通して機械学習について体系立てて学ぶことができ�
 
 
 	<a class='category' href='/blog/categories/ji-jie-xue-xi/'>&#8220;機械学習&#8221;</a>, <a class='category' href='/blog/categories/java/'>java</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2013/04-04/type-provider-memo/">
-		
-			Type Provider Memo</a>
-	</h2>
-	<div class="entry-content">
-		<p>TypeProvider実装のための記憶保管のためにメモとして残す</p>
-
-
-		
-		<a href="/2013/04-04/type-provider-memo/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-04T23:04:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/f-number/'>f#</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2013/03-22/mocha-testing-apart-from-js/">
-		
-			MochaでJavascript以外を指定してテストしたい</a>
-	</h2>
-	<div class="entry-content">
-		<p>Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
-が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。</p>
-
-
-		
-		<a href="/2013/03-22/mocha-testing-apart-from-js/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-22T20:01:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/node/'>node</a>, <a class='category' href='/blog/categories/test/'>test</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2013/01-10/factory-method/">
-		
-			Factoryの具象クラスをインスタンスするのは誰？</a>
-	</h2>
-	<div class="entry-content">
-		<h2>Simple Factory</h2>
-
-<p>というのが、デザインパターンとしてあるのですね。今日Twitter上のTLに流れてきて、気になってググってみたら、<a href="http://d.hatena.ne.jp/asakichy/20090414/1239718537">Strategic Choice</a>さんのブログに行き着きました。</p>
-
-<p>Factory Methodとの違いは、Factoryを具象クラス一本に絞ったという感じでしょうか。</p>
-
-
-		
-		<a href="/2013/01-10/factory-method/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-01-10T22:04:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/design-pattern/'>design-pattern</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/12-27/pipelined-dci/">
-		
-			DCI (Data - Context - Interaction)のパイプライン化</a>
-	</h2>
-	<div class="entry-content">
-		<p>なんだか最近、DCIの話題が花盛りですね。</p>
-
-<p>さて、<a href="https://groups.google.com/forum/?fromgroups=#!topic/object-composition/u-aVj_FexM4">Google Group: object-composition</a>にて、DCIとMVCの関係について、面白い考察を行っている人がいます。</p>
-
-<p>曰く、Model表現をViewのための表現に変換するためのRole (Interaction) をContextに組み込むのはどうかと提起しています。</p>
-
-<p>私の中では、アプリケーションにおけるDCIの位置づけは、Modelのなかを覗き込んだときに、そこにいるものと思っています。</p>
-
-<p>Modelの中の構成体ゆえ、View表現を持つことはあまり良いものではないと考えています。
-しかし、View表現への変換をRoleとして組み込むのは面白いと思いました。</p>
-
-<p>そこで表題に繋がるわけですが、Model層を構成するDCIをより大きな、Dとみなし、そこにView表現に変換するRoleを組み込んだらどうなのかなと思いました。</p>
-
-
-		
-		<a href="/2012/12-27/pipelined-dci/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-27T21:56:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/modeling/'>modeling</a>
 
 
 </div>

@@ -1,0 +1,302 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>RESTful Web APIs 読書メモ(13) - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Chapter 13. CpAP: REST for Embedded Systems CoAP IOT(Internet of Things)のような低出力組み込み環境用
+HTTPの考えを踏襲
+ハイパーメディア駆動のRESTful APIが使用可能 CoAP(Constraintrd &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">RESTful Web APIs 読書メモ(13)</h2>
+	<div class="entry-content"><h2>Chapter 13. CpAP: REST for Embedded Systems</h2>
+
+<ul>
+<li>CoAP
+
+<ul>
+<li>IOT(Internet of Things)のような低出力組み込み環境用</li>
+<li>HTTPの考えを踏襲</li>
+<li>ハイパーメディア駆動のRESTful APIが使用可能</li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>CoAP(Constraintrd Application Protocol)</h3>
+
+<ul>
+<li>低出力組込み機器むけプロトコル</li>
+<li>UDPベース</li>
+<li>メソッド
+
+<ul>
+<li>GET/POST/PUT/DELETE
+
+<ul>
+<li>安全性と冪等性はhttpと同じ</li>
+</ul></li>
+</ul></li>
+<li>CONリクエスト
+
+<ul>
+<li>conformableメッセージ</li>
+<li>ACKを受け取るまで送り続ける</li>
+</ul></li>
+<li>NON
+
+<ul>
+<li>nonconformableメッセージ</li>
+<li>ACKレスポンスを要求しない</li>
+</ul></li>
+<li>RST
+
+<ul>
+<li>resetメッセージ</li>
+<li>対象機器を再起動させたりとか</li>
+</ul></li>
+</ul>
+
+<h4>リクエスト</h4>
+
+<p>&#39;&#39;&#39;
+CON [0xbc90]
+GET /temperature
+Token [0x71]
+&#39;&#39;&#39;</p>
+
+<ul>
+<li>CON
+
+<ul>
+<li>confirmable</li>
+<li>0xbc90
+    * メッセージID</li>
+<li>Token
+
+<ul>
+<li>すべてのレスポンスで使われる値</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h4>レスポンス</h4>
+
+<p>&#39;&#39;&#39;
+ACK [0xbc00]
+2.05 Content
+(Token 0x71)
+Content-Format: text/plain ; charset=utf-8
+22.5 C
+&#39;&#39;&#39;</p>
+
+<ul>
+<li>ACK
+
+<ul>
+<li>受信</li>
+</ul></li>
+<li>2.05
+
+<ul>
+<li>ステータスコード</li>
+</ul></li>
+<li>Content-Format
+
+<ul>
+<li>httpのcontent-typeと同じ意味</li>
+</ul></li>
+<li>22.5 C
+
+<ul>
+<li>entity-bidy</li>
+</ul></li>
+</ul>
+
+<h4>Delayed Response</h4>
+
+<ul>
+<li>クライアントはCON を送り、サーバーは瞬時にACKを返す</li>
+<li>しばらくしサーバーは、別メッセージIDで同トークンをもつCON / NONを送る</li>
+</ul>
+
+<h4>Multicast Message</h4>
+
+<ul>
+<li>UDP multicastを用いたメッセージを一括配信をサポート</li>
+<li>機器間で自律的な検出、データ交換、コラボが可能となる</li>
+<li>自律的な振る舞いは、REST制約のハイパーメディアコントロールが重要</li>
+</ul>
+
+<h3>CoAE Link Format</h3>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/link-format</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETによるナビゲーションと探索</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>RFC6690</li>
+<li>全体として80Byteな1024Byteに抑えることは、他のフォーマットでは不可能</li>
+<li>Http圧縮で帯域幅を抑えても、各機器のスペックでは展開できない</li>
+<li>CoAPと異なりhuman-readableフォーマット</li>
+</ul>
+
+<h2>つづき・・・</h2>
+
+<p><a href="/2015/03-29/restful-web-api-memo-14/">RESTful Web APIs 読書メモ(14)</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-29T21:12:33+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ritalin.github.io/2015/03-29/restful-web-api-memo-13/" data-via="ktz_alias" data-counturl="http://ritalin.github.io/2015/03-29/restful-web-api-memo-13/" >Tweet</a>
+  		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+</body>
+</html>

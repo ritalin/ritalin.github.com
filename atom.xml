@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.io/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-03-27T23:57:16+09:00</updated>
+  <updated>2015-03-29T22:01:15+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,652 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ Index]]></title>
+    <link href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-index/"/>
+    <updated>2015-03-29T21:28:40+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-29/restful-web-api-memo-index</id>
+    <content type="html"><![CDATA[<h2>Restful Web APIs - Index</h2>
+
+<ul>
+<li><a href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-01/">Chapter 1. Surfing the Web</a></li>
+<li><a href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-02/">Chapter 2. A Simple API</a></li>
+<li><a href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-03/">Chapter 3. Resources and Representations</a></li>
+<li><a href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-04/">Chapter 4. Hypermedia</a></li>
+<li><a href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-05/">Chapter 5. Domain-Specific Designs</a></li>
+<li><a href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-06/">Chapter 6. The Collection Pattern</a></li>
+<li><a href="http://ritalin.github.io/2015/03-09/restful-web-api-memo-07/">Chapter 7. Pure-Hypermedia Designs</a></li>
+<li><a href="http://ritalin.github.io/2015/03-11/restful-web-api-memo-08/">Chapter 8. Profiles</a></li>
+<li><a href="2015/03-19/restful-web-api-memo-09/">Chapter 9. The Design Procedure</a></li>
+<li><a href="http://ritalin.github.io/2015/03-22/restful-web-api-memo-10/">Chapter 10. The Hypermedia Zoo (Part.1)</a></li>
+<li><a href="http://ritalin.github.io/2015/03-22/restful-web-api-memo-11/">Chapter 10. The Hypermedia Zoo (Part.2)</a></li>
+<li><a href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-15/">Chapter 11. HTTP for APIs</a></li>
+<li><a href="http://ritalin.github.io/2015/03-27/restful-web-api-memo-12/">Chapter 12. Resource Description and Linked Data</a></li>
+<li><a href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-13/">Chapter 13. CoAP: REST for Embedded Systems</a></li>
+<li><a href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-14/">Appendix An API Designer’s Guide to the Fielding Dissertation</a></li>
+</ul>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(14)]]></title>
+    <link href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-14/"/>
+    <updated>2015-03-29T21:25:00+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-29/restful-web-api-memo-14</id>
+    <content type="html"><![CDATA[<h2>Appendix C. An API Designer&#39;s Guide to the Fielding Dissertation</h2>
+
+<h3>アーキテクチャ特性</h3>
+
+<ul>
+<li>Low Entry-barrier
+
+<ul>
+<li>FTPやTelnetのようにたくさんのコマンドを駆使する必要がない</li>
+<li>使い方を学ぶのが容易で、サイト構築も容易</li>
+</ul></li>
+<li>Extensibility</li>
+<li>Distributed Hypermedia</li>
+<li>Internet-scale</li>
+</ul>
+
+<h3>アーキテクチャ制約</h3>
+
+<ul>
+<li>Client-Servet
+
+<ul>
+<li>webにおける通信は1:1</li>
+</ul></li>
+<li>Statelessness
+
+<ul>
+<li>クライアントがリクエストを作らなければ、サーバーはクライアントの存在を知らない</li>
+</ul></li>
+<li>Caching
+
+<ul>
+<li>キャッシュから前回のレスポンスを再利用することで、通信を抑える</li>
+</ul></li>
+<li>Uniform Interface
+
+<ul>
+<li>リソースの一意化
+
+<ul>
+<li>リソースは安定したURIで一意化される</li>
+</ul></li>
+<li>表現を通したリソースの操作
+
+<ul>
+<li>サーバーはクライアントに表現を送ることで、リソース状態を記述</li>
+<li>クライアントはサーバーにアプリケーション状態を送ることでリソース状態を操作する</li>
+</ul></li>
+<li>自己記述メッセージ
+
+<ul>
+<li>すべての情報は、リクエストやレスポンスがリンクを介してメッセージ自身に含まれることを理解する必要がある</li>
+</ul></li>
+<li>ハイパーメディア制約
+
+<ul>
+<li>サーバーはハイパーメディアメニューを送ることでアプリケーション状態を操作する
+
+<ul>
+<li>メニューとは、クライアントが自由に操作できるオプション</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Layered System
+
+<ul>
+<li>クライアントとサーバーの間に入れられたプロキシは不可視</li>
+</ul></li>
+<li>Code on Demand
+
+<ul>
+<li>サーバーはデータと一緒に実行コードを送ることができる</li>
+<li>クライアントのリクエストで、自動的に配置される</li>
+<li>コードの変更でも自動的に再配置される</li>
+</ul></li>
+</ul>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RESTful Web APIs 読書メモ(13)]]></title>
+    <link href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-13/"/>
+    <updated>2015-03-29T21:12:33+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-29/restful-web-api-memo-13</id>
+    <content type="html"><![CDATA[<h2>Chapter 13. CpAP: REST for Embedded Systems</h2>
+
+<ul>
+<li>CoAP
+
+<ul>
+<li>IOT(Internet of Things)のような低出力組み込み環境用</li>
+<li>HTTPの考えを踏襲</li>
+<li>ハイパーメディア駆動のRESTful APIが使用可能</li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>CoAP(Constraintrd Application Protocol)</h3>
+
+<ul>
+<li>低出力組込み機器むけプロトコル</li>
+<li>UDPベース</li>
+<li>メソッド
+
+<ul>
+<li>GET/POST/PUT/DELETE
+
+<ul>
+<li>安全性と冪等性はhttpと同じ</li>
+</ul></li>
+</ul></li>
+<li>CONリクエスト
+
+<ul>
+<li>conformableメッセージ</li>
+<li>ACKを受け取るまで送り続ける</li>
+</ul></li>
+<li>NON
+
+<ul>
+<li>nonconformableメッセージ</li>
+<li>ACKレスポンスを要求しない</li>
+</ul></li>
+<li>RST
+
+<ul>
+<li>resetメッセージ</li>
+<li>対象機器を再起動させたりとか</li>
+</ul></li>
+</ul>
+
+<h4>リクエスト</h4>
+
+<p>&#39;&#39;&#39;
+CON [0xbc90]
+GET /temperature
+Token [0x71]
+&#39;&#39;&#39;</p>
+
+<ul>
+<li>CON
+
+<ul>
+<li>confirmable</li>
+<li>0xbc90
+    * メッセージID</li>
+<li>Token
+
+<ul>
+<li>すべてのレスポンスで使われる値</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h4>レスポンス</h4>
+
+<p>&#39;&#39;&#39;
+ACK [0xbc00]
+2.05 Content
+(Token 0x71)
+Content-Format: text/plain ; charset=utf-8
+22.5 C
+&#39;&#39;&#39;</p>
+
+<ul>
+<li>ACK
+
+<ul>
+<li>受信</li>
+</ul></li>
+<li>2.05
+
+<ul>
+<li>ステータスコード</li>
+</ul></li>
+<li>Content-Format
+
+<ul>
+<li>httpのcontent-typeと同じ意味</li>
+</ul></li>
+<li>22.5 C
+
+<ul>
+<li>entity-bidy</li>
+</ul></li>
+</ul>
+
+<h4>Delayed Response</h4>
+
+<ul>
+<li>クライアントはCON を送り、サーバーは瞬時にACKを返す</li>
+<li>しばらくしサーバーは、別メッセージIDで同トークンをもつCON / NONを送る</li>
+</ul>
+
+<h4>Multicast Message</h4>
+
+<ul>
+<li>UDP multicastを用いたメッセージを一括配信をサポート</li>
+<li>機器間で自律的な検出、データ交換、コラボが可能となる</li>
+<li>自律的な振る舞いは、REST制約のハイパーメディアコントロールが重要</li>
+</ul>
+
+<h3>CoAE Link Format</h3>
+
+<ul>
+<li>media-type
+
+<ul>
+<li>application/link-format</li>
+</ul></li>
+<li>プロトコルセマンティクス
+
+<ul>
+<li>GETによるナビゲーションと探索</li>
+</ul></li>
+<li>アプリケーションセマンティクス
+
+<ul>
+<li>ない！</li>
+</ul></li>
+<li>RFC6690</li>
+<li>全体として80Byteな1024Byteに抑えることは、他のフォーマットでは不可能</li>
+<li>Http圧縮で帯域幅を抑えても、各機器のスペックでは展開できない</li>
+<li>CoAPと異なりhuman-readableフォーマット</li>
+</ul>
+
+<h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-14/">RESTful Web APIs 読書メモ(14)</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[restful-web-api-memo-15]]></title>
+    <link href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-15/"/>
+    <updated>2015-03-29T13:42:38+09:00</updated>
+    <id>http://ritalin.github.io/2015/03-29/restful-web-api-memo-15</id>
+    <content type="html"><![CDATA[<h2>Chapter 11. HTTP for APIs</h2>
+
+<ul>
+<li>Web APIの技術的スタック
+
+<ul>
+<li>ハイパーメディア
+
+<ul>
+<li>次は何？に答える</li>
+</ul></li>
+<li>HTTP
+
+<ul>
+<li>リソースとはどのようにしてやりとりするのか？に答える</li>
+</ul></li>
+<li>URL 
+
+<ul>
+<li>リソースはどこにあるのか？に答える</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>HTTP仕様</h3>
+
+<ul>
+<li>RFC2616</li>
+<li>41のレスポンスコードを定義
+
+<ul>
+<li>プロトコルセマンティクスの基本セットを表現する</li>
+<li>400
+
+<ul>
+<li>不正なデータが送りつけられてきた場合</li>
+<li>問題点をentity-bodyに示す</li>
+</ul></li>
+<li>付録A参照</li>
+</ul></li>
+<li>47のリクエスト / レスポンスヘッダを定義
+
+<ul>
+<li>プロトコルセマンティクスの基本セットを提供する</li>
+<li>付録B参照</li>
+</ul></li>
+<li>表現の選択
+
+<ul>
+<li>一つのリソースは多くの表現をもつ</li>
+<li>表現は異なるフォーマットをもつ</li>
+<li>コンテントネゴシエーション
+
+<ul>
+<li>Accept-*のセットが提供されている</li>
+<li>Accept
+
+<ul>
+<li>media-typeの選択</li>
+</ul></li>
+<li>Accept-Language
+
+<ul>
+<li>言語の選択</li>
+</ul></li>
+<li>対応する表現がない場合、406(Not Acceptable)を返す</li>
+</ul></li>
+<li>プロファイルネゴシエーション
+
+<ul>
+<li>media-typeがprofileパラメータを持つ場合に利用可能</li>
+<li>コンテントネゴシエーションと合わせて使用する</li>
+</ul></li>
+<li>ハイパーメディアメニュー
+
+<ul>
+<li>利用可能な表現の一覧を返し、その中からクライアントに選択させる</li>
+<li>300(multiple Choices)を返す
+
+<ul>
+<li>entity-bodyに選択可能なリンクを提示する</li>
+</ul></li>
+<li>htmlのaタグ、linkタグはハイパーメディアメニューきのうを持つ
+
+<ul>
+<li>type属性
+
+<ul>
+<li>media-typeを指定する</li>
+</ul></li>
+<li>hreflang
+
+<ul>
+<li>言語を指定する</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>正規化URL
+
+<ul>
+<li>リソースが一つ以上のURLを持つ場合、代表のURLを明示すること</li>
+<li>以下のいずれかを使用
+
+<ul>
+<li>Content-Location</li>
+<li>canonicalリレーション</li>
+</ul></li>
+</ul></li>
+<li>キャッシュ(Cache-Control)
+
+<ul>
+<li>リクエスト
+
+<ul>
+<li>キャッシュを使うかどうかの指示</li>
+</ul></li>
+<li>レスポンス
+
+<ul>
+<li>前回のリクエストから変更があったかどうかを伝える</li>
+<li>API実装を変更する場合、マイグレーションのために適切にmax-ageを設定すべき</li>
+</ul></li>
+</ul></li>
+<li>Conditional Request
+    * リソース状態が変更する場合、適切にmax-ageを決定することは難しい
+    * Last-Modified
+        * レスポンスで最終更新日時を返す
+        * 次回リクエストでIf-Modified-Sinceヘッダに埋め込む
+            * リソース状態が変更していない場合、304(Not Modified)を返す
+            * 動的、静的コンテンツにかかわらずサーバーリソースを節約できる
+            * 次回リクエストのために保存しておく必要がある
+    * ETag
+        * リソース状態が変更した時のみに変更される文字列
+            * リソースをハッシュ化して生成
+            * Last-Mofifiedのように、別途保存しておく必要がなくなる
+        * 次回リクエストでIf-None-Matchに、ETagの文字列を指定する
+        * リソース状態に変更がなければ304(Not Modified)を返す</li>
+<li>LBYL(Look Before You Leap) Request
+
+<ul>
+<li>entity-bodyのないPUTリクエストを送る</li>
+<li>PUTが受け入れ可能な場合、100(Continue)を返す
+
+<ul>
+<li>改めて、entity-body付きでPUTリクエストを送る</li>
+</ul></li>
+<li>PUTが棄却された場合、417(Expection Failed)が返される</li>
+</ul></li>
+<li>圧縮
+
+<ul>
+<li>リクエストヘッダにAccept-Encodingを含める
+
+<ul>
+<li>たいていgzip</li>
+</ul></li>
+<li>サーバーが圧縮アルゴリズムをサポートしていれば、圧縮
+
+<ul>
+<li>レスポンスヘッダに同じAccept-Encodingを含める</li>
+</ul></li>
+</ul></li>
+<li>Partial GET
+
+<ul>
+<li>表現のサブセットを取得する方法</li>
+<li>主にダウンロードを再開する目的でもちいられる</li>
+<li>リクエストヘッダに開始位置をRangeに指定
+
+<ul>
+<li>単位はkB</li>
+</ul></li>
+<li>レスポンスコードは206(Partial Content)</li>
+<li>レスポンスヘッダにContent-Rangeを含める</li>
+<li>コレクションの一部の取得に使えそうだが、非標準
+
+<ul>
+<li>自身のプロトコルセマンティクスを検討すべき</li>
+<li>prevやnextなどのリンクリレーション</li>
+</ul></li>
+</ul></li>
+<li>HTTPパイプライン
+
+<ul>
+<li>クライアントは一度に複数のリクエストを送る</li>
+<li>サーバーは受け取った順にレスポンスを返す</li>
+<li>GETのみでパイプライン化が望ましい
+
+<ul>
+<li>ほかのメソッドとの組み合わせは、途中で切断されてもロールバックできないため</li>
+</ul></li>
+<li>Web APIとは相性が悪い
+
+<ul>
+<li>たいていAPIは、ワークフローとなるため</li>
+</ul></li>
+</ul></li>
+<li>Lost Update問題点をの回避
+
+<ul>
+<li>不安定なメソッド(PUT/PATCH)を同時に使われると、後勝ちとなる</li>
+<li>先勝ちにしたければConditional Requestを使う
+
+<ul>
+<li>Last-Modified
+
+<ul>
+<li>If-Unmodifid-Since</li>
+</ul></li>
+<li>ETag
+
+<ul>
+<li>If-None-Match</li>
+</ul></li>
+</ul></li>
+<li>変更されていれば、412(Precondition Failed)が返される</li>
+<li>不安定なメソッドには、常にConditional Requestが望ましい
+
+<ul>
+<li>利用されていなければ、428(Precondition Required)を返す姿勢で</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>HTTP認証</h3>
+
+<ul>
+<li>Basic認証
+
+<ul>
+<li>RFC2617</li>
+<li>ユーザー名/パスワードの組で認証</li>
+<li>あまりセキュアではない
+
+<ul>
+<li>クレデンシャルはBase64エンコードされるだけ</li>
+<li>TLSに乗せれば、盗聴を防げるので、多少セキュアになる</li>
+</ul></li>
+</ul></li>
+<li>Digest認証
+
+<ul>
+<li>RFC2617</li>
+</ul></li>
+<li>OAuth 1.0
+
+<ul>
+<li>RFC5849</li>
+<li>クライアントごとに別々のクレデンシャルを与える</li>
+<li>利用者は、トークンクレデンシャルを利用停止にすることで、スパム被害を最小化できる</li>
+<li>OAuthプロバイダは、クライアントクレデンシャル(consumer_key)を停止することで、スパム被害を最小化できる</li>
+</ul></li>
+<li>OAuth 2.0</li>
+<li>RFC6749</li>
+<li>4つのアクセストークン取得プロセス
+
+<ul>
+<li>Authrization Code
+
+<ul>
+<li>OAuth 1.0の方法</li>
+</ul></li>
+<li>Implicit Gant</li>
+<li>Resource Owner Password Credential
+
+<ul>
+<li>モバイルクライアント向け</li>
+</ul></li>
+<li>Client Credentials</li>
+</ul></li>
+</ul>
+
+<h3>HTTP拡張</h3>
+
+<ul>
+<li>WebDav</li>
+<li>HTTP/2</li>
+<li>CoAP</li>
+<li>PATCHメソッド
+
+<ul>
+<li>RFC5789</li>
+<li>安全ではないがベキ等でない</li>
+<li>差分更新を可能とする</li>
+<li>パッチフォーマット
+
+<ul>
+<li>application/json-patch
+
+<ul>
+<li>RFC6902</li>
+</ul></li>
+<li>application/xml-patch+xml
+
+<ul>
+<li>RFC5261</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>LINK/UNLINKメソッド
+
+<ul>
+<li>RFC2616(破棄)
+
+<ul>
+<li>使い道が見出せなかったため</li>
+</ul></li>
+<li>安全ではないが冪等</li>
+<li>2つのリソースかんを接続(切断) するメソッド</li>
+<li>リンク先は、LINKヘッダで指定する</li>
+</ul></li>
+</ul>
+
+<h3>WebDav</h3>
+
+<ul>
+<li>RFC4918</li>
+<li>HTTPベースのファイルシステム</li>
+<li>利用例
+
+<ul>
+<li>MS SharePoint</li>
+<li>Subversion</li>
+</ul></li>
+<li>メソッド
+
+<ul>
+<li>MKCOL
+
+<ul>
+<li>コレクションの新規作成</li>
+</ul></li>
+<li>PROPATCH/PROPFIND
+
+<ul>
+<li>リソースにキーワードをつけることで、検索しやすくする</li>
+</ul></li>
+<li>LOCK/UNZlOCK
+
+<ul>
+<li>リソースのロック</li>
+<li>同時アクセスを防ぐ目的</li>
+<li>すでにロックされてれば、408(Conflict)を返す
+
+<ul>
+<li>423(Locked)も定義されてるが利用は推奨されていない模様</li>
+</ul></li>
+</ul></li>
+<li>MOVE/COPY
+
+<ul>
+<li>リソースの移動またはコピー</li>
+<li>目的地は、Destinationヘッダで指定する</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>Http/2</h3>
+
+<ul>
+<li>SPDYベースにした進化版</li>
+<li>ヘッダ圧縮</li>
+<li>同時リクエスト発行</li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-12/">RESTful Web APIs 読書メモ(12)</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[RESTful Web APIs 読書メモ(12)]]></title>
@@ -376,6 +1022,8 @@
 <hr>
 
 <h2>つづき・・・</h2>
+
+<p><a href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-13/">RESTful Web APIs 読書メモ(13)</a></p>
 ]]></content>
   </entry>
   
@@ -582,7 +1230,7 @@
 
 <h2>つづき・・・</h2>
 
-<p><a href="http://ritalin.github.io/2015/03-27/restful-web-api-memo-12/">RESTful Web APIs 読書メモ(12)</a></p>
+<p><a href="http://ritalin.github.io/2015/03-29/restful-web-api-memo-15/">RESTful Web APIs 読書メモ(15)</a></p>
 ]]></content>
   </entry>
   
@@ -2638,7 +3286,7 @@
     <link href="http://ritalin.github.io/2015/03-08/restful-web-api-memo-04/"/>
     <updated>2015-03-08T22:15:00+09:00</updated>
     <id>http://ritalin.github.io/2015/03-08/restful-web-api-memo-04</id>
-    <content type="html"><![CDATA[<h2>Hypermedia</h2>
+    <content type="html"><![CDATA[<h2>Chapter.4 Hypermedia</h2>
 
 <!-- more -->
 
@@ -3766,244 +4414,6 @@ Mahoutを通して機械学習について体系立てて学ぶことができ�
 <h2>リンク</h2>
 
 <iframe src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=ritalin09-22&o=9&p=8&l=as4&m=amazon&f=ifr&ref=ss_til&asins=4873115841" style="width:120px;height:240px;" scrolling="no" marginwidth="0" marginheight="0" frameborder="0"></iframe>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Type Provider Memo]]></title>
-    <link href="http://ritalin.github.io/2013/04-04/type-provider-memo/"/>
-    <updated>2013-04-04T23:04:00+09:00</updated>
-    <id>http://ritalin.github.io/2013/04-04/type-provider-memo</id>
-    <content type="html"><![CDATA[<p>TypeProvider実装のための記憶保管のためにメモとして残す</p>
-
-<!-- more -->
-
-<ul>
-<li><p>FSharp.Data.dllを拾ってくる</p>
-
-<ul>
-<li>Nugetで取って来れる</li>
-<li>TypeProviderのための骨格抽象実装が用意されているので、ありがたくご相伴</li>
-</ul></li>
-<li><p>open Microsoft.FSharp.Core.CompilerServices</p>
-
-<ul>
-<li>TypeProviderAttibuteが定義されている</li>
-</ul></li>
-<li><p>open ProviderImplementation.ProvidedTypes</p>
-
-<ul>
-<li>TypeProviderForNamespacesクラス
-
-<ul>
-<li>TypeProviderの親クラスとして使用する</li>
-</ul></li>
-<li>ProvidedTypeDefinitionクラス
-
-<ul>
-<li>TypeProvider内部で使用する型を定義するためのクラス</li>
-<li>Typeクラスから派生</li>
-</ul></li>
-</ul></li>
-<li><p>TypeProviderメタクラスのdo束縛にて</p>
-
-<ul>
-<li>Providerの型定義
-
-<ul>
-<li>ProvidedTypeDefinitionをインスタンス化</li>
-<li>ProvidedTypeDefinition#AddXmlDoc呼ぶ
-
-<ul>
-<li>ヘルプメッセージ追加のため</li>
-<li>たぶん必須ではないとは思う</li>
-</ul></li>
-<li>ProvidedTypeDefinition#DefineStaticParametersを呼ぶ
-
-<ul>
-<li>TypeProviderの引数定義</li>
-<li>第一引数はList<ProvidedStaticParameter></li>
-<li>第二引数は引数型をインスタンス化するための高階関数
-
-<ul>
-<li>string -&gt; obj[] -&gt; ProvidedTypeDefinition</li>
-</ul></li>
-<li>必須</li>
-</ul></li>
-</ul></li>
-<li>TypeProviderメタクラスのAddNamespaceメソッド呼ぶ
-
-<ul>
-<li>これでF# コンパイラに登録される？</li>
-</ul></li>
-</ul></li>
-</ul>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[MochaでJavascript以外を指定してテストしたい]]></title>
-    <link href="http://ritalin.github.io/2013/03-22/mocha-testing-apart-from-js/"/>
-    <updated>2013-03-22T20:01:00+09:00</updated>
-    <id>http://ritalin.github.io/2013/03-22/mocha-testing-apart-from-js</id>
-    <content type="html"><![CDATA[<p>Node.js用テスティング環境であるmochaでは、compilersオプションを指定することにより、Javascript以外のコードも扱えるみたいです。
-が、しかし、公式のマニュアルを読んでも、さっぱりやり方が分からなかったので、がんばってMochaのコードを追いかけてみました。</p>
-
-<!-- more -->
-
-<h2>compilerオプションについて</h2>
-
-<p>compilerオプションでは、</p>
-
-<blockquote>
-<p>&quot;拡張子&quot;:&quot;コンパイルモジュール&quot;</p>
-</blockquote>
-
-<p>を指定します。
-これは、<strong>指定した拡張子のファイルに遭遇したら、指定したコンパイルモジュールでJavascriptにコンパイルしてね</strong> というおまじないになります。
-規定では、<strong>.js</strong> のみが対象となっています。</p>
-
-<p>Mochaは、テスト対象のフォルダを再帰的に走査して、遭遇したファイルが.jsと指定された拡張子以外であれば、無視するような仕掛けとなっています。</p>
-
-<h2>Node.jsでJavascript以外を扱う仕組み</h2>
-
-<p>対象の拡張子のファイルに遭遇すると、Mochaは、そのファイルをrequireで読み込もうとします。
-Node.jsのマニュアルで <strong>require</strong> を調べると、</p>
-
-<ul>
-<li>.js</li>
-<li>.json</li>
-<li>.node</li>
-</ul>
-
-<p>が読み込み対象と書かれています。
-ではそれ以外のファイルがきた時は、どうなってしまうのでしょう？</p>
-
-<p>Node.jsでは、上記以外のファイルの場合、<strong>require.extensions</strong> からの読み込みを試みます。
-require.extensionsは、拡張子をキーに、指定されたファイルをJavascriptに変換する関数が登録された辞書です。</p>
-
-<p>この関数の型は、</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>function (module, filename) {
-</span><span class='line'>  ...
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-<p>となっており、ここで、</p>
-
-<ul>
-<li>module - Moduleモジュール</li>
-<li>filename - 読み込むファイル名</li>
-</ul>
-
-<h2>Mochaに渡すコンパイルモジュールの仕様</h2>
-
-<p>仕様と言えるような、大それたものはなく、Javascriptに変換する関数を実装し、それを単に上述の<strong>require.extensions</strong> に追加するだけです。</p>
-
-<p>この関数の実装において、一つ重要な点があります。
-それは、Javascriptのコードに変換後、module._compile(&lt;変換されたコード&gt;)という非公開の関数を呼ぶということです。</p>
-
-<p>この <strong>module._compile</strong> が呼ばれることで、ロードが完了する仕組みとなっているようです。</p>
-
-<p>requireの呼び出し元は、module._compileが呼ばれるまで、ブロックされるようになっているため、Javascriptへの変換関数が非同期的に実装（fs.readFile等）されていても、まったく問題ないです。</p>
-
-<p>変換関数の具体的な実装は、coffee-scriptモジュールを読んでみるよいでしょう。</p>
-
-<h2>例：Haxeの場合</h2>
-
-<p>Haxeには、mocha.js-haxeという、Mocha用のコードに変換するための拡張ライブラリが公開されています。
-そこで、Haxeのオプション記述ファイル(.hxml)に対してコンパイルモジールを作成しておけば、MochaでHaxeのコードを直接テストできるようになります。</p>
-
-<p>Javascriptへの変換関数関数の仕様として、</p>
-
-<ol>
-<li>child_processモジュールのexec関数で、hxmlファイルを渡して、HaxeのコードをJavascriptコンパイルする。</li>
-<li>コンパイルしたファイルを、fsモジュールのreadFile（またはfs.readFileSync）で読み込んで、コードを取得する。</li>
-<li>module._compileにそのコードを渡す。</li>
-</ol>
-
-<p>とすれば、よいでしょう。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Factoryの具象クラスをインスタンスするのは誰？]]></title>
-    <link href="http://ritalin.github.io/2013/01-10/factory-method/"/>
-    <updated>2013-01-10T22:04:00+09:00</updated>
-    <id>http://ritalin.github.io/2013/01-10/factory-method</id>
-    <content type="html"><![CDATA[<h2>Simple Factory</h2>
-
-<p>というのが、デザインパターンとしてあるのですね。今日Twitter上のTLに流れてきて、気になってググってみたら、<a href="http://d.hatena.ne.jp/asakichy/20090414/1239718537">Strategic Choice</a>さんのブログに行き着きました。</p>
-
-<p>Factory Methodとの違いは、Factoryを具象クラス一本に絞ったという感じでしょうか。</p>
-
-<!-- more -->
-
-<h2>Factoryの具象クラスをインスタンスするのは誰？</h2>
-
-<p>さて本題。Factory Methodは、FactoryとProductの両方について、抽象層にインターフェースを設け、具象層に各インターフェースの具象クラスを置きます。ClientオブジェクトはFactoryのインターフェースを通して具象Productを生成し、インターフェースとして取得する形となります。</p>
-
-<p>前から気になっていたのですが、誰かが具象Factoryを生成してあげる必要があります。ClientがFactoryをインスタンス化するのであれば、ClientはProductの実装への依存はなくせますが、依然factoryの実装には依存してしまいます。</p>
-
-<p>じゃぁ、FactoryのためのFactoryが必要？</p>
-
-<p>そのFactoryのためのFactory生成は誰が行うの？</p>
-
-<p>と堂々巡りしてしまい、私の中では「いらない子」扱いのパターンでした。</p>
-
-<h2>DIコンテナさん登場</h2>
-
-<p>Factoryの具象クラスへの依存をどう解決すべきか分からず、もやっとしていたのですが、素直にDIコンテナさんに任せちゃえばいいんじゃないかなと、ここ最近気づきました。</p>
-
-<p>しかし、DIコンテナの機能として、たいてい遅延実行をサポートしているので、遅延実行のための高階関数をFactory代わりにしてしまえる気がします。（使う側のClientはどんな形であれ依存が解決できればいいはずなので）</p>
-
-<p>結局、Factory Methodいらなくね？と、現在進行形で「いらない子」になってるのでした。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[DCI (Data - Context - Interaction)のパイプライン化]]></title>
-    <link href="http://ritalin.github.io/2012/12-27/pipelined-dci/"/>
-    <updated>2012-12-27T21:56:00+09:00</updated>
-    <id>http://ritalin.github.io/2012/12-27/pipelined-dci</id>
-    <content type="html"><![CDATA[<p>なんだか最近、DCIの話題が花盛りですね。</p>
-
-<p>さて、<a href="https://groups.google.com/forum/?fromgroups=#!topic/object-composition/u-aVj_FexM4">Google Group: object-composition</a>にて、DCIとMVCの関係について、面白い考察を行っている人がいます。</p>
-
-<p>曰く、Model表現をViewのための表現に変換するためのRole (Interaction) をContextに組み込むのはどうかと提起しています。</p>
-
-<p>私の中では、アプリケーションにおけるDCIの位置づけは、Modelのなかを覗き込んだときに、そこにいるものと思っています。</p>
-
-<p>Modelの中の構成体ゆえ、View表現を持つことはあまり良いものではないと考えています。
-しかし、View表現への変換をRoleとして組み込むのは面白いと思いました。</p>
-
-<p>そこで表題に繋がるわけですが、Model層を構成するDCIをより大きな、Dとみなし、そこにView表現に変換するRoleを組み込んだらどうなのかなと思いました。</p>
-
-<!-- more -->
-
-<p>図にするとこんな感じ
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Context<em>1
-</span><span class='line'>    |- Interraction</em>1 (View transformation)
-</span><span class='line'>    |- Context<em>2 (Data</em>1)
-</span><span class='line'>           |- Interraction<em>2 (Model transformation)
-</span><span class='line'>           |- Data</em>2 (Domain data)</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Context<em>2の中でドメインデータであるData</em>2がInterraction<em>2と作用し、次いでContext</em>1の中でContext<em>1での生成物とInterraction</em>1が作用する。という処理の流れになります。</p>
-
-<p>言い換えると、Context<em>2の反応の後Context</em>1の反応が行われるというパイプラインを構成していると見ることが出来ます。</p>
-
-<p>アプリケーション全体としては、最終的に出来上がった表現をViewにバインドするというModel - Viewという単純なアーキテクチャにすることができるように思えます。</p>
-
-<p>また、２フェーズのパイプラインを例示しましたが、２フェーズ以上でも同様にパイプをつないでいくだけになります。</p>
-
-<p>うーん、なんてモナディック。</p>
 ]]></content>
   </entry>
   

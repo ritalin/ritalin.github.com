@@ -1,0 +1,528 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>restful-web-api-memo-15 - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="Chapter 11. HTTP for APIs Web APIの技術的スタック ハイパーメディア 次は何？に答える HTTP リソースとはどのようにしてやりとりするのか？に答える URL リソースはどこにあるのか？に答える HTTP仕様 RFC2616
+41のレスポンスコードを定義 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Restful-web-api-memo-15</h2>
+	<div class="entry-content"><h2>Chapter 11. HTTP for APIs</h2>
+
+<ul>
+<li>Web APIの技術的スタック
+
+<ul>
+<li>ハイパーメディア
+
+<ul>
+<li>次は何？に答える</li>
+</ul></li>
+<li>HTTP
+
+<ul>
+<li>リソースとはどのようにしてやりとりするのか？に答える</li>
+</ul></li>
+<li>URL 
+
+<ul>
+<li>リソースはどこにあるのか？に答える</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<!-- more -->
+
+<h3>HTTP仕様</h3>
+
+<ul>
+<li>RFC2616</li>
+<li>41のレスポンスコードを定義
+
+<ul>
+<li>プロトコルセマンティクスの基本セットを表現する</li>
+<li>400
+
+<ul>
+<li>不正なデータが送りつけられてきた場合</li>
+<li>問題点をentity-bodyに示す</li>
+</ul></li>
+<li>付録A参照</li>
+</ul></li>
+<li>47のリクエスト / レスポンスヘッダを定義
+
+<ul>
+<li>プロトコルセマンティクスの基本セットを提供する</li>
+<li>付録B参照</li>
+</ul></li>
+<li>表現の選択
+
+<ul>
+<li>一つのリソースは多くの表現をもつ</li>
+<li>表現は異なるフォーマットをもつ</li>
+<li>コンテントネゴシエーション
+
+<ul>
+<li>Accept-*のセットが提供されている</li>
+<li>Accept
+
+<ul>
+<li>media-typeの選択</li>
+</ul></li>
+<li>Accept-Language
+
+<ul>
+<li>言語の選択</li>
+</ul></li>
+<li>対応する表現がない場合、406(Not Acceptable)を返す</li>
+</ul></li>
+<li>プロファイルネゴシエーション
+
+<ul>
+<li>media-typeがprofileパラメータを持つ場合に利用可能</li>
+<li>コンテントネゴシエーションと合わせて使用する</li>
+</ul></li>
+<li>ハイパーメディアメニュー
+
+<ul>
+<li>利用可能な表現の一覧を返し、その中からクライアントに選択させる</li>
+<li>300(multiple Choices)を返す
+
+<ul>
+<li>entity-bodyに選択可能なリンクを提示する</li>
+</ul></li>
+<li>htmlのaタグ、linkタグはハイパーメディアメニューきのうを持つ
+
+<ul>
+<li>type属性
+
+<ul>
+<li>media-typeを指定する</li>
+</ul></li>
+<li>hreflang
+
+<ul>
+<li>言語を指定する</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>正規化URL
+
+<ul>
+<li>リソースが一つ以上のURLを持つ場合、代表のURLを明示すること</li>
+<li>以下のいずれかを使用
+
+<ul>
+<li>Content-Location</li>
+<li>canonicalリレーション</li>
+</ul></li>
+</ul></li>
+<li>キャッシュ(Cache-Control)
+
+<ul>
+<li>リクエスト
+
+<ul>
+<li>キャッシュを使うかどうかの指示</li>
+</ul></li>
+<li>レスポンス
+
+<ul>
+<li>前回のリクエストから変更があったかどうかを伝える</li>
+<li>API実装を変更する場合、マイグレーションのために適切にmax-ageを設定すべき</li>
+</ul></li>
+</ul></li>
+<li>Conditional Request
+    * リソース状態が変更する場合、適切にmax-ageを決定することは難しい
+    * Last-Modified
+        * レスポンスで最終更新日時を返す
+        * 次回リクエストでIf-Modified-Sinceヘッダに埋め込む
+            * リソース状態が変更していない場合、304(Not Modified)を返す
+            * 動的、静的コンテンツにかかわらずサーバーリソースを節約できる
+            * 次回リクエストのために保存しておく必要がある
+    * ETag
+        * リソース状態が変更した時のみに変更される文字列
+            * リソースをハッシュ化して生成
+            * Last-Mofifiedのように、別途保存しておく必要がなくなる
+        * 次回リクエストでIf-None-Matchに、ETagの文字列を指定する
+        * リソース状態に変更がなければ304(Not Modified)を返す</li>
+<li>LBYL(Look Before You Leap) Request
+
+<ul>
+<li>entity-bodyのないPUTリクエストを送る</li>
+<li>PUTが受け入れ可能な場合、100(Continue)を返す
+
+<ul>
+<li>改めて、entity-body付きでPUTリクエストを送る</li>
+</ul></li>
+<li>PUTが棄却された場合、417(Expection Failed)が返される</li>
+</ul></li>
+<li>圧縮
+
+<ul>
+<li>リクエストヘッダにAccept-Encodingを含める
+
+<ul>
+<li>たいていgzip</li>
+</ul></li>
+<li>サーバーが圧縮アルゴリズムをサポートしていれば、圧縮
+
+<ul>
+<li>レスポンスヘッダに同じAccept-Encodingを含める</li>
+</ul></li>
+</ul></li>
+<li>Partial GET
+
+<ul>
+<li>表現のサブセットを取得する方法</li>
+<li>主にダウンロードを再開する目的でもちいられる</li>
+<li>リクエストヘッダに開始位置をRangeに指定
+
+<ul>
+<li>単位はkB</li>
+</ul></li>
+<li>レスポンスコードは206(Partial Content)</li>
+<li>レスポンスヘッダにContent-Rangeを含める</li>
+<li>コレクションの一部の取得に使えそうだが、非標準
+
+<ul>
+<li>自身のプロトコルセマンティクスを検討すべき</li>
+<li>prevやnextなどのリンクリレーション</li>
+</ul></li>
+</ul></li>
+<li>HTTPパイプライン
+
+<ul>
+<li>クライアントは一度に複数のリクエストを送る</li>
+<li>サーバーは受け取った順にレスポンスを返す</li>
+<li>GETのみでパイプライン化が望ましい
+
+<ul>
+<li>ほかのメソッドとの組み合わせは、途中で切断されてもロールバックできないため</li>
+</ul></li>
+<li>Web APIとは相性が悪い
+
+<ul>
+<li>たいていAPIは、ワークフローとなるため</li>
+</ul></li>
+</ul></li>
+<li>Lost Update問題点をの回避
+
+<ul>
+<li>不安定なメソッド(PUT/PATCH)を同時に使われると、後勝ちとなる</li>
+<li>先勝ちにしたければConditional Requestを使う
+
+<ul>
+<li>Last-Modified
+
+<ul>
+<li>If-Unmodifid-Since</li>
+</ul></li>
+<li>ETag
+
+<ul>
+<li>If-None-Match</li>
+</ul></li>
+</ul></li>
+<li>変更されていれば、412(Precondition Failed)が返される</li>
+<li>不安定なメソッドには、常にConditional Requestが望ましい
+
+<ul>
+<li>利用されていなければ、428(Precondition Required)を返す姿勢で</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>HTTP認証</h3>
+
+<ul>
+<li>Basic認証
+
+<ul>
+<li>RFC2617</li>
+<li>ユーザー名/パスワードの組で認証</li>
+<li>あまりセキュアではない
+
+<ul>
+<li>クレデンシャルはBase64エンコードされるだけ</li>
+<li>TLSに乗せれば、盗聴を防げるので、多少セキュアになる</li>
+</ul></li>
+</ul></li>
+<li>Digest認証
+
+<ul>
+<li>RFC2617</li>
+</ul></li>
+<li>OAuth 1.0
+
+<ul>
+<li>RFC5849</li>
+<li>クライアントごとに別々のクレデンシャルを与える</li>
+<li>利用者は、トークンクレデンシャルを利用停止にすることで、スパム被害を最小化できる</li>
+<li>OAuthプロバイダは、クライアントクレデンシャル(consumer_key)を停止することで、スパム被害を最小化できる</li>
+</ul></li>
+<li>OAuth 2.0</li>
+<li>RFC6749</li>
+<li>4つのアクセストークン取得プロセス
+
+<ul>
+<li>Authrization Code
+
+<ul>
+<li>OAuth 1.0の方法</li>
+</ul></li>
+<li>Implicit Gant</li>
+<li>Resource Owner Password Credential
+
+<ul>
+<li>モバイルクライアント向け</li>
+</ul></li>
+<li>Client Credentials</li>
+</ul></li>
+</ul>
+
+<h3>HTTP拡張</h3>
+
+<ul>
+<li>WebDav</li>
+<li>HTTP/2</li>
+<li>CoAP</li>
+<li>PATCHメソッド
+
+<ul>
+<li>RFC5789</li>
+<li>安全ではないがベキ等でない</li>
+<li>差分更新を可能とする</li>
+<li>パッチフォーマット
+
+<ul>
+<li>application/json-patch
+
+<ul>
+<li>RFC6902</li>
+</ul></li>
+<li>application/xml-patch+xml
+
+<ul>
+<li>RFC5261</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>LINK/UNLINKメソッド
+
+<ul>
+<li>RFC2616(破棄)
+
+<ul>
+<li>使い道が見出せなかったため</li>
+</ul></li>
+<li>安全ではないが冪等</li>
+<li>2つのリソースかんを接続(切断) するメソッド</li>
+<li>リンク先は、LINKヘッダで指定する</li>
+</ul></li>
+</ul>
+
+<h3>WebDav</h3>
+
+<ul>
+<li>RFC4918</li>
+<li>HTTPベースのファイルシステム</li>
+<li>利用例
+
+<ul>
+<li>MS SharePoint</li>
+<li>Subversion</li>
+</ul></li>
+<li>メソッド
+
+<ul>
+<li>MKCOL
+
+<ul>
+<li>コレクションの新規作成</li>
+</ul></li>
+<li>PROPATCH/PROPFIND
+
+<ul>
+<li>リソースにキーワードをつけることで、検索しやすくする</li>
+</ul></li>
+<li>LOCK/UNZlOCK
+
+<ul>
+<li>リソースのロック</li>
+<li>同時アクセスを防ぐ目的</li>
+<li>すでにロックされてれば、408(Conflict)を返す
+
+<ul>
+<li>423(Locked)も定義されてるが利用は推奨されていない模様</li>
+</ul></li>
+</ul></li>
+<li>MOVE/COPY
+
+<ul>
+<li>リソースの移動またはコピー</li>
+<li>目的地は、Destinationヘッダで指定する</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<h3>Http/2</h3>
+
+<ul>
+<li>SPDYベースにした進化版</li>
+<li>ヘッダ圧縮</li>
+<li>同時リクエスト発行</li>
+</ul>
+
+<hr>
+
+<h2>つづき・・・</h2>
+
+<p><a href="/2015/03-29/restful-web-api-memo-12/">RESTful Web APIs 読書メモ(12)</a></p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-29T13:42:38+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ritalin.github.io/2015/03-29/restful-web-api-memo-15/" data-via="ktz_alias" data-counturl="http://ritalin.github.io/2015/03-29/restful-web-api-memo-15/" >Tweet</a>
+  		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+</body>
+</html>

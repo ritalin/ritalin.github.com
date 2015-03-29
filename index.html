@@ -7,7 +7,11 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content=" Chapter 12. Resource Description and Linked Data ハイパーメディアフォーマット 表現戦略と記述戦略の両方を有する 続きを読む・・・ rest ">
+	<meta name="description" content="Restful Web APIs - Index Chapter 1. Surfing the Web
+Chapter 2. A Simple API
+Chapter 3. Resources and Representations
+Chapter 4. Hypermedia
+Chapter 5 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +80,297 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/03-29/restful-web-api-memo-index/">
+		
+			RESTful Web APIs 読書メモ Index</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Restful Web APIs - Index</h2>
+
+<ul>
+<li><a href="/2015/03-08/restful-web-api-memo-01/">Chapter 1. Surfing the Web</a></li>
+<li><a href="/2015/03-08/restful-web-api-memo-02/">Chapter 2. A Simple API</a></li>
+<li><a href="/2015/03-08/restful-web-api-memo-03/">Chapter 3. Resources and Representations</a></li>
+<li><a href="/2015/03-08/restful-web-api-memo-04/">Chapter 4. Hypermedia</a></li>
+<li><a href="/2015/03-08/restful-web-api-memo-05/">Chapter 5. Domain-Specific Designs</a></li>
+<li><a href="/2015/03-08/restful-web-api-memo-06/">Chapter 6. The Collection Pattern</a></li>
+<li><a href="/2015/03-09/restful-web-api-memo-07/">Chapter 7. Pure-Hypermedia Designs</a></li>
+<li><a href="/2015/03-11/restful-web-api-memo-08/">Chapter 8. Profiles</a></li>
+<li><a href="2015/03-19/restful-web-api-memo-09/">Chapter 9. The Design Procedure</a></li>
+<li><a href="/2015/03-22/restful-web-api-memo-10/">Chapter 10. The Hypermedia Zoo (Part.1)</a></li>
+<li><a href="/2015/03-22/restful-web-api-memo-11/">Chapter 10. The Hypermedia Zoo (Part.2)</a></li>
+<li><a href="/2015/03-29/restful-web-api-memo-15/">Chapter 11. HTTP for APIs</a></li>
+<li><a href="/2015/03-27/restful-web-api-memo-12/">Chapter 12. Resource Description and Linked Data</a></li>
+<li><a href="/2015/03-29/restful-web-api-memo-13/">Chapter 13. CoAP: REST for Embedded Systems</a></li>
+<li><a href="/2015/03-29/restful-web-api-memo-14/">Appendix An API Designer’s Guide to the Fielding Dissertation</a></li>
+</ul>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-29T21:28:40+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/03-29/restful-web-api-memo-14/">
+		
+			RESTful Web APIs 読書メモ(14)</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Appendix C. An API Designer&#39;s Guide to the Fielding Dissertation</h2>
+
+<h3>アーキテクチャ特性</h3>
+
+<ul>
+<li>Low Entry-barrier
+
+<ul>
+<li>FTPやTelnetのようにたくさんのコマンドを駆使する必要がない</li>
+<li>使い方を学ぶのが容易で、サイト構築も容易</li>
+</ul></li>
+<li>Extensibility</li>
+<li>Distributed Hypermedia</li>
+<li>Internet-scale</li>
+</ul>
+
+<h3>アーキテクチャ制約</h3>
+
+<ul>
+<li>Client-Servet
+
+<ul>
+<li>webにおける通信は1:1</li>
+</ul></li>
+<li>Statelessness
+
+<ul>
+<li>クライアントがリクエストを作らなければ、サーバーはクライアントの存在を知らない</li>
+</ul></li>
+<li>Caching
+
+<ul>
+<li>キャッシュから前回のレスポンスを再利用することで、通信を抑える</li>
+</ul></li>
+<li>Uniform Interface
+
+<ul>
+<li>リソースの一意化
+
+<ul>
+<li>リソースは安定したURIで一意化される</li>
+</ul></li>
+<li>表現を通したリソースの操作
+
+<ul>
+<li>サーバーはクライアントに表現を送ることで、リソース状態を記述</li>
+<li>クライアントはサーバーにアプリケーション状態を送ることでリソース状態を操作する</li>
+</ul></li>
+<li>自己記述メッセージ
+
+<ul>
+<li>すべての情報は、リクエストやレスポンスがリンクを介してメッセージ自身に含まれることを理解する必要がある</li>
+</ul></li>
+<li>ハイパーメディア制約
+
+<ul>
+<li>サーバーはハイパーメディアメニューを送ることでアプリケーション状態を操作する
+
+<ul>
+<li>メニューとは、クライアントが自由に操作できるオプション</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Layered System
+
+<ul>
+<li>クライアントとサーバーの間に入れられたプロキシは不可視</li>
+</ul></li>
+<li>Code on Demand
+
+<ul>
+<li>サーバーはデータと一緒に実行コードを送ることができる</li>
+<li>クライアントのリクエストで、自動的に配置される</li>
+<li>コードの変更でも自動的に再配置される</li>
+</ul></li>
+</ul>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-29T21:25:00+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/03-29/restful-web-api-memo-13/">
+		
+			RESTful Web APIs 読書メモ(13)</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Chapter 13. CpAP: REST for Embedded Systems</h2>
+
+<ul>
+<li>CoAP
+
+<ul>
+<li>IOT(Internet of Things)のような低出力組み込み環境用</li>
+<li>HTTPの考えを踏襲</li>
+<li>ハイパーメディア駆動のRESTful APIが使用可能</li>
+</ul></li>
+</ul>
+
+
+		
+		<a href="/2015/03-29/restful-web-api-memo-13/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-29T21:12:33+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/03-29/restful-web-api-memo-15/">
+		
+			Restful-web-api-memo-15</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Chapter 11. HTTP for APIs</h2>
+
+<ul>
+<li>Web APIの技術的スタック
+
+<ul>
+<li>ハイパーメディア
+
+<ul>
+<li>次は何？に答える</li>
+</ul></li>
+<li>HTTP
+
+<ul>
+<li>リソースとはどのようにしてやりとりするのか？に答える</li>
+</ul></li>
+<li>URL 
+
+<ul>
+<li>リソースはどこにあるのか？に答える</li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+		
+		<a href="/2015/03-29/restful-web-api-memo-15/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-29T13:42:38+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -363,216 +658,6 @@
 
 
 <time datetime="2015-03-09T21:08:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/rest/'>rest</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2015/03-08/restful-web-api-memo-06/">
-		
-			RESTful Web APIs 読書メモ(6)</a>
-	</h2>
-	<div class="entry-content">
-		<h2>Chapter 6. The Collection Pattern</h2>
-
-<ul>
-<li>コレクションもまたリソース
-
-<ul>
-<li>  コレクションに含まれるリソースは&quot;item&quot;や&quot;entry&quot;、&quot;member&quot;と呼ばれる</li>
-</ul></li>
-<li>  Pagenation
-
-<ul>
-<li>  大量のコレクションメンバーを持つ場合、全てを一度に返すことは通常しない</li>
-<li>  最初の一部だけをコレクションとして返し、残りはrel=&quot;next&quot;を付与したリンクだけを提供する
-
-<ul>
-<li>  nextはIANAで登録されている</li>
-<li>  ほかにprev, first, lastもIANAで定義されている</li>
-</ul></li>
-<li>  Collection+JSONはリレーションを明示的にサポートしてはいない
-
-<ul>
-<li>  必要ならリレーションを組み込めばいい</li>
-</ul></li>
-</ul></li>
-</ul>
-
-
-		
-		<a href="/2015/03-08/restful-web-api-memo-06/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-03-08T22:47:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/rest/'>rest</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2015/03-08/restful-web-api-memo-05/">
-		
-			ESTful Web APIs 読書メモ(5)</a>
-	</h2>
-	<div class="entry-content">
-		<h2>Chapter.5 Domain-Specific Designs</h2>
-
-<ul>
-<li> ドメイン特化設計
-
-<ul>
-<li>ドメイン特化のmedia-typeではなく、一般的なmedia-typeにアプリケーションセマンティクスを加える方が良い
-
-<ul>
-<li>Aplication/vnd.xxx.Maze+XML</li>
-</ul></li>
-<li>API設計する際に平均的な開発者が最初に選択する</li>
-<li>RFC5988
-
-<ul>
-<li>リンク間の関係を定義</li>
-</ul></li>
-</ul></li>
-</ul>
-
-
-		
-		<a href="/2015/03-08/restful-web-api-memo-05/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-03-08T22:19:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/rest/'>rest</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2015/03-08/restful-web-api-memo-04/">
-		
-			RESTful Web APIs 読書メモ(4)</a>
-	</h2>
-	<div class="entry-content">
-		<h2>Hypermedia</h2>
-
-
-		
-		<a href="/2015/03-08/restful-web-api-memo-04/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-03-08T22:15:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/rest/'>rest</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2015/03-08/restful-web-api-memo-03/">
-		
-			RESTful Web APIs 読書メモ(3)</a>
-	</h2>
-	<div class="entry-content">
-		<h2>Chapter 3. Resources and Representations</h2>
-
-
-		
-		<a href="/2015/03-08/restful-web-api-memo-03/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-03-08T22:11:00+09:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 
