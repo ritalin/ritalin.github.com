@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: omelet | Since 1975]]></title>
+  <link href="http://ritalin.github.io/blog/categories/omelet/atom.xml" rel="self"/>
+  <link href="http://ritalin.github.io/"/>
+  <updated>2015-05-30T23:04:42+09:00</updated>
+  <id>http://ritalin.github.io/</id>
+  <author>
+    <name><![CDATA[ktz_alias]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Omelet Reference(Draft) 1]]></title>
+    <link href="http://ritalin.github.io/2015/05-30/omelet-reference-draft-1/"/>
+    <updated>2015-05-30T22:11:39+09:00</updated>
+    <id>http://ritalin.github.io/2015/05-30/omelet-reference-draft-1</id>
+    <content type="html"><![CDATA[<h2>設定</h2>
+
+<ul>
+<li><strong>\Omelet\Build\Configuration</strong> クラス
+
+<ul>
+<li>データベース接続先などの、共通設定情報を格納する。</li>
+</ul></li>
+</ul>
+
+<h3>プロパティ</h3>
+
+<ul>
+<li><p>daoClassPath</p>
+
+<ul>
+<li>DAO (Data Access Object)の具象実装クラスが保存されるディレクトリまでのパスを指定する。</li>
+<li>文字列</li>
+<li>規定値：auto_generated</li>
+</ul></li>
+<li><p>sqlRootDir</p>
+
+<ul>
+<li>SQLが置かれているルートのディレクトリまでのパスを指定する。</li>
+<li>文字列</li>
+<li>規定値：sql</li>
+</ul></li>
+<li><p>daoClassSuffix</p>
+
+<ul>
+<li>DAOの具象実装クラス名のサフィックスとして付与する文字列。</li>
+<li>文字列</li>
+<li>規定値： Impl</li>
+<li>例： TodoDao -&gt; TodoDaoImpl</li>
+</ul></li>
+<li><p>connectionString</p>
+
+<ul>
+<li>データベースの接続情報
+
+<ul>
+<li>URL形式、またはクエリ文字列形式で指定する。</li>
+<li>設定内容の詳細は、<a href="http://doctrine-dbal.readthedocs.org/en/latest/reference/configuration.html">doctrine/DABLのドキュメント</a>参照。</li>
+</ul></li>
+<li>文字列</li>
+</ul></li>
+<li><p>watchMode = &#39;Whenever&#39;;</p>
+
+<ul>
+<li>作成タイミングの指定
+
+<ul>
+<li><strong>Always</strong> , <strong>Whenever</strong> , <strong>Once</strong> のいずれかを指定する。
+
+<ul>
+<li>Always：DAOインターフェースの変更の有無に関わらず、毎回実装クラスを作成する。</li>
+<li>Whenever：初回または、DAOインターフェースの内容が変更した場合のみ、実装クラスを再作成する。</li>
+<li>Once：初回に一度だけ、実装クラスを作成する</li>
+</ul></li>
+</ul></li>
+<li>文字列</li>
+<li>規定値：Whenever</li>
+</ul></li>
+<li><p>paramCaseSensor</p>
+
+<ul>
+<li>SQLで使用するパラメータ名の命名規則</li>
+<li>例えば、DAOメソッドの引数をキャメルケースで定義し、設定を <strong>UpperSnake</strong> にした場合、アルファベット大文字のスネークケースに変換する。
+
+<ul>
+<li><strong>LowerSnake</strong> , <strong>UpperSnake</strong> , <strong>LowerCamel</strong> , <strong>UpperCamel</strong> のいずれかを指定する。
+
+<ul>
+<li>LowerSnake
+
+<ul>
+<li>アルファベット小文字で単語間を <strong>アンダースコア文字(_)</strong> でつなぐ。</li>
+</ul></li>
+<li>UpperSnake
+
+<ul>
+<li>アルファベット大文字で単語間を <strong>アンダースコア文字(_)</strong> でつなぐ。</li>
+</ul></li>
+<li>LowerCamel
+
+<ul>
+<li>先頭の単語を除いて、２番目以降の単語の１文字目を大文字にしてそのままつなげる。</li>
+<li>元の規則がスネークケースの場合、アンダースコア文字は取り除かれることに注意。</li>
+</ul></li>
+<li>UpperCamel
+
+<ul>
+<li>単語の１文字目を大文字にしてそのままつなげる。</li>
+<li>元の規則がスネークケースの場合、アンダースコア文字は取り除かれることに注意。</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>文字列</li>
+<li>規定値： LowerSnake</li>
+</ul></li>
+<li><p>returnCaseSensor = &#39;LowerSnake&#39;;</p>
+
+<ul>
+<li>クエリ実行により得られる結果セットの列名の命名規則</li>
+<li>結果をオブジェクト(エンティティクラス)やドメインに詰め替える際、命名規則の変換が適用される。
+
+<ul>
+<li><strong>LowerSnake</strong> , <strong>UpperSnake</strong> , <strong>LowerCamel</strong> , <strong>UpperCamel</strong> のいずれかを指定する。</li>
+<li>それぞれの値の意味は、 <strong>paramCaseSensor</strong> と同じ</li>
+</ul></li>
+<li>文字列</li>
+<li>規定値： LowerSnake</li>
+</ul></li>
+</ul>
+]]></content>
+  </entry>
+  
+</feed>
