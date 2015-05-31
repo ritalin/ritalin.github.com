@@ -7,9 +7,9 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="なんとか最後まで読み通せました。
-まとめながら読んでいたので、すごく時間がかかってしまいました。 どんな本？ この本は、機械学習の処理系およびライブラリであるApache Mohoutの実践ガイドであり、
-Mahoutを通して機械学習について体系立てて学ぶことができるようになってます。 &hellip;">
+	<meta name="description" content="あらまし RESTサーバーを実装するための良いフレームワークはないかなと探していたところ、Corniceというpythonで実装されたフレームワークに出会いました。
+CorniceはPyramidというWebアプリケーションフレームワークの上にのるものであり、
+Pyramidのtemplate &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -78,6 +78,57 @@ Mahoutを通して機械学習について体系立てて学ぶことができ�
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2013/06-04/cornice-tutorial-01/">
+		
+			Cornice Tutorial (1)</a>
+	</h2>
+	<div class="entry-content">
+		<h2>あらまし</h2>
+
+<p>RESTサーバーを実装するための良いフレームワークはないかなと探していたところ、<a href="http://cornice.readthedocs.org/en/latest/index.html">Cornice</a>というpythonで実装されたフレームワークに出会いました。
+CorniceはPyramidというWebアプリケーションフレームワークの上にのるものであり、
+Pyramidのtemplate EnginがZPT-TAL由来のCameleonであることを知り、これは触ってみなければという気持ちになりました。</p>
+
+<p>公式サイトには<a href="http://cornice.readthedocs.org/en/latest/tutorial.html">チャットサーバを実装するためのチュートリアル</a>があるので、
+これをネタにPythonの勉強をしつつやって行こうかなと思います。</p>
+
+<p>当方、Pythonに関しては、ドがつくほどの素人なので、あり得ない事し出すかも知れませんが生暖かく見守っていただければかと。</p>
+
+
+		
+		<a href="/2013/06-04/cornice-tutorial-01/" class="more-link">続きを読む・・・</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-04T23:12:00+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/cornice/'>cornice</a>, <a class='category' href='/blog/categories/python/'>python</a>
+
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -756,126 +807,6 @@ using Rhino.Mocks;</p>
 
 
 	<a class='category' href='/blog/categories/advent/'>advent</a>, <a class='category' href='/blog/categories/rhinomocks/'>rhinomocks</a>, <a class='category' href='/blog/categories/tdd/'>tdd</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2012/12-06/delphi-advent-2012/">
-		
-			Delphiとか依存性注入とか</a>
-	</h2>
-	<div class="entry-content">
-		<p>これは<a href="http://atnd.org/events/34390">Delphi Advent Calendar 2012</a>参加記事です。</p>
-
-<p>他の言語でDIコンテナ（依存性注入の方）を使用していて、ふと気づいたDI（依存性逆転の方)ついて、つらつらと。</p>
-
-<hr>
-
-<p>普段会社では、いまだにDelphi 7をWindows7のXP Mode上で使ってる身です（主に保守ですが）。なのでDelphi 7 の話です（以降のバージョンは未経験）。</p>
-
-<p>何も考えず、フォームやコンポーネントをプロジェクトに加えていくと、プロジェクトファイルである<code>.dpr</code>にてインスタンス化されます。</p>
-
-<div><script src='https://gist.github.com/4193781.js'></script>
-<noscript><pre><code>program Project1;
-
-uses
-  Forms,
-  Unit1 in &#39;Unit1.pas&#39; {Form1},
-  Unit2 in &#39;Unit2.pas&#39; {DataModule2: TDataModule};
-
-{$R *.res}
-
-begin
-  Application.Initialize;
-  Application.CreateForm(TForm1, Form1);
-  Application.CreateForm(TDataModule2, DataModule2);
-  Application.Run;
-end.
-</code></pre></noscript></div>
-
-<p>Form1やDataModule2はそれぞれのソースファイルで宣言されたグローバル変数で、コンポーネントのインスタンスが初期化されてます。</p>
-
-<p>よく言われる一般論として、</p>
-
-<ul>
-<li>スコープを小さくするかが重要
-
-<ul>
-<li> -&gt; グローバル変数もってのほか</li>
-</ul></li>
-<li>ムダなオブジェクトは作らない
-
-<ul>
-<li>-&gt; 起動時にインスタンス化とか頭沸いてる</li>
-</ul></li>
-</ul>
-
-<p>そのため私はよくこれらのグローバル変数の宣言を削除し、使う直前でインスタンス化するように変更したりしてます。
-ところで、このグローバル変数に起動時に突っ込む挙動、見方を変えると面白い側面が見えてきます。</p>
-
-<p>実際に使用する時点で、確実に初期化が完了しており、インスタンスが決定されている。
-別の言い方で、依存が解決されているともいえる。</p>
-
-<p>オブジェクトを生成する場合、１クラスだけで終わることは稀で、たいていは複数クラスが絡み合う。
-それらはコンストラクタやメソッドの引数、プロパティでセットされるでしょう。
-クラス継承が絡むと、組み合わせはさらに増大。</p>
-
-<p>使う側（フォーム等）で</p>
-
-<ul>
-<li>自身でインスタンス化する場合
-
-<ul>
-<li>具体的なクラス構成をすべて理解しておく必要あり</li>
-<li>でないとインスタンスを作れないから</li>
-</ul></li>
-<li>初期化済み
-
-<ul>
-<li>内側の具体的な内容が隠される（ように見える）</li>
-</ul></li>
-</ul>
-
-<p>その結果、フォームやコンポーネント</p>
-
-<ul>
-<li>独立性が高まる（ように見える）</li>
-<li>より再利用可能になる（ように見える）</li>
-</ul>
-
-<p>使う人が、使う時点でなく他に任せて、依存を解決。
-目を細めてみれば、依存が逆転しているように捉えている気がする今日この頃。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-06T00:00:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/advent/'>advent</a>, <a class='category' href='/blog/categories/delphi/'>delphi</a>
 
 
 </div>

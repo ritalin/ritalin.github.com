@@ -1,0 +1,302 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Omelet Reference(Draft) 2 - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="ドメイン ドメインは、リレーショナルモデルがらくる概念で、対象の文脈においてこれ以上分解できない値の集合に対して名前をつけたものです。 ドメインは、一例として、郵便番号、氏名、日時などが挙げられます。 今挙げた例を思い浮かべてみればわかるように、別の文脈ではさらに分解する場合もあるでしょう（日時 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Omelet Reference(Draft) 2</h2>
+	<div class="entry-content"><h2>ドメイン</h2>
+
+<p>ドメインは、リレーショナルモデルがらくる概念で、対象の文脈においてこれ以上分解できない値の集合に対して名前をつけたものです。</p>
+
+<p>ドメインは、一例として、郵便番号、氏名、日時などが挙げられます。</p>
+
+<p>今挙げた例を思い浮かべてみればわかるように、別の文脈ではさらに分解する場合もあるでしょう（日時 -&gt; 日付 + 時刻)。</p>
+
+<h2>ドメイン型の定義</h2>
+
+<p>Omeletにおいては、その値が属する型であり、 <strong>\Omelet\Domain\CustomDomain</strong> の派生クラスを指します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="c1">// 郵便番号の場合</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Zip</span> <span class="k">extends</span> <span class="nx">\Omelet\Domain\CustomDomain</span> <span class="p">{</span>
+</span><span class='line'>  
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p><strong>\Omelet\Domain\CustomDomain</strong> クラスのコンストラクタは、<em>protected</em> として定義されています。
+そのため、派生クラスのコンストラクタでは、明示的に親クラスのコンストラクタを読んであげる必要があります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$zip</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="nx">\Doctrine\DBAL\Types\Type</span><span class="o">::</span><span class="na">STRING</span><span class="p">,</span> <span class="nv">$zip</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>親クラスのコンストラクタの引数は、以下の通りです</p>
+
+<ul>
+<li>$type
+
+<ul>
+<li><strong>\Doctrine\DBAL\Types\Type</strong> で定義されている、利用可能な型定数のいずれかを指定。
+
+<ul>
+<li>指定可能な定数は、<a href="http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html">DBALのドキュメント</a>参照。</li>
+</ul></li>
+</ul></li>
+<li>$value
+
+<ul>
+<li>派生先のコンストラクタに渡された値。</li>
+</ul></li>
+</ul>
+
+<p>保持する値の取得は、 <strong>getValue()</strong> を使用します。</p>
+
+<h3>関数従属の付与</h3>
+
+<p>ドメインは本来、一つの値をパッケージングしたものとなりますが、 Omeletでは、例えば郵便番号に対して住所のような関数従属となる値を保持できるようにしています。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">public</span> <span class="k">function</span> <span class="nf">__construct</span><span class="p">(</span><span class="nv">$zip</span><span class="p">,</span> <span class="nv">$address</span> <span class="o">=</span> <span class="k">null</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">(</span><span class="nx">\Doctrine\DBAL\Types\Type</span><span class="o">::</span><span class="na">STRING</span><span class="p">,</span> <span class="nv">$zip</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;address&#39;</span> <span class="o">=&gt;</span> <span class="nv">$address</span><span class="p">]);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>コンストラクタの第二引数以降に、保持させたい値を割り当てるようにします。</p>
+
+<p>親クラスのコンストラクタの第３引数に、これらの値を連想配列として渡します。</p>
+
+<p>付与した値の取り出しは、 <strong>getOptValue(連想配列のキー名)</strong> を使用します。しかしこの関数はあえて <em>protected</em> として定義しています。
+派生クラスで <em>public</em> として再定義するよりはむしろ、値ごとの取得関数を定義することを期待しているためです。</p>
+
+<p>関数名は、後述の結果セットの変換の都合上、<em>引数名()</em> または、 <em>get引数名()</em> としてください。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">function</span> <span class="nf">getAddress</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getOptValue</span><span class="p">(</span><span class="s1">&#39;address&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h3>結果セットからの変換</h3>
+
+<p>Omeletは、SQLの問い合わせにより得られた結果セットから、ドメインを作成させることができます。</p>
+
+<p>通常、結果セットは連想配列として得られますが、ドメインのコンストラクラの引数名を連想配列のキーとして、値を取り出し、ドメインインスタンスの生成を自動的に行います。</p>
+
+<h4>別名の指定</h4>
+
+<p>コンストラクタの引数名と、結果セットのキー（カラム名）は必ずしも一致するとは限りません。</p>
+
+<p>SQLの記述で合わせてしまうのもいいですが、Omeletでは、ドメインのクラス定義として別名を与えることができます。</p>
+
+<p>ドメイン自身が保持する値については、コンストラクタにアノテーションコメント、 <strong>@Column (\Omelet\Annotation\Column)</strong> を付与します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Omelet\Annotation\Column</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="err">....</span>
+</span><span class='line'>
+</span><span class='line'><span class="x">/**</span>
+</span><span class='line'><span class="x"> * @Column(alias=&quot;zip_number&quot;)</span>
+</span><span class='line'><span class="x"> */</span>
+</span><span class='line'><span class="x">public function __construct($zip, $address = null) {</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p><strong>Column</strong> の　<em>alias</em> プロパティに別名を指定します。</p>
+
+<p>関数従属の値については、前の節で説明した取得関数に、 <strong>@Column</strong> アノテーションを付与します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Column(alias=&quot;adrs&quot;)</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">getAddress</span><span class="p">()</span> <span class="p">{</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>また、コンストラクタの引数名や別名は、設定の <em>returnCaseSensor</em> の影響を受けます。</p>
+
+<p>引数や別名はキャメルケースであるが、設定を大文字のスネークケースにした場合、名称の変換が行われます。</p>
+
+<h4>結果セット値の型変換</h4>
+
+<p>結果セットはすべて文字列として返されます。別の型で保持したい場合型変換が必要となります。例えば日時を <em>DateTime</em> で保持するなど。</p>
+
+<p>この型は、コンストラクタのタイプヒントの他に、コンストラクタのドキュメントコメントからの取得を試みます。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/**</span>
+<span class="x"> * @Column(alias=&quot;zip_number&quot;)</span>
+<span class="x"> *</span>
+<span class="x"> * @param string zip</span>
+<span class="x"> * @param string address</span>
+<span class="x"> * @param integer streetNumber </span>
+<span class="x"> */</span>
+<span class="x">public function __construct($zip, $address = null, $streetNumber = null) {</span>
+</code></pre></div></div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-31T18:41:16+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/omelet/'>omelet</a>, <a class='category' href='/blog/categories/orm/'>orm</a>, <a class='category' href='/blog/categories/php/'>php</a>
+
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ritalin.github.io/2015/05-31/omelet-reference-draft-2/" data-via="ktz_alias" data-counturl="http://ritalin.github.io/2015/05-31/omelet-reference-draft-2/" >Tweet</a>
+  		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+</body>
+</html>

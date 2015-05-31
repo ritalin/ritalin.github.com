@@ -4,7 +4,7 @@
   <title><![CDATA[Category: php | Since 1975]]></title>
   <link href="http://ritalin.github.io/blog/categories/php/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-05-30T23:04:42+09:00</updated>
+  <updated>2015-05-31T20:45:56+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,124 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Omelet Reference(Draft) 2]]></title>
+    <link href="http://ritalin.github.io/2015/05-31/omelet-reference-draft-2/"/>
+    <updated>2015-05-31T18:41:16+09:00</updated>
+    <id>http://ritalin.github.io/2015/05-31/omelet-reference-draft-2</id>
+    <content type="html"><![CDATA[<h2>ドメイン</h2>
+
+<p>ドメインは、リレーショナルモデルがらくる概念で、対象の文脈においてこれ以上分解できない値の集合に対して名前をつけたものです。</p>
+
+<p>ドメインは、一例として、郵便番号、氏名、日時などが挙げられます。</p>
+
+<p>今挙げた例を思い浮かべてみればわかるように、別の文脈ではさらに分解する場合もあるでしょう（日時 -&gt; 日付 + 時刻)。</p>
+
+<h2>ドメイン型の定義</h2>
+
+<p>Omeletにおいては、その値が属する型であり、 <strong>\Omelet\Domain\CustomDomain</strong> の派生クラスを指します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">// 郵便番号の場合</span>
+
+<span class="x">class Zip extends \Omelet\Domain\CustomDomain {</span>
+
+<span class="x">}</span>
+</code></pre></div>
+<p><strong>\Omelet\Domain\CustomDomain</strong> クラスのコンストラクタは、<em>protected</em> として定義されています。
+そのため、派生クラスのコンストラクタでは、明示的に親クラスのコンストラクタを読んであげる必要があります。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">public function __construct($zip) {</span>
+<span class="x">    parent::__construct(\Doctrine\DBAL\Types\Type::STRING, $zip);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>親クラスのコンストラクタの引数は、以下の通りです</p>
+
+<ul>
+<li>$type
+
+<ul>
+<li><strong>\Doctrine\DBAL\Types\Type</strong> で定義されている、利用可能な型定数のいずれかを指定。
+
+<ul>
+<li>指定可能な定数は、<a href="http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html">DBALのドキュメント</a>参照。</li>
+</ul></li>
+</ul></li>
+<li>$value
+
+<ul>
+<li>派生先のコンストラクタに渡された値。</li>
+</ul></li>
+</ul>
+
+<p>保持する値の取得は、 <strong>getValue()</strong> を使用します。</p>
+
+<h3>関数従属の付与</h3>
+
+<p>ドメインは本来、一つの値をパッケージングしたものとなりますが、 Omeletでは、例えば郵便番号に対して住所のような関数従属となる値を保持できるようにしています。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">public function __construct($zip, $address = null) {</span>
+<span class="x">    parent::__construct(\Doctrine\DBAL\Types\Type::STRING, $zip, [&#39;address&#39; =&gt; $address]);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>コンストラクタの第二引数以降に、保持させたい値を割り当てるようにします。</p>
+
+<p>親クラスのコンストラクタの第３引数に、これらの値を連想配列として渡します。</p>
+
+<p>付与した値の取り出しは、 <strong>getOptValue(連想配列のキー名)</strong> を使用します。しかしこの関数はあえて <em>protected</em> として定義しています。
+派生クラスで <em>public</em> として再定義するよりはむしろ、値ごとの取得関数を定義することを期待しているためです。</p>
+
+<p>関数名は、後述の結果セットの変換の都合上、<em>引数名()</em> または、 <em>get引数名()</em> としてください。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">function getAddress() {</span>
+<span class="x">    return $this-&gt;getOptValue(&#39;address&#39;);</span>
+<span class="x">}</span>
+</code></pre></div>
+<h3>結果セットからの変換</h3>
+
+<p>Omeletは、SQLの問い合わせにより得られた結果セットから、ドメインを作成させることができます。</p>
+
+<p>通常、結果セットは連想配列として得られますが、ドメインのコンストラクラの引数名を連想配列のキーとして、値を取り出し、ドメインインスタンスの生成を自動的に行います。</p>
+
+<h4>別名の指定</h4>
+
+<p>コンストラクタの引数名と、結果セットのキー（カラム名）は必ずしも一致するとは限りません。</p>
+
+<p>SQLの記述で合わせてしまうのもいいですが、Omeletでは、ドメインのクラス定義として別名を与えることができます。</p>
+
+<p>ドメイン自身が保持する値については、コンストラクタにアノテーションコメント、 <strong>@Column (\Omelet\Annotation\Column)</strong> を付与します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">use Omelet\Annotation\Column;</span>
+
+<span class="x">class ....</span>
+
+<span class="x">/**</span>
+<span class="x"> * @Column(alias=&quot;zip_number&quot;)</span>
+<span class="x"> */</span>
+<span class="x">public function __construct($zip, $address = null) {</span>
+</code></pre></div>
+<p><strong>Column</strong> の　<em>alias</em> プロパティに別名を指定します。</p>
+
+<p>関数従属の値については、前の節で説明した取得関数に、 <strong>@Column</strong> アノテーションを付与します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/**</span>
+<span class="x"> * @Column(alias=&quot;adrs&quot;)</span>
+<span class="x"> */</span>
+<span class="x">function getAddress() {</span>
+</code></pre></div>
+<p>また、コンストラクタの引数名や別名は、設定の <em>returnCaseSensor</em> の影響を受けます。</p>
+
+<p>引数や別名はキャメルケースであるが、設定を大文字のスネークケースにした場合、名称の変換が行われます。</p>
+
+<h4>結果セット値の型変換</h4>
+
+<p>結果セットはすべて文字列として返されます。別の型で保持したい場合型変換が必要となります。例えば日時を <em>DateTime</em> で保持するなど。</p>
+
+<p>この型は、コンストラクタのタイプヒントの他に、コンストラクタのドキュメントコメントからの取得を試みます。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/**</span>
+<span class="x"> * @Column(alias=&quot;zip_number&quot;)</span>
+<span class="x"> *</span>
+<span class="x"> * @param string zip</span>
+<span class="x"> * @param string address</span>
+<span class="x"> * @param integer streetNumber </span>
+<span class="x"> */</span>
+<span class="x">public function __construct($zip, $address = null, $streetNumber = null) {</span>
+</code></pre></div>]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Omelet Reference(Draft) 1]]></title>
