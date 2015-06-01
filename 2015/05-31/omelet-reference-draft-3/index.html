@@ -1,0 +1,424 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Omelet Reference(Draft) 3 - Since 1975</title>
+	<meta name="author" content="ktz_alias">
+
+	
+	<meta name="description" content="DAO (Data Access Object) データベースにアクセスし、結果を返すための窓口となるインターフェースです。 メソッドアノテーション インターフェースの各メソッドは、問い合わせ／コマンドに応じて、以下のアノテーションのうちの一つを指定します @Select 問い合わせ @ &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Since 1975" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Since 1975</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:ritalin.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/ktz_alias" title="Twitter">Twitter</a>
+		
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:ritalin.github.io">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Omelet Reference(Draft) 3</h2>
+	<div class="entry-content"><h2>DAO (Data Access Object)</h2>
+
+<p>データベースにアクセスし、結果を返すための窓口となるインターフェースです。</p>
+
+<h3>メソッドアノテーション</h3>
+
+<p>インターフェースの各メソッドは、問い合わせ／コマンドに応じて、以下のアノテーションのうちの一つを指定します</p>
+
+<ul>
+<li>@Select
+
+<ul>
+<li>問い合わせ</li>
+</ul></li>
+<li>@Insert 
+
+<ul>
+<li>レコード追加</li>
+</ul></li>
+<li>@Update
+
+<ul>
+<li>レコード更新</li>
+</ul></li>
+<li>@Delete
+
+<ul>
+<li>レコード削除</li>
+</ul></li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Omelet\Annotation\Select</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Omelet\Annotation\Insert</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Omelet\Annotation\Update</span><span class="p">;</span>
+</span><span class='line'><span class="k">use</span> <span class="nx">Omelet\Annotation\Delete</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">interface</span> <span class="nx">TodoDao</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @Select</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">function</span> <span class="nf">selectAll</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @Insert</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">function</span> <span class="nf">insert</span><span class="p">(</span><span class="k">array</span> <span class="nv">$values</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @Update</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">function</span> <span class="nf">update</span><span class="p">(</span><span class="k">array</span> <span class="nv">$values</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @Delete</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">function</span> <span class="nf">delete</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h3>パラメータ</h3>
+
+<p>引数をもつメソッドを定義することで、SQLのパラメータとして提供することができます。</p>
+
+<p>また、タイプヒンティングまたは <em>@param</em> ドキュメントコメントを示すことで、パラメータを適切に型変換します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param boolean unfinished</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">find</span><span class="p">(</span><span class="nv">$unfinished</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>上の例は、bool型として引数を処理します</p>
+
+<p>タイプヒンティングまたは <em>@param</em> ドキュメントコメントがない場合、引数を文字列として処理することに注意してください。</p>
+
+<p>例えば、以下のメソッド定義において</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">findByDateBetween</span><span class="p">(</span><span class="nv">$from</span><span class="p">,</span> <span class="nv">$to</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p><em>$from</em> と <em>$to</em> は、 <strong>\Doctrine\DBAL\Types\Type::STRING</strong> として処理されます。</p>
+
+<p>このタイプは、<em>\PDO::PARAM_STR</em> として、引数の値を変換せずそのままパラメータとしてバインドします。</p>
+
+<p>もし、<em>$from</em> や <em>$to</em> が <strong>\DateTime</strong> 型の場合、SQL実行時にエラーとなるでしょう。</p>
+
+<p>以下のように、タイプヒンティングかまたはドキュメントコメント（もしくは両方）を明示してください。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param DateTime from</span>
+</span><span class='line'><span class="sd"> * @param DateTime to</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">findByDateBetween</span><span class="p">(</span><span class="nx">\DateTime</span> <span class="nv">$from</span><span class="p">,</span> <span class="nx">\DateTime</span> <span class="nv">$to</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h4>プリミティブ値を渡す</h4>
+
+<p>メソッドの引数名がそのままSQLのパラメータ名となります。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">todo</span>
+</span><span class='line'><span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="p">:</span><span class="n">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>というSQLの場合、</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param integer id</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">findById</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>というメソッド定義となります。</p>
+
+<p>プリミティブとして扱える型は、</p>
+
+<ul>
+<li>文字列(string)</li>
+<li>整数(integer / int)</li>
+<li>論理型(boolean / bool)</li>
+<li>不動小数点数(float / double)</li>
+<li>タイムゾーンなし日時(DateTime)</li>
+</ul>
+
+<p>となります。</p>
+
+<h4>（連想）配列を渡す</h4>
+
+<h4>ドメインを渡す</h4>
+
+<h4>エンティティを渡す</h4>
+
+<h3>結果の取得(Select)</h3>
+
+<p>メソッドに <em>@return</em> ドキュメントコメントが明示されている場合、その型での結果セットの返却を行います。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param integer id</span>
+</span><span class='line'><span class="sd"> * @return DateTime</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">getPublishedDateById</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>上の例では、結果から <strong>DateTime</strong> 型のオブジェクトを生成して返します。</p>
+
+<p>メソッドに <em>@return</em> ドキュメントコメントが明示されていない場合、行の配列として返します。
+行は列名をキーとする連想配列で、その値の型はすべて文字列です。</p>
+
+<h4>プリミティブ値として取得</h4>
+
+<p>結果をプリミティブ値として返却します。</p>
+
+<p>プリミティブとして扱える型は、引数と同様</p>
+
+<ul>
+<li>文字列(string)</li>
+<li>整数(integer / int)</li>
+<li>論理型(boolean / bool)</li>
+<li>不動小数点数(float / double)</li>
+<li>タイムゾーンなし日時(DateTime)</li>
+</ul>
+
+<p>です。</p>
+
+<p>SQLの実行結果が複数行となる場合、その先頭行、先頭列の値を返します。
+これは適切にソートされていないと、受け取る結果が安定しないということを意味しています。</p>
+
+<h4>プリミティブ値の配列として取得</h4>
+
+<p>メソッドのドキュメントコメントがプリミティブな型の配列の場合、結果をプリミティブ値として返却します。</p>
+
+<p>PhpDocumenterの仕様に従い、配列は型名の後ろに <strong>[ ]</strong> を付与します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @return DateTime[]</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">listPublishedDateAll</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h4>ドメインとして取得</h4>
+
+<h4>ドメインの配列として取得</h4>
+
+<h4>エンティティとして取得</h4>
+
+<h4>エンティティの配列として取得</h4>
+
+<h3>結果の取得(Insert, Update, Delete)</h3>
+
+<p>現在の仕様では、作用されたレコード数を返します。</p>
+
+<h3>クラスアノテーション</h3>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-31T23:58:43+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/omelet/'>omelet</a>, <a class='category' href='/blog/categories/orm/'>orm</a>, <a class='category' href='/blog/categories/php/'>php</a>
+
+
+</div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ritalin.github.io/2015/05-31/omelet-reference-draft-3/" data-via="ktz_alias" data-counturl="http://ritalin.github.io/2015/05-31/omelet-reference-draft-3/" >Tweet</a>
+  		
+		
+		
+	</div>
+	
+</div>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2015
+
+    ktz_alias
+
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: orm | Since 1975]]></title>
   <link href="http://ritalin.github.io/blog/categories/orm/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-05-31T20:45:56+09:00</updated>
+  <updated>2015-06-01T23:25:13+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,203 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Omelet Reference(Draft) 3]]></title>
+    <link href="http://ritalin.github.io/2015/05-31/omelet-reference-draft-3/"/>
+    <updated>2015-05-31T23:58:43+09:00</updated>
+    <id>http://ritalin.github.io/2015/05-31/omelet-reference-draft-3</id>
+    <content type="html"><![CDATA[<h2>DAO (Data Access Object)</h2>
+
+<p>データベースにアクセスし、結果を返すための窓口となるインターフェースです。</p>
+
+<h3>メソッドアノテーション</h3>
+
+<p>インターフェースの各メソッドは、問い合わせ／コマンドに応じて、以下のアノテーションのうちの一つを指定します</p>
+
+<ul>
+<li>@Select
+
+<ul>
+<li>問い合わせ</li>
+</ul></li>
+<li>@Insert 
+
+<ul>
+<li>レコード追加</li>
+</ul></li>
+<li>@Update
+
+<ul>
+<li>レコード更新</li>
+</ul></li>
+<li>@Delete
+
+<ul>
+<li>レコード削除</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">use Omelet\Annotation\Select;</span>
+<span class="x">use Omelet\Annotation\Insert;</span>
+<span class="x">use Omelet\Annotation\Update;</span>
+<span class="x">use Omelet\Annotation\Delete;</span>
+
+<span class="x">interface TodoDao {</span>
+<span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     */</span>
+<span class="x">    function selectAll();</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @Insert</span>
+<span class="x">     */</span>
+<span class="x">    function insert(array $values);</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @Update</span>
+<span class="x">     */</span>
+<span class="x">    function update(array $values);</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @Delete</span>
+<span class="x">     */</span>
+<span class="x">    function delete($id);</span>
+<span class="x">}</span>
+</code></pre></div>
+<h3>パラメータ</h3>
+
+<p>引数をもつメソッドを定義することで、SQLのパラメータとして提供することができます。</p>
+
+<p>また、タイプヒンティングまたは <em>@param</em> ドキュメントコメントを示すことで、パラメータを適切に型変換します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     *</span>
+<span class="x">     * @param boolean unfinished</span>
+<span class="x">     */</span>
+<span class="x">    function find($unfinished);</span>
+</code></pre></div>
+<p>上の例は、bool型として引数を処理します</p>
+
+<p>タイプヒンティングまたは <em>@param</em> ドキュメントコメントがない場合、引数を文字列として処理することに注意してください。</p>
+
+<p>例えば、以下のメソッド定義において</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     *</span>
+<span class="x">     */</span>
+<span class="x">    function findByDateBetween($from, $to);</span>
+</code></pre></div>
+<p><em>$from</em> と <em>$to</em> は、 <strong>\Doctrine\DBAL\Types\Type::STRING</strong> として処理されます。</p>
+
+<p>このタイプは、<em>\PDO::PARAM_STR</em> として、引数の値を変換せずそのままパラメータとしてバインドします。</p>
+
+<p>もし、<em>$from</em> や <em>$to</em> が <strong>\DateTime</strong> 型の場合、SQL実行時にエラーとなるでしょう。</p>
+
+<p>以下のように、タイプヒンティングかまたはドキュメントコメント（もしくは両方）を明示してください。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     *</span>
+<span class="x">     * @param DateTime from</span>
+<span class="x">     * @param DateTime to</span>
+<span class="x">     */</span>
+<span class="x">    function findByDateBetween(\DateTime $from, \DateTime $to);</span>
+</code></pre></div>
+<h4>プリミティブ値を渡す</h4>
+
+<p>メソッドの引数名がそのままSQLのパラメータ名となります。</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">todo</span>
+<span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="p">:</span><span class="n">id</span>
+</code></pre></div>
+<p>というSQLの場合、</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     *</span>
+<span class="x">     * @param integer id</span>
+<span class="x">     */</span>
+<span class="x">    function findById($id);</span>
+</code></pre></div>
+<p>というメソッド定義となります。</p>
+
+<p>プリミティブとして扱える型は、</p>
+
+<ul>
+<li>文字列(string)</li>
+<li>整数(integer / int)</li>
+<li>論理型(boolean / bool)</li>
+<li>不動小数点数(float / double)</li>
+<li>タイムゾーンなし日時(DateTime)</li>
+</ul>
+
+<p>となります。</p>
+
+<h4>（連想）配列を渡す</h4>
+
+<h4>ドメインを渡す</h4>
+
+<h4>エンティティを渡す</h4>
+
+<h3>結果の取得(Select)</h3>
+
+<p>メソッドに <em>@return</em> ドキュメントコメントが明示されている場合、その型での結果セットの返却を行います。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     *</span>
+<span class="x">     * @param integer id</span>
+<span class="x">     * @return DateTime</span>
+<span class="x">     */</span>
+<span class="x">    function getPublishedDateById($id);</span>
+</code></pre></div>
+<p>上の例では、結果から <strong>DateTime</strong> 型のオブジェクトを生成して返します。</p>
+
+<p>メソッドに <em>@return</em> ドキュメントコメントが明示されていない場合、行の配列として返します。
+行は列名をキーとする連想配列で、その値の型はすべて文字列です。</p>
+
+<h4>プリミティブ値として取得</h4>
+
+<p>結果をプリミティブ値として返却します。</p>
+
+<p>プリミティブとして扱える型は、引数と同様</p>
+
+<ul>
+<li>文字列(string)</li>
+<li>整数(integer / int)</li>
+<li>論理型(boolean / bool)</li>
+<li>不動小数点数(float / double)</li>
+<li>タイムゾーンなし日時(DateTime)</li>
+</ul>
+
+<p>です。</p>
+
+<p>SQLの実行結果が複数行となる場合、その先頭行、先頭列の値を返します。
+これは適切にソートされていないと、受け取る結果が安定しないということを意味しています。</p>
+
+<h4>プリミティブ値の配列として取得</h4>
+
+<p>メソッドのドキュメントコメントがプリミティブな型の配列の場合、結果をプリミティブ値として返却します。</p>
+
+<p>PhpDocumenterの仕様に従い、配列は型名の後ろに <strong>[ ]</strong> を付与します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     *</span>
+<span class="x">     * @return DateTime[]</span>
+<span class="x">     */</span>
+<span class="x">    function listPublishedDateAll();</span>
+</code></pre></div>
+<h4>ドメインとして取得</h4>
+
+<h4>ドメインの配列として取得</h4>
+
+<h4>エンティティとして取得</h4>
+
+<h4>エンティティの配列として取得</h4>
+
+<h3>結果の取得(Insert, Update, Delete)</h3>
+
+<p>現在の仕様では、作用されたレコード数を返します。</p>
+
+<h3>クラスアノテーション</h3>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Omelet Reference(Draft) 2]]></title>

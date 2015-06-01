@@ -7,7 +7,7 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="これはDelphi Advent Calendar 2012参加記事です。 他の言語でDIコンテナ（依存性注入の方）を使用していて、ふと気づいたDI（依存性逆転の方)ついて、つらつらと。 普段会社では、いまだにDelphi 7をWindows7のXP Mode上で使ってる身です（主に保守ですが &hellip;">
+	<meta name="description" content="これはTDD Advent Calendar jp: 2012参加記事です。 前日（7日目）は、高野将さんの「TDDにIDEを活用しよう (VS2012+CodeRush Xpress)」でした。 さて、私の方はというと...ATNDの方にコメントで windows8から搭載された、 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +76,328 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2012/12-08/tdd-advent-2012/">
+		
+			Rhino.Mocksをちょっとだけ幸せにするお助けクラス</a>
+	</h2>
+	<div class="entry-content">
+		<p>これは<a href="http://atnd.org/events/33846">TDD Advent Calendar jp: 2012</a>参加記事です。</p>
+
+<p>前日（7日目）は、高野将さんの「<a href="http://takanosho.wordpress.com/2012/12/07/tdd-advent-calendar-2012/">TDDにIDEを活用しよう (VS2012+CodeRush Xpress)</a>」でした。</p>
+
+<p>さて、私の方はというと&#8230;ATNDの方にコメントで</p>
+
+<blockquote>
+<p>windows8から搭載された、名前を出すことがはばかれる例のヤツをNUnitでテストする時の注意点とか（仮）</p>
+</blockquote>
+
+<p>なんて書きました。</p>
+
+<p>最大の敵は、なんといってもasync / await機構が対応していなかったためテストが書きづらく、そのための支援クラスをいくつか書いたので、それをさらそうと思っていました。</p>
+
+<p>思っていました&#8230;.。</p>
+
+<p>そんな折、</p>
+
+<blockquote>
+<p><a href="http://www.tdd-net.jp/2012/11/news-nunit-262-.html">NUnit 2.6.2 リリース ～ async/await に対応!</a> (www.tdd-net.jp)</p>
+</blockquote>
+
+<p>とのことで、もはや書く意味なくなりました。</p>
+
+<p>なくなりました&#8230;.。</p>
+
+<p>なので別ネタに切り替えます。
+で、最近コツコツ調べてる、<a href="http://www.hibernatingrhinos.com/oss/rhino-mocks">Rhino.Mocks</a>用のお助けクラスを書いたので、それを披露しようかと思います。</p>
+
+<h2>前ふりから&#8230;</h2>
+
+<p>Rhino.Mocksのお作法では、</p>
+
+<ol>
+<li><code>MockRepository.GenerateMock()</code>でMockインスタンスを生成する</li>
+<li>Mockインスタンスに対し、Expect()とReturns()などでもって入り口と出口を差し替える。</li>
+<li>走らせる。</li>
+<li>最後にVerifyAll()で、通過したか確認</li>
+</ol>
+
+<p>という、AAA (Arrange - Act - Assert)スタイルが用いられます。</p>
+
+<p>より下層のユニってテストレベルだと、これで困らないのですが、より上層の振る舞いテストの場合、</p>
+
+<ul>
+<li>ネットワークから情報抜き出し</li>
+<li>ローカルに保存</li>
+</ul>
+
+<p>などのリソースアクセスが複数登場してきます。
+より下層のロジックをMock化しようとすると、複数のMockを作成して、各々に対して<code>VerifyAll()</code>を呼ぶというチョーメンドクサイ記述が必要です。</p>
+
+<p>うっかり書き忘れるようものなら、目も当てられません。
+まとめてVerify出来ればいいのに&#8230;.。</p>
+
+<p>実は、静的メソッド<code>MockRepository.GenerateMock()</code>とは別に、</p>
+
+<ol>
+<li>MockRepositoryのインスタンスを生成する</li>
+<li>CreateMock〜()を呼んで、Mockインスタンスを生成する</li>
+<li>以下同文</li>
+</ol>
+
+<p>というように、１つのレポジトリから複数のMockを生成することが出来ます。
+最後に、MockRepositoryのVerifyAll()を呼んでやれば、まとめて通過検証ができると。</p>
+
+<p>やってみました&#8230;.。</p>
+
+<p>残念、最初のA、つまりArrangeを行ってくれません。
+従って、Mockを通過しないので、各MockのVerifyAll()がことごとく失敗します。
+理由は、個々のMockに対し、MockRepository.Replay()が呼ぶ必要があるからです。</p>
+
+<h2>SO・KO・DE</h2>
+
+<p>ヘルパクラス書いちゃいました。
+<a href="https://gist.github.com/4147464">4147464</a> A Helper class to support uniform management of generared mock / stub for Rhino.Mocks.
+<div><script src='https://gist.github.com/4147464.js?file=RhinoMocksCreationExtensions.cs'></script>
+<noscript><pre><code>using System;
+using Rhino.Mocks;</p>
+
+<p>namespace Samples {
+    internal static class RhinoMocksCreationExtensions {
+        /// &lt;summary&gt;Generates a stub without needing a &lt;see cref=&quot;MockRepository&quot;/&gt;&lt;/summary&gt;
+        /// &lt;param name=&quot;argumentsForConstructor&quot;&gt;Arguments for &lt;typeparamref name=&quot;T&quot;/&gt;&#39;s constructor&lt;/param&gt;
+        /// &lt;typeparam name=&quot;T&quot;&gt;The &lt;see cref=&quot;Type&quot;/&gt; of stub to create.&lt;/typeparam&gt;
+        /// &lt;returns&gt;The stub&lt;/returns&gt;
+        /// &lt;seealso cref=&quot;Stub{T}&quot;/&gt;
+        public static T GenerateStubHelper&lt;T&gt;(this MockRepository repository, params object[] argumentsForConstructor) where T : class {
+            return CreateMockInReplay(repository, repo =&gt; (T)repo.Stub(typeof(T), argumentsForConstructor));
+        }</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">    /// &amp;lt;summary&amp;gt;Generates a stub without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    /// &amp;lt;param name=&amp;quot;type&amp;quot;&amp;gt;The &amp;lt;see cref=&amp;quot;Type&amp;quot;/&amp;gt; of stub.&amp;lt;/param&amp;gt;
+    /// &amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Arguments for the &amp;lt;paramref name=&amp;quot;type&amp;quot;/&amp;gt;&amp;#39;s constructor.&amp;lt;/param&amp;gt;
+    /// &amp;lt;returns&amp;gt;The stub&amp;lt;/returns&amp;gt;
+    /// &amp;lt;seealso cref=&amp;quot;Stub&amp;quot;/&amp;gt;
+    public static object GenerateStubHelper(this MockRepository repository, Type type, params object[] argumentsForConstructor) {
+        return CreateMockInReplay(repository, repo =&amp;gt; repo.Stub(type, argumentsForConstructor));
+    }
+
+    /// &amp;lt;summary&amp;gt;Generate a mock object without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    /// &amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;type &amp;lt;see cref=&amp;quot;Type&amp;quot;/&amp;gt; of mock object to create.&amp;lt;/typeparam&amp;gt;
+    /// &amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Arguments for &amp;lt;typeparamref name=&amp;quot;T&amp;quot;/&amp;gt;&amp;#39;s constructor&amp;lt;/param&amp;gt;
+    /// &amp;lt;returns&amp;gt;the mock object&amp;lt;/returns&amp;gt;
+    /// &amp;lt;seealso cref=&amp;quot;DynamicMock{T}&amp;quot;/&amp;gt;
+    public static T GenerateMockHelper&amp;lt;T&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) where T : class {
+        return CreateMockInReplay(repository, r =&amp;gt; r.DynamicMock&amp;lt;T&amp;gt;(argumentsForConstructor));
+    }
+
+    /// &amp;lt;summary&amp;gt;Generate a multi-mock object without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    /// &amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;The &amp;lt;c&amp;gt;typeof&amp;lt;/c&amp;gt; object to generate a mock for.&amp;lt;/typeparam&amp;gt;
+    /// &amp;lt;typeparam name=&amp;quot;TMultiMockInterface1&amp;quot;&amp;gt;A second interface to generate a multi-mock for.&amp;lt;/typeparam&amp;gt;
+    /// &amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Arguments for &amp;lt;typeparamref name=&amp;quot;T&amp;quot;/&amp;gt;&amp;#39;s constructor&amp;lt;/param&amp;gt;
+    /// &amp;lt;returns&amp;gt;the multi-mock object&amp;lt;/returns&amp;gt;
+    /// &amp;lt;seealso cref=&amp;quot;DynamicMultiMock(System.Type,System.Type[],object[])&amp;quot;/&amp;gt;
+    public static T GenerateMockHelper&amp;lt;T, TMultiMockInterface1&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return (T)RhinoMocksCreationExtensions.GenerateMockHelper(
+            repository,
+            typeof(T), new Type[] { typeof(TMultiMockInterface1) }, argumentsForConstructor);
+    }
+
+    /// &amp;lt;summary&amp;gt;Generate a multi-mock object without without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    /// &amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;The &amp;lt;c&amp;gt;typeof&amp;lt;/c&amp;gt; object to generate a mock for.&amp;lt;/typeparam&amp;gt;
+    /// &amp;lt;typeparam name=&amp;quot;TMultiMockInterface1&amp;quot;&amp;gt;An interface to generate a multi-mock for.&amp;lt;/typeparam&amp;gt;
+    /// &amp;lt;typeparam name=&amp;quot;TMultiMockInterface2&amp;quot;&amp;gt;A second interface to generate a multi-mock for.&amp;lt;/typeparam&amp;gt;
+    /// &amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Arguments for &amp;lt;typeparamref name=&amp;quot;T&amp;quot;/&amp;gt;&amp;#39;s constructor&amp;lt;/param&amp;gt;
+    /// &amp;lt;returns&amp;gt;the multi-mock object&amp;lt;/returns&amp;gt;
+    /// &amp;lt;seealso cref=&amp;quot;DynamicMultiMock(Type,Type[],object[])&amp;quot;/&amp;gt;
+    public static T GenerateMockHelper&amp;lt;T, TMultiMockInterface1, TMultiMockInterface2&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return (T)RhinoMocksCreationExtensions.GenerateMockHelper(
+            repository,
+            typeof(T), new Type[] { typeof(TMultiMockInterface1), typeof(TMultiMockInterface2) }, argumentsForConstructor
+        );
+    }
+
+    /// &amp;lt;summary&amp;gt;Creates a multi-mock without without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    /// &amp;lt;param name=&amp;quot;type&amp;quot;&amp;gt;The type of mock to create, this can be a class&amp;lt;/param&amp;gt;
+    /// &amp;lt;param name=&amp;quot;extraTypes&amp;quot;&amp;gt;Any extra interfaces to add to the multi-mock, these can only be interfaces.&amp;lt;/param&amp;gt;
+    /// &amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Arguments for &amp;lt;paramref name=&amp;quot;type&amp;quot;/&amp;gt;&amp;#39;s constructor&amp;lt;/param&amp;gt;
+    /// &amp;lt;returns&amp;gt;the multi-mock object&amp;lt;/returns&amp;gt;
+    /// &amp;lt;seealso cref=&amp;quot;DynamicMultiMock(System.Type,System.Type[],object[])&amp;quot;/&amp;gt;
+    public static object GenerateMockHelper(this MockRepository repository, Type type, Type[] extraTypes, params object[] argumentsForConstructor) {
+        return CreateMockInReplay(repository, r =&amp;gt; r.DynamicMultiMock(type, extraTypes, argumentsForConstructor));
+    }
+
+    ///&amp;lt;summary&amp;gt;Creates a strict mock without without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    ///&amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Any arguments required for the &amp;lt;typeparamref name=&amp;quot;T&amp;quot;/&amp;gt;&amp;#39;s constructor&amp;lt;/param&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;The type of mock object to create.&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;returns&amp;gt;The mock object with strict replay semantics&amp;lt;/returns&amp;gt;
+    /// &amp;lt;seealso cref=&amp;quot;StrictMock{T}&amp;quot;/&amp;gt;
+    public static T GenerateStrictMockHelper&amp;lt;T&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return CreateMockInReplay(repository, r =&amp;gt; r.StrictMock&amp;lt;T&amp;gt;(argumentsForConstructor));
+    }
+
+    ///&amp;lt;summary&amp;gt;Creates a strict multi-mock without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    ///&amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Any arguments required for the &amp;lt;typeparamref name=&amp;quot;T&amp;quot;/&amp;gt;&amp;#39;s constructor&amp;lt;/param&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;The type of mock object to create, this can be a class.&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;TMultiMockInterface1&amp;quot;&amp;gt;An interface to generate a multi-mock for, this must be an interface!&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;returns&amp;gt;The multi-mock object with strict replay semantics&amp;lt;/returns&amp;gt;
+    /// &amp;lt;seealso cref=&amp;quot;StrictMultiMock(System.Type,System.Type[],object[])&amp;quot;/&amp;gt;
+    public static T GenerateStrictMockHelper&amp;lt;T, TMultiMockInterface1&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return (T)RhinoMocksCreationExtensions.GenerateStrictMockHelper(
+            repository,
+            typeof(T), new Type[] { typeof(TMultiMockInterface1) }, argumentsForConstructor
+        );
+    }
+
+    ///&amp;lt;summary&amp;gt;Creates a strict multi-mock without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    ///&amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Any arguments required for the &amp;lt;typeparamref name=&amp;quot;T&amp;quot;/&amp;gt;&amp;#39;s constructor&amp;lt;/param&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;The type of mock object to create, this can be a class.&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;TMultiMockInterface1&amp;quot;&amp;gt;An interface to generate a multi-mock for, this must be an interface!&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;TMultiMockInterface2&amp;quot;&amp;gt;A second interface to generate a multi-mock for, this must be an interface!&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;returns&amp;gt;The multi-mock object with strict replay semantics&amp;lt;/returns&amp;gt;
+    ///&amp;lt;seealso cref=&amp;quot;StrictMultiMock(System.Type,System.Type[],object[])&amp;quot;/&amp;gt;
+    public static T GenerateStrictMockHelper&amp;lt;T, TMultiMockInterface1, TMultiMockInterface2&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return (T)RhinoMocksCreationExtensions.GenerateStrictMockHelper(
+            repository,
+            typeof(T), new Type[] { typeof(TMultiMockInterface1), typeof(TMultiMockInterface2) }, argumentsForConstructor
+        );
+    }
+
+    ///&amp;lt;summary&amp;gt;Creates a strict multi-mock without needing a &amp;lt;see cref=&amp;quot;MockRepository&amp;quot;/&amp;gt;&amp;lt;/summary&amp;gt;
+    ///&amp;lt;param name=&amp;quot;type&amp;quot;&amp;gt;The type of mock object to create, this can be a class&amp;lt;/param&amp;gt;
+    ///&amp;lt;param name=&amp;quot;extraTypes&amp;quot;&amp;gt;Any extra interfaces to generate a multi-mock for, these must be interaces!&amp;lt;/param&amp;gt;
+    ///&amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;Any arguments for the &amp;lt;paramref name=&amp;quot;type&amp;quot;/&amp;gt;&amp;#39;s constructor&amp;lt;/param&amp;gt;
+    ///&amp;lt;returns&amp;gt;The strict multi-mock object&amp;lt;/returns&amp;gt;
+    /// &amp;lt;seealso cref=&amp;quot;StrictMultiMock(System.Type,System.Type[],object[])&amp;quot;/&amp;gt;
+    public static object GenerateStrictMockHelper(this MockRepository repository, Type type, Type[] extraTypes, params object[] argumentsForConstructor) {
+        if (extraTypes == null) extraTypes = new Type[0];
+        if (argumentsForConstructor == null) argumentsForConstructor = new object[0];
+
+        return CreateMockInReplay(repository, r =&amp;gt; r.StrictMultiMock(type, extraTypes, argumentsForConstructor));
+    }
+
+    ///&amp;lt;summary&amp;gt;
+    ///&amp;lt;/summary&amp;gt;
+    ///&amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;&amp;lt;/param&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;returns&amp;gt;&amp;lt;/returns&amp;gt;
+    public static T GeneratePartialMockHelper&amp;lt;T&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return (T)RhinoMocksCreationExtensions.GeneratePartialMockHelper(
+            repository,
+            typeof(T), new Type[0], argumentsForConstructor
+        );
+    }
+
+    ///&amp;lt;summary&amp;gt;
+    ///&amp;lt;/summary&amp;gt;
+    ///&amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;&amp;lt;/param&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;TMultiMockInterface1&amp;quot;&amp;gt;&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;returns&amp;gt;&amp;lt;/returns&amp;gt;
+    public static T GeneratePartialMockHelper&amp;lt;T, TMultiMockInterface1&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return (T)RhinoMocksCreationExtensions.GeneratePartialMockHelper(
+            repository,
+            typeof(T), new Type[] { typeof(TMultiMockInterface1) }, argumentsForConstructor
+        );
+    }
+
+    ///&amp;lt;summary&amp;gt;
+    ///&amp;lt;/summary&amp;gt;
+    ///&amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;&amp;lt;/param&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;T&amp;quot;&amp;gt;&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;TMultiMockInterface1&amp;quot;&amp;gt;&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;typeparam name=&amp;quot;TMultiMockInterface2&amp;quot;&amp;gt;&amp;lt;/typeparam&amp;gt;
+    ///&amp;lt;returns&amp;gt;&amp;lt;/returns&amp;gt;
+    public static T GeneratePartialMockHelper&amp;lt;T, TMultiMockInterface1, TMultiMockInterface2&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return (T)RhinoMocksCreationExtensions.GeneratePartialMockHelper(
+            repository,
+            typeof(T), new Type[] { typeof(TMultiMockInterface1), typeof(TMultiMockInterface2) }, argumentsForConstructor
+        );
+    }
+
+    ///&amp;lt;summary&amp;gt;
+    ///&amp;lt;/summary&amp;gt;
+    ///&amp;lt;param name=&amp;quot;type&amp;quot;&amp;gt;&amp;lt;/param&amp;gt;
+    ///&amp;lt;param name=&amp;quot;extraTypes&amp;quot;&amp;gt;&amp;lt;/param&amp;gt;
+    ///&amp;lt;param name=&amp;quot;argumentsForConstructor&amp;quot;&amp;gt;&amp;lt;/param&amp;gt;
+    ///&amp;lt;returns&amp;gt;&amp;lt;/returns&amp;gt;
+    public static object GeneratePartialMockHelper(this MockRepository repository, Type type, Type[] extraTypes, params object[] argumentsForConstructor) {
+        return CreateMockInReplay(repository, r =&amp;gt; r.PartialMultiMock(type, extraTypes, argumentsForConstructor));
+    }
+
+    /// &amp;lt;summary&amp;gt;
+    /// Generate a mock object with dynamic replay semantics and remoting without needing the mock repository
+    /// &amp;lt;/summary&amp;gt;
+    public static T GenerateDynamicMockWithRemotingHelper&amp;lt;T&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) {
+        return CreateMockInReplay(repository, r =&amp;gt; r.DynamicMockWithRemoting&amp;lt;T&amp;gt;(argumentsForConstructor));
+    }
+
+    /// &amp;lt;summary&amp;gt;
+    /// Generate a mock object with strict replay semantics and remoting without needing the mock repository
+    /// &amp;lt;/summary&amp;gt;
+    public static T GenerateStrictMockWithRemotingHelper&amp;lt;T&amp;gt;(this MockRepository repository, params object[] argumentsForConstructor) where T : class {
+        return CreateMockInReplay(repository, r =&amp;gt; r.StrictMockWithRemoting&amp;lt;T&amp;gt;(argumentsForConstructor));
+    }
+
+    private static T CreateMockInReplay&amp;lt;T&amp;gt;(MockRepository repository, Func&amp;lt;MockRepository, T&amp;gt; createMock) {
+        var mockObject = createMock(repository);
+        repository.Replay(mockObject);
+
+        return mockObject;
+    }
+}
+</code></pre></div>
+<p>}
+</code></pre></noscript></div></p>
+
+<p>なんてことはない、ただの拡張クラスです。しかもMockRepositoryAAA.csまるパクリ。</p>
+
+<p>MockRepositoryの静的メソッドと同じ名前の拡張メソッドには出来なかったため、〜Helperというメソッド名にしていますが、引数は基本おなじはずです。</p>
+
+<ol>
+<li>MockRepositoryのインスタンスを生成する</li>
+<li>GenerateMockHelper()を呼んで、Mockインスタンスを生成する</li>
+<li>以下同文</li>
+</ol>
+
+<p>最後に、MockRepository.VerifyAll()を呼べば、まとめて通過検証できます。</p>
+
+<p>やっつけで作ったものですが、それとなく使えているので、個人的に重宝してます。</p>
+
+<p>明日（9日目）は、<a href="http://d.hatena.ne.jp/setoazusa/20121209/1355056720">せとあずさ♂</a>さんです。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-08T00:00:00+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/advent/'>advent</a>, <a class='category' href='/blog/categories/rhinomocks/'>rhinomocks</a>, <a class='category' href='/blog/categories/tdd/'>tdd</a>
+
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
