@@ -264,9 +264,82 @@
 
 <p>となります。</p>
 
-<h4>（連想）配列を渡す</h4>
+<h4>連想配列を渡す</h4>
+
+<p>{引数名}_{各要素のキー}をSQLのパラメータ名として使用します。</p>
+
+<p>例えば、</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Insert</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param string[]</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">$params</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>というメソッド定義があり、引数として渡される値が</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="p">[</span> <span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;10&#39;</span><span class="p">,</span> <span class="s1">&#39;todo&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;abc-xyz-12345&#39;</span><span class="p">,</span> <span class="s1">&#39;updated_at&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;2015-05-30&#39;</span> <span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>の場合、</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">insert</span> <span class="k">into</span> <span class="n">todo</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">todo</span><span class="p">,</span> <span class="n">updateAt</span><span class="p">)</span>
+</span><span class='line'><span class="k">values</span> <span class="p">(:</span><span class="n">params_id</span><span class="p">,</span> <span class="p">:</span><span class="n">params_todo</span><span class="p">,</span> <span class="p">:</span><span class="n">params_updated_at</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>という、SQLを用意します。</p>
+
+<p>引数として、配列を渡す場合、すべての要素はドキュメントコメントに従った同じ型をもつこととなります。</p>
+
+<p>上の例のように、パラメータに文字列として日付を渡す場合、
+例えばSQLiteでは日付のフォーマットが異なれば正しくフィルタできなくなる可能性があります。</p>
+
+<p>従って、連想配列を使う場合は、すべての配列要素が、 <em>string[]</em> , <em>integer[]</em> , <em>DateTime[]</em> の場合に限定する方が良いでしょう。</p>
+
+<p>複数の型が混在する場合、後述のエンティティに詰め込むことを推奨します。</p>
 
 <h4>ドメインを渡す</h4>
+
+<p>メソッドの引数名がそのままSQLのパラメータ名となります。</p>
+
+<p>ドメインは、 <strong>\Omelet\Domain\CustomDomain</strong> の派生クラスを指します。</p>
+
+<p>ドメイン定義時に指定された <strong>\Doctrine\DBAL\Types\Type</strong> の型定数を元に、保持するドメイン値を適切に整形してSQLのパラメータとして渡します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param PrimaryKey id</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">findById</span><span class="p">(</span><span class="nx">PrimaryKey</span> <span class="nv">$id</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>と、メソッドを定義する場合、SQLは</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sql'><span class='line'><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">todo</span>
+</span><span class='line'><span class="k">where</span> <span class="n">id</span> <span class="o">=</span> <span class="p">:</span><span class="n">id</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>と、なります。</p>
 
 <h4>エンティティを渡す</h4>
 
@@ -336,7 +409,51 @@
 
 <h4>ドメインとして取得</h4>
 
+<p>結果をドメインとして返却します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @param PrimaryKey id</span>
+</span><span class='line'><span class="sd"> * @return Hidden</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">hidden</span><span class="p">(</span><span class="nx">PrimaryKey</span> <span class="nv">$id</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>結果セットの列名に、ドメインのコンストラクタの引数名、もしくは別名が存在する場合、ドメインとしてインスタンス化して返します。</p>
+
+<p>一致する列名が存在しない場合でも、ドメインをインスタンス化ことに注意してください。</p>
+
+<p>また、ドメイン定義として、関数従属の要素を持ち、その名前、または別名が結果セットに存在する場合、関数従属の値付きでドメインをインスタンス化します。</p>
+
+<p>プリミティブ値として取得の時と同様、SQLの実行結果が複数行となる場合、先頭行の内容からドメインの構築を試みます。</p>
+
 <h4>ドメインの配列として取得</h4>
+
+<p>結果をドメインの配列として返却します。</p>
+
+<p>各行のドメインの構築は、ドメインとして取得と同様です。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Select</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @return PrimaryKey[]</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">function</span> <span class="nf">listAllId</span><span class="p">();</span>
+</span></code></pre></td></tr></table></div></figure>
 
 <h4>エンティティとして取得</h4>
 
@@ -347,6 +464,44 @@
 <p>現在の仕様では、作用されたレコード数を返します。</p>
 
 <h3>クラスアノテーション</h3>
+
+<p>DAOインターフェースには、専用のアノテーションとして、 <strong>@Dao</strong> が用意されています。</p>
+
+<p>このアノテーションは以下のパラメータを持っています。</p>
+
+<ul>
+<li>route</li>
+</ul>
+
+<p>通常、SQLはインターフェースの完全クラス名（名前空間\インターフェース名）をパスと見立てたディレクトリの中に、メソッド名と同名のSQLファイルを用意します。</p>
+
+<p>名前空間が長くなると、SQLファイルを探し出すのが大変になります。</p>
+
+<p><em>route</em> パラメータを指定することで、名前空間の分をショートカット、もしくは別ディレクトリにSQLを置くことができます。</p>
+
+<p>例えば、 </p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">namespace</span> <span class="nx">Foo\Bar\Baz</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Dao(route=&quot;FBB&quot;)</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">interface</span> <span class="nx">HogeDao</span> <span class="p">{</span>
+</span><span class='line'>  
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>という定義の場合、</p>
+
+<p><em>Foo/Bar/Baz/HogeDao</em> の代わりに * FBB* を探しに行くようになります。</p>
 </div>
 
 
