@@ -4,7 +4,7 @@
   <title><![CDATA[Since 1975]]></title>
   <link href="http://ritalin.github.io/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-06-03T22:16:13+09:00</updated>
+  <updated>2015-06-03T22:18:07+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -20,7 +20,7 @@
     <id>http://ritalin.github.io/2015/06-03/omelet-reference-draft-4</id>
     <content type="html"><![CDATA[<h2>エンティティ</h2>
 
-<p>エンティティは、値を詰め込み、DAOのパラメータとして渡したり、結果セットを詰め替えて返すために用いるオブジェクトです。</p>
+<p>エンティティは、詰め込んだ値をDAOのパラメータとして渡したり、結果セットを詰め替えて返すために用いるオブジェクトです。</p>
 
 <h3>エンティティの定義</h3>
 
