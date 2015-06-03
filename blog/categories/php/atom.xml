@@ -4,7 +4,7 @@
   <title><![CDATA[Category: php | Since 1975]]></title>
   <link href="http://ritalin.github.io/blog/categories/php/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-06-02T23:25:00+09:00</updated>
+  <updated>2015-06-03T22:16:13+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -12,6 +12,122 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Omelet Reference(Draft) 4]]></title>
+    <link href="http://ritalin.github.io/2015/06-03/omelet-reference-draft-4/"/>
+    <updated>2015-06-03T20:02:06+09:00</updated>
+    <id>http://ritalin.github.io/2015/06-03/omelet-reference-draft-4</id>
+    <content type="html"><![CDATA[<h2>エンティティ</h2>
+
+<p>エンティティは、値を詰め込み、DAOのパラメータとして渡したり、結果セットを詰め替えて返すために用いるオブジェクトです。</p>
+
+<h3>エンティティの定義</h3>
+
+<p>エンティティはドメイン同様クラスですが、ドメインとは異なり何か別のクラスを継承する必要はありません。</p>
+
+<p>ただし、エンティティとして定義するためには、以下の条件を満たす必要があります。</p>
+
+<ul>
+<li>エンティティのフィールドは、プリミティブな型か、もしくはドメインのみ。</li>
+<li>エンティティのフィールドは <em>public</em> のアクセス制限が必要。</li>
+<li><em>public</em> として公開された、引数なしのコンストラクタが存在すること。</li>
+</ul>
+
+<p>以下はプリミティブ値として使用可能な型です。</p>
+
+<ul>
+<li>文字列(string)</li>
+<li>整数(integer / int)</li>
+<li>論理型(boolean / bool)</li>
+<li>不動小数点数(float / double)</li>
+<li>タイムゾーンなし日時(DateTime)</li>
+</ul>
+
+<p>フィールドの型は、ドキュメントコメントで指定します。指定がない場合、 <em>string</em> であると仮定します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class Todo {</span>
+<span class="x">    /**</span>
+<span class="x">     * @var integer</span>
+<span class="x">     */</span>
+<span class="x">    public $id;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @var string</span>
+<span class="x">     */</span>
+<span class="x">    public $todo;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @var DateTime</span>
+<span class="x">     */</span>
+<span class="x">    public $createdAt;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @var Hidden</span>
+<span class="x">     *</span>
+<span class="x">     * Hiddenというドメインが定義されているとする</span>
+<span class="x">     */</span>
+<span class="x">    public $hidden;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>上の例で、コンストラクタを定義していないですが、その場合デフォルトコンストラクタが自動的に用意されるため、問題ないです。</p>
+
+<h3>エンティティフィールドの別名</h3>
+
+<p>エンティティをDAOのパラメータや、結果セットの詰め替え先として用いることができます。</p>
+
+<p>しかし、必ずしも、パラメータ名や結果セットの列名と一致させることができるとは限りません。</p>
+
+<p>そのために、エンティティのフィールドに対して別名を設定することができます。</p>
+
+<p>別名の設定は、ドメイン同様 <strong>@Omelet\Annotation\Column</strong> アノテーションを使用します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">use Omelet\Annotation\Column;</span>
+
+<span class="x">class Todo {</span>
+<span class="x">    /**</span>
+<span class="x">     * @Column(alias=&quot;todo_id&quot;) </span>
+<span class="x">     *</span>
+<span class="x">     * @var integer</span>
+<span class="x">     */</span>
+<span class="x">    public $id;</span>
+<span class="x">...</span>
+<span class="x">}</span>
+</code></pre></div>
+<h3>エンティティフィールドの規定値</h3>
+
+<p><strong>@Column</strong> アノテーションは、結果セットに該当の列が存在しない時に適用される規定値を指定することができます。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Column(default=&quot;nothing&quot;)</span>
+<span class="x">     *</span>
+<span class="x">     * @var string</span>
+<span class="x">     */</span>
+<span class="x">    public $todo;</span>
+</code></pre></div>
+<ul>
+<li>現在クラスのフィールドに定義された規定値は無視しています<br></li>
+</ul>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">/**</span>
+<span class="x"> * @Column(alias=&quot;some_val&quot;) </span>
+<span class="x"> *</span>
+<span class="x"> * @var integer</span>
+<span class="x"> */</span>
+<span class="x">public $someValue = 0; // 結果セットに列がない場合でも、この値は使用されない</span>
+</code></pre></div>
+<h3>ドメインの関数従属値の指定</h3>
+
+<p>結果セットの値をエンティティに詰め込む際、フィールドにドメインが存在し、そのドメインが関数従属の値を受け入れる場合、
+<strong>@Column</strong> アノテーションで、その列名を指定することができます。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Column(alias=&quot;edit_user_id&quot;, optFields={&quot;edit_user_name&quot;, &quot;edit_user_initial_name&quot;})</span>
+<span class="x">     *</span>
+<span class="x">     * @var Editor</span>
+<span class="x">     *</span>
+<span class="x">     * Editorには関数従属としてname, short_nameがあるとする</span>
+<span class="x">     */</span>
+<span class="x">     public $editor;</span>
+</code></pre></div>
+<p><strong>@Column</strong> の　<em>optFields</em> に宣言した順に、ドメインのコンストラクタに渡されることに注意してください。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Omelet Reference(Draft) 3]]></title>

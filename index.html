@@ -7,7 +7,7 @@
 	<meta name="author" content="ktz_alias">
 
 	
-	<meta name="description" content="DAO (Data Access Object) データベースにアクセスし、結果を返すための窓口となるインターフェースです。 メソッドアノテーション インターフェースの各メソッドは、問い合わせ／コマンドに応じて、以下のアノテーションのうちの一つを指定します @Select 問い合わせ @ &hellip;">
+	<meta name="description" content="エンティティ エンティティは、値を詰め込み、DAOのパラメータとして渡したり、結果セットを詰め替えて返すために用いるオブジェクトです。 エンティティの定義 エンティティはドメイン同様クラスですが、ドメインとは異なり何か別のクラスを継承する必要はありません。 ただし、 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -76,6 +76,218 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/2015/06-03/omelet-reference-draft-4/">
+		
+			Omelet Reference(Draft) 4</a>
+	</h2>
+	<div class="entry-content">
+		<h2>エンティティ</h2>
+
+<p>エンティティは、値を詰め込み、DAOのパラメータとして渡したり、結果セットを詰め替えて返すために用いるオブジェクトです。</p>
+
+<h3>エンティティの定義</h3>
+
+<p>エンティティはドメイン同様クラスですが、ドメインとは異なり何か別のクラスを継承する必要はありません。</p>
+
+<p>ただし、エンティティとして定義するためには、以下の条件を満たす必要があります。</p>
+
+<ul>
+<li>エンティティのフィールドは、プリミティブな型か、もしくはドメインのみ。</li>
+<li>エンティティのフィールドは <em>public</em> のアクセス制限が必要。</li>
+<li><em>public</em> として公開された、引数なしのコンストラクタが存在すること。</li>
+</ul>
+
+<p>以下はプリミティブ値として使用可能な型です。</p>
+
+<ul>
+<li>文字列(string)</li>
+<li>整数(integer / int)</li>
+<li>論理型(boolean / bool)</li>
+<li>不動小数点数(float / double)</li>
+<li>タイムゾーンなし日時(DateTime)</li>
+</ul>
+
+<p>フィールドの型は、ドキュメントコメントで指定します。指定がない場合、 <em>string</em> であると仮定します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">class</span> <span class="nc">Todo</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @var integer</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nv">$id</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @var string</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nv">$todo</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @var DateTime</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nv">$createdAt</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @var Hidden</span>
+</span><span class='line'><span class="sd">  *</span>
+</span><span class='line'><span class="sd">  * Hiddenというドメインが定義されているとする</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nv">$hidden</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p>上の例で、コンストラクタを定義していないですが、その場合デフォルトコンストラクタが自動的に用意されるため、問題ないです。</p>
+
+<h3>エンティティフィールドの別名</h3>
+
+<p>エンティティをDAOのパラメータや、結果セットの詰め替え先として用いることができます。</p>
+
+<p>しかし、必ずしも、パラメータ名や結果セットの列名と一致させることができるとは限りません。</p>
+
+<p>そのために、エンティティのフィールドに対して別名を設定することができます。</p>
+
+<p>別名の設定は、ドメイン同様 <strong>@Omelet\Annotation\Column</strong> アノテーションを使用します。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="k">use</span> <span class="nx">Omelet\Annotation\Column</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">Todo</span> <span class="p">{</span>
+</span><span class='line'>  <span class="sd">/**</span>
+</span><span class='line'><span class="sd">  * @Column(alias=&quot;todo_id&quot;) </span>
+</span><span class='line'><span class="sd">  *</span>
+</span><span class='line'><span class="sd">  * @var integer</span>
+</span><span class='line'><span class="sd">  */</span>
+</span><span class='line'>  <span class="k">public</span> <span class="nv">$id</span><span class="p">;</span>
+</span><span class='line'><span class="o">...</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h3>エンティティフィールドの規定値</h3>
+
+<p><strong>@Column</strong> アノテーションは、結果セットに該当の列が存在しない時に適用される規定値を指定することができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Column(default=&quot;nothing&quot;)</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @var string</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">public</span> <span class="nv">$todo</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<ul>
+<li>現在クラスのフィールドに定義された規定値は無視しています<br></li>
+</ul>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Column(alias=&quot;some_val&quot;) </span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @var integer</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'><span class="k">public</span> <span class="nv">$someValue</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// 結果セットに列がない場合でも、この値は使用されない</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<h3>ドメインの関数従属値の指定</h3>
+
+<p>結果セットの値をエンティティに詰め込む際、フィールドにドメインが存在し、そのドメインが関数従属の値を受け入れる場合、
+<strong>@Column</strong> アノテーションで、その列名を指定することができます。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='php'><span class='line'><span class="sd">/**</span>
+</span><span class='line'><span class="sd"> * @Column(alias=&quot;edit_user_id&quot;, optFields={&quot;edit_user_name&quot;, &quot;edit_user_initial_name&quot;})</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * @var Editor</span>
+</span><span class='line'><span class="sd"> *</span>
+</span><span class='line'><span class="sd"> * Editorには関数従属としてname, short_nameがあるとする</span>
+</span><span class='line'><span class="sd"> */</span>
+</span><span class='line'> <span class="k">public</span> <span class="nv">$editor</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+<p><strong>@Column</strong> の　<em>optFields</em> に宣言した順に、ドメインのコンストラクタに渡されることに注意してください。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-03T20:02:06+09:00" pubdate data-updated="true"></time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/omelet/'>omelet</a>, <a class='category' href='/blog/categories/orm/'>orm</a>, <a class='category' href='/blog/categories/php/'>php</a>
+
+
+</div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -1260,57 +1472,6 @@
 
 
 <time datetime="2015-03-22T09:57:00+09:00" pubdate data-updated="true"></time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/rest/'>rest</a>
-
-
-</div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/2015/03-22/restful-web-api-memo-10/">
-		
-			RESTful Web APIs 読書メモ(10)</a>
-	</h2>
-	<div class="entry-content">
-		<h2>Chapter 10. The HyperMedia Zoo (Part. 1)</h2>
-
-<ul>
-<li>ハイパーメディアフォーマットカタログ
-
-<ul>
-<li>ドメイン特化フォーマット </li>
-<li>純粋ハイパーメディアフォーマット</li>
-</ul></li>
-</ul>
-
-
-		
-		<a href="/2015/03-22/restful-web-api-memo-10/" class="more-link">続きを読む・・・</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-03-22T09:43:39+09:00" pubdate data-updated="true"></time></div>
 	<div class="tags">
 
 
