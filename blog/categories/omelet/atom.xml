@@ -4,7 +4,7 @@
   <title><![CDATA[Category: omelet | Since 1975]]></title>
   <link href="http://ritalin.github.io/blog/categories/omelet/atom.xml" rel="self"/>
   <link href="http://ritalin.github.io/"/>
-  <updated>2015-06-03T22:18:07+09:00</updated>
+  <updated>2015-06-07T22:28:42+09:00</updated>
   <id>http://ritalin.github.io/</id>
   <author>
     <name><![CDATA[ktz_alias]]></name>
@@ -309,6 +309,27 @@
 
 <h4>エンティティを渡す</h4>
 
+<p>エンティティの公開プロパティ(public)をパラメータとして適用します。パラメータ名は、&lt;メソッドの引数名&gt;_&lt;プロパティ名&gt;となります。</p>
+
+<p>例えば、</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class Todo {</span>
+<span class="x">    public $id;</span>
+<span class="x">    public $content;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>というエンティティ定義がり、</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class TodoDao {</span>
+<span class="x">    /**</span>
+<span class="x">     * @Insert</span>
+<span class="x">     */</span>
+<span class="x">    function insert(Todo $todo);</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>DAOが上のように定義されていた場合、</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">insrt</span> <span class="k">into</span> <span class="n">todo</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">todo</span><span class="p">)</span> <span class="k">values</span> <span class="p">(:</span><span class="n">todo_id</span><span class="p">,</span> <span class="p">:</span><span class="n">todo_content</span><span class="p">)</span>
+</code></pre></div>
+<p>のようなパラメータ付きのSQLを定義します。</p>
+
 <h3>結果の取得(Select)</h3>
 
 <p>メソッドに <em>@return</em> ドキュメントコメントが明示されている場合、その型での結果セットの返却を行います。</p>
@@ -389,7 +410,119 @@
 </code></pre></div>
 <h4>エンティティとして取得</h4>
 
+<p>結果をエンティティとして返却します。</p>
+
+<p>エンティティとして返すためには、DAOメソッドのドキュメントコメントの戻り値として明示します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     * </span>
+<span class="x">     * @return Todo</span>
+<span class="x">     */</span>
+<span class="x">    function findById($id);</span>
+</code></pre></div>
+<p>エンティティの公開プロパティ(public)に対して、結果セットの列の値がから割り当てられます。</p>
+
+<p>このとき結果セットの列名は、エンティティのプロパティ名、
+またはプロパティに付与した <strong>@Column</strong> アノテーションの <em>alias</em> のと同じ名前値にします。</p>
+
+<p>例えば、</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class Todo {</span>
+<span class="x">    /**</span>
+<span class="x">     * @Column(alias=&quot;todo_id&quot;)</span>
+<span class="x">     */</span>
+<span class="x">    public $id;</span>
+
+<span class="x">    public $content;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>というエンティティ定義であれば、</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">todo_id</span> <span class="k">as</span> <span class="n">id</span><span class="p">,</span> <span class="n">content</span> 
+<span class="k">from</span> <span class="n">todo</span>
+<span class="k">where</span> <span class="n">todo_id</span> <span class="o">=</span> <span class="p">:</span><span class="n">id</span>
+</code></pre></div>
+<p>または、</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">todo_id</span><span class="p">,</span> <span class="n">content</span> 
+<span class="k">from</span> <span class="n">todo</span>
+<span class="k">where</span> <span class="n">todo_id</span> <span class="o">=</span> <span class="p">:</span><span class="n">id</span>
+</code></pre></div>
+<p>というSQLとなります。</p>
+
+<p>結果セットの列名が、エンティティのプロパティ名（またはエイリアス）に存在しない場合、エラーとはせず単に無視します。</p>
+
+<h5>エンティティのプロパティにドメインが存在する場合</h5>
+
+<p>エンティティは、プロパティとしてドメインを持つことができます。</p>
+
+<p>結果セットにそのプロパティ名（またはエイリアス）が存在する場合、ドメインのコンストラクタに適用して作成します。</p>
+
+<p>例えば、</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class Todo {</span>
+<span class="x">    /**</span>
+<span class="x">     * @Column(alias=&quot;todo_id&quot;)</span>
+<span class="x">     */</span>
+<span class="x">    public $id;</span>
+
+<span class="x">    public $content;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @Column(alias=&quot;editor_id&quot;) </span>
+<span class="x">     *</span>
+<span class="x">     * @var Editor</span>
+<span class="x">     */</span>
+<span class="x">    public $editor;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>の場合、</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">todo_id</span><span class="p">,</span> <span class="n">content</span><span class="p">,</span> <span class="n">editor_id</span> <span class="k">as</span> <span class="n">editor</span> 
+<span class="k">from</span> <span class="n">todo</span>
+<span class="k">where</span> <span class="n">todo_id</span> <span class="o">=</span> <span class="p">:</span><span class="n">id</span>
+</code></pre></div>
+<p>のようにドメインと同じ名前があれば、ドメインとして作成されます。</p>
+
+<h5>エンティティのドメインが関数従属値を有する場合</h5>
+
+<p>加えてドメインは、関数従属な値を持たせることができます。</p>
+
+<p>これはエンィティのフィールドにおいても有効です。</p>
+
+<p>結果セットから、関数従属な値を割り当てるために、 <strong>@Column</strong> アノテーションの <em>optFields</em> にその列名を配列として指定します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">class Todo {</span>
+<span class="x">    /**</span>
+<span class="x">     * @Column(alias=&quot;todo_id&quot;)</span>
+<span class="x">     */</span>
+<span class="x">    public $id;</span>
+
+<span class="x">    public $content;</span>
+
+<span class="x">    /**</span>
+<span class="x">     * @Column(alias=&quot;editor_id&quot;, optFields={&quot;editor_name&quot;}) </span>
+<span class="x">     *</span>
+<span class="x">     * @var Editor</span>
+<span class="x">     */</span>
+<span class="x">    public $editor;</span>
+<span class="x">}</span>
+</code></pre></div>
+<p>のようなエンティティ定義の場合、</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="k">select</span> <span class="n">t</span><span class="p">.</span><span class="n">todo_id</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">content</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">editor_id</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">editor_name</span>
+<span class="k">from</span> <span class="n">todo</span> <span class="n">t</span>
+<span class="k">join</span> <span class="n">editor</span> <span class="n">m</span> <span class="k">on</span> <span class="n">m</span><span class="p">.</span><span class="n">editor_id</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="n">editor_id</span>
+<span class="k">where</span> <span class="n">todo_id</span> <span class="o">=</span> <span class="p">:</span><span class="n">id</span>
+</code></pre></div>
+<p>のように、関数従属として指定した名前と同じ列名があれば、ドメインのコンストラクタに合わせて適用します。</p>
+
 <h4>エンティティの配列として取得</h4>
+
+<p>結果をエンティティの配列として返却します。</p>
+
+<p>エンティティの配列として返すためにすることは、エンティティを返す時と同様、DAOメソッドのドキュメントコメントの戻り値として明示します。</p>
+<div class="highlight"><pre><code class="language-php" data-lang="php"><span class="x">    /**</span>
+<span class="x">     * @Select</span>
+<span class="x">     * </span>
+<span class="x">     * @return Todo[]</span>
+<span class="x">     */</span>
+<span class="x">    function listAll();</span>
+</code></pre></div>
+<p>エンティティの各プロパティと、結果セットの列の関係は、エンティティを返す時と同様です。</p>
 
 <h3>結果の取得(Insert, Update, Delete)</h3>
 
